@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pak Studies Lab Exam Practice — MCQ Quiz</title>
+<style>
+  :root{
+    --green:#0E5E43; --green-dark:#083D2C; --green-light:#E8F3EE;
+    --ink:#1B2420; --muted:#5C6B63; --paper:#FAFBF8; --card:#FFFFFF;
+    --gold:#C99A2E; --red:#B3402E; --red-light:#FBEDEA; --ok-light:#E4F4E9; --ok:#1F7A3D;
+    --border:#DDE6E0; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);min-height:100vh}
+  .sans{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+  .wrap{max-width:640px;margin:0 auto;padding:20px 16px 60px}
+  header{background:var(--green);color:#fff;padding:26px 16px 30px;text-align:center}
+  header .eyebrow{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#BFE0D2;margin-bottom:8px}
+  header h1{font-size:26px;font-weight:normal;line-height:1.25}
+  header .sub{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13px;color:#CDE6DB;margin-top:10px}
+  .crescent{display:inline-block;width:26px;height:26px;border-radius:50%;box-shadow:7px 0 0 0 #fff inset;vertical-align:-6px;margin-right:10px}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px}
+  .topic-btn{display:flex;align-items:center;justify-content:space-between;width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-top:12px;cursor:pointer;text-align:left;font-family:inherit;font-size:16px;color:var(--ink);transition:border-color .15s, transform .1s}
+  .topic-btn:hover{border-color:var(--green)}
+  .topic-btn:active{transform:scale(.985)}
+  .topic-btn .count{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:12px;color:var(--muted);background:var(--green-light);padding:4px 10px;border-radius:20px;white-space:nowrap;margin-left:12px}
+  .topic-btn.mock{background:var(--green);color:#fff;border-color:var(--green)}
+  .topic-btn.mock .count{background:rgba(255,255,255,.18);color:#fff}
+  .note{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13px;color:var(--muted);line-height:1.6;margin-top:14px;text-align:center}
+
+  .progress-row{display:flex;align-items:center;justify-content:space-between;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13px;color:var(--muted);margin-top:18px}
+  .bar{height:6px;background:var(--border);border-radius:3px;margin-top:8px;overflow:hidden}
+  .bar > div{height:100%;background:var(--green);border-radius:3px;transition:width .3s}
+  .topic-tag{display:inline-block;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);background:var(--green-light);padding:5px 12px;border-radius:20px;margin-bottom:14px}
+  .question{font-size:19px;line-height:1.5;margin-bottom:18px}
+  .opt{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-top:10px;cursor:pointer;font-family:inherit;font-size:16px;line-height:1.45;color:var(--ink);transition:border-color .15s,background .15s}
+  .opt:hover{border-color:var(--green)}
+  .opt.correct{background:var(--ok-light);border-color:var(--ok);color:var(--ok)}
+  .opt.wrong{background:var(--red-light);border-color:var(--red);color:var(--red)}
+  .opt:disabled{cursor:default}
+  .explain{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;line-height:1.65;background:var(--green-light);border-radius:12px;padding:14px 16px;margin-top:16px;color:var(--green-dark)}
+  .explain b{color:var(--green)}
+  .next-btn,.primary-btn{display:block;width:100%;background:var(--green);color:#fff;border:none;border-radius:12px;padding:15px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;font-weight:600;cursor:pointer;margin-top:18px;transition:background .15s}
+  .next-btn:hover,.primary-btn:hover{background:var(--green-dark)}
+  .ghost-btn{display:block;width:100%;background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:12px;padding:13px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:12px}
+  .insta-btn{display:block;width:100%;background:#C13584;color:#fff;border:none;border-radius:12px;padding:15px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;font-weight:600;cursor:pointer;margin-top:12px;text-align:center;text-decoration:none}
+  .insta-note{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13.5px;line-height:1.65;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-top:14px;text-align:center}
+  .insta-note b{color:#C13584}
+
+  .score-big{font-size:56px;text-align:center;color:var(--green);margin:10px 0 4px}
+  .score-label{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;text-align:center;color:var(--muted);font-size:14px}
+  .verdict{text-align:center;font-size:19px;margin-top:14px;line-height:1.5}
+  .hidden{display:none}
+  footer{text-align:center;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:12px;color:var(--muted);padding:24px 16px;line-height:1.7}
+  footer b{color:var(--green)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Lab Exam &middot; 8 July 2026</div>
+  <h1><span class="crescent"></span>Pak Studies Practice Quiz</h1>
+  <div class="sub">Sirf teacher ke bataye hue slides se &mdash; har dafa naya shuffle</div>
+</header>
+
+<div class="wrap">
+
+  <!-- HOME SCREEN -->
+  <div id="home">
+    <div class="card">
+      <div class="note" style="margin-top:0;text-align:left">Topic chuno ya <b>Full Mock Test</b> do. Har attempt pe questions aur options ka order badal jata hai &mdash; bilkul exam ki tarah, sabke alag.</div>
+    </div>
+    <button class="topic-btn mock" onclick="startQuiz('all')">Full Mock Test <span class="count" id="cnt-all"></span></button>
+    <div id="topic-list"></div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quiz" class="hidden">
+    <div class="progress-row"><span id="qnum"></span><span id="live-score"></span></div>
+    <div class="bar"><div id="bar-fill" style="width:0%"></div></div>
+    <div class="card">
+      <span class="topic-tag" id="q-topic"></span>
+      <div class="question" id="q-text"></div>
+      <div id="opts"></div>
+      <div class="explain hidden" id="explain"></div>
+      <button class="next-btn hidden" id="next-btn" onclick="nextQ()">Next question</button>
+    </div>
+    <button class="ghost-btn" onclick="goHome()">Quit &amp; go home</button>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="result" class="hidden">
+    <div class="card">
+      <div class="score-label sans">Your score</div>
+      <div class="score-big" id="final-score"></div>
+      <div class="score-label sans" id="final-pct"></div>
+      <div class="verdict" id="verdict"></div>
+    </div>
+    <button class="primary-btn" onclick="retry()">Try again (new shuffle)</button>
+    <a class="insta-btn" href="https://instagram.com/connects.university" target="_blank" rel="noopener">Follow @connects.university on Instagram</a>
+    <div class="insta-note">Agla exam aa raha hai? <b>@connects.university</b> pe message kar dena — chahay mai apki class mai na hoon, apke liye bhi aisa hi free practice quiz bana dunga.</div>
+    <button class="ghost-btn" onclick="goHome()">Back to topics</button>
+  </div>
+
+</div>
+
+<footer>
+  <b>connects.university</b> &mdash; students ki free exam help, by Mohsin.<br>
+  Follow on Instagram: <a href="https://instagram.com/connects.university" target="_blank" rel="noopener" style="color:#C13584;font-weight:600;text-decoration:none">@connects.university</a><br>
+  Faida hua? Apne doosre groups mein forward kar do.
+</footer>
+
+<script>
+const QUESTIONS = [
+
+/* ============ FOREIGN POLICY (Slides 2, 5, 9) ============ */
+{t:"Foreign Policy",q:"Foreign policy refers to the principles, strategies, and actions adopted by a state in its relations with:",o:["Its own provinces only","Other countries and international organizations","Private companies","Local governments"],a:1,e:"Slide 2: Foreign policy = principles, strategies, and actions adopted by a state in its relations with other countries and international organizations."},
+{t:"Foreign Policy",q:"Which of the following is a key objective of foreign policy?",o:["Protect national sovereignty and territorial integrity","Control provincial budgets","Manage local elections","Regulate city traffic"],a:0,e:"Slide 2 lists key objectives: protect sovereignty, promote economic development, maintain security, build friendly relations, enhance prestige."},
+{t:"Foreign Policy",q:"Which of these is one of Pakistan's foreign policy principles?",o:["Interference in other states","Peaceful coexistence","Isolation from the world","Territorial expansion"],a:1,e:"Slide 2: Pakistan's principles include sovereignty, peaceful coexistence, mutual respect, support for self-determination, and promotion of peace."},
+{t:"Foreign Policy",q:"According to the slides, which is one of the most effective instruments (tools) of foreign policy?",o:["Sports","Trade","Tourism","Fashion"],a:1,e:"Slide 5: Trade is one of the most effective instruments of foreign policy — it strengthens economic ties and creates interdependence."},
+{t:"Foreign Policy",q:"Which of the following is NOT listed among Pakistan's major trade partners?",o:["China","Saudi Arabia","Brazil","United Arab Emirates"],a:2,e:"Slide 5 lists China, United States, Saudi Arabia, UAE, and Turkey as Pakistan's trade partners. Brazil is not in the list."},
+{t:"Foreign Policy",q:"CPEC (China-Pakistan Economic Corridor) is given as an example of which foreign policy tool?",o:["Defense","Education","Trade","Alliances"],a:2,e:"Slide 5 (Trade section): CPEC has strengthened economic cooperation between Pakistan and China."},
+{t:"Foreign Policy",q:"Which of these is an economic constraint challenge in Pakistan's foreign policy?",o:["Excess exports","Trade deficits and external debt","Too much foreign investment","Budget surplus"],a:1,e:"Slide 9: Economic constraints include trade deficits, external debt, and dependence on foreign investment."},
+{t:"Foreign Policy",q:"Under 'Regional Security Issues,' the slides mention:",o:["Tensions with neighboring countries and border management challenges","Space exploration disputes","Trade route monopolies","Currency wars"],a:0,e:"Slide 9: Regional security issues = tensions with neighboring countries and border management challenges."},
+{t:"Foreign Policy",q:"Why does terrorism and extremism pose a challenge to Pakistan's foreign policy?",o:["It increases exports","Security concerns affect international perception","It improves tourism","It strengthens alliances automatically"],a:1,e:"Slide 9: Security concerns affect international perception; continued counter-terrorism cooperation is needed."},
+
+/* ============ ECONOMIC LANDSCAPE (Slides 2-3) ============ */
+{t:"Economic Landscape",q:"GDP (Gross Domestic Product) is the total monetary value of all goods and services produced:",o:["By a country's citizens anywhere in the world","Within a country's borders over a specific time period","Only by government companies","Only for export purposes"],a:1,e:"Slide 2: GDP = total monetary value of all goods and services produced within a country's borders over a specific time period."},
+{t:"Economic Landscape",q:"GDP is usually measured over which time period?",o:["A day or a week","A year or a quarter","A decade only","Every month only"],a:1,e:"Slide 2: usually a year or a quarter."},
+{t:"Economic Landscape",q:"Which of the following is a reason why GDP matters?",o:["It decides election results","It compares the economic performance of countries","It sets religious laws","It controls the weather"],a:1,e:"Slide 2: GDP is used to compare economic performance, helps plan policy (interest rates, budgets), and indicates standard of living."},
+{t:"Economic Landscape",q:"Which measure especially indicates the standard of living?",o:["Total exports","GDP per capita","Foreign reserves","Tax rate"],a:1,e:"Slide 2: GDP indicates the standard of living — especially GDP per capita."},
+{t:"Economic Landscape",q:"GNP (Gross National Product) counts production by a country's citizens and businesses:",o:["Only inside the country","No matter where they are in the world","Only in neighboring countries","Only in factories"],a:1,e:"Slide 3: GNP = total value of goods/services produced by citizens and businesses of a country, no matter where they are in the world."},
+{t:"Economic Landscape",q:"A Pakistani engineer working in Saudi Arabia sends money home. This money is part of Pakistan's:",o:["GDP only","GNP","Neither GDP nor GNP","Foreign debt"],a:1,e:"Slide 3's exact example: money sent home by a Pakistani engineer in Saudi Arabia is part of Pakistan's GNP."},
+{t:"Economic Landscape",q:"A foreign company making profits in Pakistan — that money is:",o:["Part of Pakistan's GNP but not GDP","Part of Pakistan's GDP but NOT GNP","Part of both GDP and GNP","Part of neither"],a:1,e:"Slide 3: foreign company profits in Pakistan are NOT part of Pakistan's GNP, but they ARE part of GDP."},
+{t:"Economic Landscape",q:"Which term is officially used by the IMF and World Bank?",o:["Gross National Income (GNI)","Gross Happiness Index","Net Trade Value","National Savings Rate"],a:0,e:"Slide 3: Gross National Income (GNI) is officially used by the IMF and World Bank."},
+
+/* ============ RESOURCES OF PAKISTAN (Slides 4, 7, 9, 10) ============ */
+{t:"Resources of Pakistan",q:"The Gharo–Jhimpir wind corridor is located in which province?",o:["Punjab","Sindh","Khyber Pakhtunkhwa","Gilgit-Baltistan"],a:1,e:"Slide 4: Wind energy regions — Sindh (particularly the Gharo–Jhimpir Corridor) and the Balochistan coast."},
+{t:"Resources of Pakistan",q:"The Gharo–Jhimpir wind corridor has a potential of over:",o:["5,000 MW","20,000 MW","50,000 MW","100,000 MW"],a:2,e:"Slide 4: The Gharo–Jhimpir wind corridor has a potential of over 50,000 MW."},
+{t:"Resources of Pakistan",q:"Which rivers are harnessed for hydroelectric power in Pakistan?",o:["Nile, Amazon, Ganges","Indus, Jhelum, and Chenab","Tigris and Euphrates","Kabul and Swat only"],a:1,e:"Slide 4: Major rivers like the Indus, Jhelum, and Chenab are harnessed (e.g., Tarbela, Mangla, Neelum-Jhelum dams)."},
+{t:"Resources of Pakistan",q:"Which of these is a major hydropower dam mentioned in the slides?",o:["Hoover Dam","Tarbela Dam","Aswan Dam","Three Gorges Dam"],a:1,e:"Slide 4 mentions Tarbela, Mangla, and Neelum-Jhelum dams."},
+{t:"Resources of Pakistan",q:"The Thar coalfields are located in which province and contain which type of coal?",o:["Punjab — anthracite","Sindh — lignite","Balochistan — bituminous","KP — peat"],a:1,e:"Slide 7: Coal — Thar Desert (Sindh), Thar coalfields (lignite) — one of the largest lignite reserves in the world."},
+{t:"Resources of Pakistan",q:"The famous Sui gas field is located in:",o:["Sindh","Punjab","Balochistan","Gilgit-Baltistan"],a:2,e:"Slide 7: Fields — Sui (Balochistan), Mari and Qadirpur (Sindh), and Karak/Kohat (KP)."},
+{t:"Resources of Pakistan",q:"Mari and Qadirpur gas fields are located in:",o:["Sindh","Balochistan","KP","Azad Kashmir"],a:0,e:"Slide 7: Mari and Qadirpur are in Sindh."},
+{t:"Resources of Pakistan",q:"The Khewra Salt Mine — the world's second-largest — is located in:",o:["Sindh","Punjab","Balochistan","KP"],a:1,e:"Slide 9: Salt — Punjab (Khewra Salt Mine — world's second-largest)."},
+{t:"Resources of Pakistan",q:"Reko Diq in the Chagai district (Balochistan) is famous for which minerals?",o:["Salt and gypsum","Copper and gold","Coal and iron","Marble and limestone"],a:1,e:"Slide 9: Copper and Gold — Balochistan (Reko Diq in Chagai district)."},
+{t:"Resources of Pakistan",q:"As of 2025, Pakistan's total installed nuclear capacity is approximately:",o:["~1,000 MW","~3,530 MW","~8,800 MW","~50,000 MW"],a:1,e:"Slide 10: Total installed capacity (as of 2025) is ~3,530 MW."},
+{t:"Resources of Pakistan",q:"Nuclear energy contributes around what share of Pakistan's total electricity generation?",o:["2–3%","10–12%","25–30%","50%"],a:1,e:"Slide 10: Nuclear energy contributes around 10–12% of total electricity generation."},
+{t:"Resources of Pakistan",q:"PAEC aims to produce how much nuclear power by 2030?",o:["3,530 MW","5,000 MW","8,800 MW","12,000 MW"],a:2,e:"Slide 10: PAEC aims to produce 8,800 MW of nuclear power by 2030."},
+{t:"Resources of Pakistan",q:"Which of the following is an advantage of nuclear energy according to the slides?",o:["High greenhouse gas emissions","Low greenhouse gas emissions","Cheap plant construction","Unlimited uranium in Pakistan"],a:1,e:"Slide 10: Advantages — low greenhouse gas emissions, stable continuous power, reduces dependence on fossil fuel imports."},
+{t:"Resources of Pakistan",q:"Which of these is a CHALLENGE of nuclear energy mentioned in the slides?",o:["Too much rainfall","High capital cost of nuclear plants","Excess domestic uranium","Low public interest in electricity"],a:1,e:"Slide 10: Challenges — high capital cost, waste management/safety concerns, public perception, limited domestic uranium."},
+
+/* ============ ENVIRONMENT (Slides 3, 5-12) ============ */
+{t:"Environment",q:"Which of the following are major landform types of Pakistan shown in the slides?",o:["Mountains, plateaus, plains, valleys, deserts","Islands, volcanoes, glaciers only","Forests and swamps only","Tundra and savanna"],a:0,e:"Slide 3 shows Pakistan's landforms: Mountains, Plateau, Plains, Valley, Deserts."},
+{t:"Environment",q:"The Potohar Plateau is located in:",o:["Southern Sindh","Northern Punjab","Central Balochistan","Coastal Makran"],a:1,e:"Slide 5: Potohar Plateau — located in northern Punjab, lies between the Indus and Jhelum rivers, contains the Salt Range."},
+{t:"Environment",q:"The Potohar Plateau lies between which two rivers?",o:["Ravi and Sutlej","Indus and Jhelum","Chenab and Ravi","Kabul and Indus"],a:1,e:"Slide 5: It lies between the Indus and Jhelum rivers."},
+{t:"Environment",q:"Which plateau is characterized by rugged terrain, dry climate, and rich mineral resources?",o:["Potohar Plateau","Baluchistan Plateau","Deccan Plateau","Tibetan Plateau"],a:1,e:"Slide 5: Baluchistan Plateau — rugged terrain, dry climate, rich in mineral resources."},
+{t:"Environment",q:"The Indus Plain was formed by:",o:["Volcanic eruptions","Deposition of fertile alluvial soil by the Indus river and its tributaries","Wind erosion only","Earthquakes"],a:1,e:"Slide 6: The plain was formed by deposition of fertile alluvial soil brought by the Indus river and its tributaries."},
+{t:"Environment",q:"The Upper Indus Plain is located mainly in ______ and the Lower Indus Plain in ______.",o:["Sindh; Punjab","Punjab; Sindh","KP; Balochistan","Balochistan; Punjab"],a:1,e:"Slide 6: Upper Indus Plain — mainly Punjab (highly fertile, densely populated). Lower Indus Plain — Sindh, extends towards the Arabian Sea."},
+{t:"Environment",q:"The Indus Plain is called the agricultural heartland of Pakistan because it produces:",o:["Tea and coffee","Wheat, rice, cotton, and sugarcane","Rubber and palm oil","Olives and grapes only"],a:1,e:"Slide 6: It produces wheat, rice, cotton, and sugarcane and supports major cities and industries."},
+{t:"Environment",q:"The largest desert in Pakistan is:",o:["Cholistan Desert","Thal Desert","Thar Desert","Kharan Desert"],a:2,e:"Slide 7: Thar Desert — located in Sindh, largest desert in Pakistan."},
+{t:"Environment",q:"The Cholistan Desert is located in:",o:["Central Punjab","Southern Punjab","Sindh","Balochistan"],a:1,e:"Slide 7: Cholistan — southern Punjab. (Thal — central Punjab, Kharan — Baluchistan.)"},
+{t:"Environment",q:"The Kharan Desert is located in:",o:["Punjab","Sindh","Baluchistan","KP"],a:2,e:"Slide 7: Kharan Desert — located in Baluchistan."},
+{t:"Environment",q:"Pakistan's coastline along the Arabian Sea is about:",o:["500 km","1,000 km","2,500 km","100 km"],a:1,e:"Slide 8: Pakistan has a coastline of about 1,000 kilometers along the Arabian Sea."},
+{t:"Environment",q:"Which of the following is NOT one of Pakistan's important ports?",o:["Port of Karachi","Port Qasim","Gwadar Port","Chabahar Port"],a:3,e:"Slide 8 lists Port of Karachi, Port Qasim, and Gwadar Port. Chabahar is in Iran."},
+{t:"Environment",q:"Climate refers to:",o:["Daily weather changes","The average weather conditions of a place over a long period of time","Only rainfall patterns","Only temperature of one day"],a:1,e:"Slide 9: Climate = average weather conditions of a place over a long period of time."},
+{t:"Environment",q:"Pakistan can be divided into how many major climate zones?",o:["Two","Three","Four","Six"],a:2,e:"Slide 10: Pakistan can be divided into four major climate zones."},
+{t:"Environment",q:"Mountain climate (long cold winters, heavy snowfall) is found in:",o:["Sindh and southern Punjab","Gilgit-Baltistan and northern Khyber Pakhtunkhwa","Coastal Makran","Cholistan region"],a:1,e:"Slide 10: Mountain climate — Gilgit-Baltistan and northern KP. Examples: Hunza, Skardu, Chitral."},
+{t:"Environment",q:"Hunza, Skardu, and Chitral are examples of which climate zone?",o:["Coastal climate","Arid climate","Mountain climate","Moderate climate"],a:2,e:"Slide 10: Examples of Mountain Climate (Northern Areas): Hunza, Skardu, Chitral."},
+{t:"Environment",q:"The arid and semi-arid climate zone covers:",o:["Only Gilgit-Baltistan","Most of Balochistan, southern Punjab, and Sindh","Only the coastal belt","Upper Punjab only"],a:1,e:"Slide 10: Arid/semi-arid — most of Balochistan, southern Punjab, and Sindh; includes Thar, Cholistan, Kharan deserts."},
+{t:"Environment",q:"Moderate climate — suitable for agriculture and settlement — is found in:",o:["Thar Desert","Potohar Plateau and upper Punjab","Makran coast","Kharan Desert"],a:1,e:"Slide 11: Moderate climate — Potohar Plateau and upper Punjab, moderate temperatures with seasonal rainfall."},
+{t:"Environment",q:"Karachi and Gwadar are examples of which climate zone?",o:["Mountain climate","Coastal climate","Arid climate","Moderate climate"],a:1,e:"Slide 11: Coastal climate — along the Arabian Sea, influenced by sea breezes, humid with moderate temperatures. Examples: Karachi, Gwadar."},
+{t:"Environment",q:"Which of the following is a climatic challenge faced by Pakistan?",o:["Rising temperatures and heatwaves","Excess freshwater everywhere","Too much snowfall in Sindh","Decreasing population"],a:0,e:"Slide 12: Challenges — rising temperatures (heatwaves), water scarcity, and floods."},
+{t:"Environment",q:"According to the slides, floods in Pakistan are caused by:",o:["Ocean tides only","Heavy monsoon rains and glacier melt","Dam construction","Deforestation only"],a:1,e:"Slide 12: Heavy monsoon rains and glacier melt cause flooding, damaging infrastructure, crops, and settlements."},
+
+/* ============ POLITICAL DYNAMICS (Slides 2, 6-8, 12-15) ============ */
+{t:"Political Dynamics",q:"In most countries, government power is separated into which three branches?",o:["Military, police, and courts","Legislative, executive, and judicial","Federal, provincial, and local","Public, private, and foreign"],a:1,e:"Slide 2: Separation of powers into three branches — legislative, executive, and judicial."},
+{t:"Political Dynamics",q:"Which branch of government MAKES laws?",o:["Executive","Judicial","Legislative","Military"],a:2,e:"Slide 2: The legislative branch makes laws, the executive enforces laws, and the judicial interprets laws."},
+{t:"Political Dynamics",q:"Which branch of government INTERPRETS laws?",o:["Legislative","Judicial","Executive","Administrative"],a:1,e:"Slide 2: The judicial branch interprets laws."},
+{t:"Political Dynamics",q:"In a democracy, political power is secured by:",o:["Military takeover","Winning a fair election","Royal inheritance","Foreign appointment"],a:1,e:"Slide 6: In a democracy political power is secured by winning a fair election."},
+{t:"Political Dynamics",q:"In a democracy, newspapers are:",o:["Controlled fully by the government","Free to print the truth and can criticise the government","Banned during elections","Owned only by the ruling party"],a:1,e:"Slide 6: In a democracy newspapers are free to print the truth and can criticise the government when mistakes are made."},
+{t:"Political Dynamics",q:"In a democracy, the leader of the party with the most votes:",o:["Has unlimited power","Still has to answer to their political party and the voters","Rules for life","Cannot be criticized"],a:1,e:"Slide 6: The leader is in control but still has to answer to their political party and the voters."},
+{t:"Political Dynamics",q:"Which of these is one of the 'complications with democracy' discussed in the slides?",o:["Where should democracy be established — town, city, country, university?","How to increase taxes","How to build roads faster","Which sports to promote"],a:0,e:"Slide 7: A key complication — where should democracy be established? Town, city, country, corporation, university, international organizations?"},
+{t:"Political Dynamics",q:"One complication of democracy asks: should a majority always prevail, or should ______ sometimes be empowered to block majority rule?",o:["Foreign powers","Minorities","The military","Judges only"],a:1,e:"Slide 8: Should a majority always prevail, or should minorities sometimes be empowered to block or overcome majority rule?"},
+{t:"Political Dynamics",q:"The fall of East Pakistan in 1971 led to the creation of:",o:["Afghanistan","Bangladesh","Nepal","Bhutan"],a:1,e:"Slide 12: The fall of East Pakistan in 1971 led to the creation of Bangladesh."},
+{t:"Political Dynamics",q:"The Language Movement (1948–1952) was sparked by the imposition of ______ as the sole national language.",o:["English","Bengali","Urdu","Punjabi"],a:2,e:"Slide 12: The imposition of Urdu as the sole national language, ignoring Bengali (spoken by the majority in East Pakistan), sparked early resentment."},
+{t:"Political Dynamics",q:"The 'One Unit Policy' was an attempt to:",o:["Merge the provinces of West Pakistan into one unit","Divide East Pakistan into two","Create a new capital city","Unite India and Pakistan"],a:0,e:"Slide 12: The One Unit Policy merged West Pakistan's provinces into one unit, further marginalizing East Pakistan."},
+{t:"Political Dynamics",q:"East Pakistan contributed a large share of export earnings especially from:",o:["Cotton","Jute","Oil","Wheat"],a:1,e:"Slide 13: East Pakistan contributed a large share of export earnings (especially from jute) but received a small share of spending."},
+{t:"Political Dynamics",q:"In the 1970 general elections, Sheikh Mujibur Rahman's Awami League won:",o:["160 of 162 East Pakistani seats","All 300 seats","Only 50 seats","No seats"],a:0,e:"Slide 13: The Awami League won 160 of 162 East Pakistani seats (out of 300 total)."},
+{t:"Political Dynamics",q:"Who refused to allow the Awami League to form a government after the 1970 elections?",o:["Sheikh Mujibur Rahman","Yahya Khan and Zulfikar Ali Bhutto","Ayub Khan and Liaquat Ali Khan","The British government"],a:1,e:"Slide 13: The West Pakistani leadership, especially President Yahya Khan and Zulfikar Ali Bhutto, refused to transfer power."},
+{t:"Political Dynamics",q:"The Mukti Bahini were:",o:["Pakistani special forces","Bengali liberation fighters supported by India","UN peacekeepers","Chinese advisors"],a:1,e:"Slide 14: India provided training, weapons, and logistical support to the Mukti Bahini — the Bengali liberation fighters."},
+{t:"Political Dynamics",q:"Approximately how many Pakistani forces surrendered in East Pakistan in 1971?",o:["10,000","45,000","90,000","200,000"],a:2,e:"Slide 14: India's military intervention was decisive in the surrender of Pakistani forces (almost 90,000)."},
+{t:"Political Dynamics",q:"During the 1971 crisis, the US sent which aircraft carrier to the Bay of Bengal?",o:["USS Nimitz","USS Enterprise","USS Missouri","USS Lincoln"],a:1,e:"Slide 15: The US sent the USS Enterprise to the Bay of Bengal — a show of support interpreted as a warning to India and the Soviet Union."},
+{t:"Political Dynamics",q:"Which US leaders maintained close ties with Yahya Khan during 1971?",o:["Kennedy and Johnson","Nixon and Kissinger","Reagan and Bush","Carter and Vance"],a:1,e:"Slide 15: President Richard Nixon and Secretary of State Henry Kissinger maintained close ties with Yahya Khan, who had helped open channels to China."},
+{t:"Political Dynamics",q:"What was China's position during the 1971 crisis?",o:["Sent its army to help Pakistan","Supported Pakistan and opposed Indian intervention, but took no military action","Fully supported India","Remained completely silent"],a:1,e:"Slide 15: China opposed Indian intervention and issued warnings, but did not take military action."},
+
+/* ============ IDEOLOGICAL FOUNDATIONS (Slides 1, 6-8) ============ */
+{t:"Ideological Foundations",q:"The Objective Resolution (1949) declared that sovereignty belongs to:",o:["The Parliament","The Prime Minister","Allah","The Supreme Court"],a:2,e:"Slide 6: The Objective Resolution (1949) declared that sovereignty belongs to Allah and laid the foundation for an Islamic system."},
+{t:"Ideological Foundations",q:"Which constitutions define Pakistan as an Islamic republic?",o:["Only the 1973 Constitution","1956, 1962, and 1973 Constitutions","Only the 1956 Constitution","None of them"],a:1,e:"Slide 6: The 1956, 1962, and 1973 Constitutions all define Pakistan as an Islamic republic — the 1973 Constitution emphasizes Islamic values most strongly."},
+{t:"Ideological Foundations",q:"Which constitution emphasizes Islamic values MOST strongly?",o:["1956","1962","1973","1985"],a:2,e:"Slide 6: The 1973 Constitution emphasizes Islamic values most strongly."},
+{t:"Ideological Foundations",q:"In the education system, which subject was made compulsory in schools and universities?",o:["Arabic literature","Islamic studies","Persian","Philosophy"],a:1,e:"Slide 6: Islamic studies was made a compulsory subject in schools and universities."},
+{t:"Ideological Foundations",q:"Which economic measures were introduced to align with Islamic principles?",o:["Income tax and sales tax","Interest-free banking, Zakat, and Ushr","Stock market bonuses","Foreign currency accounts"],a:1,e:"Slide 6: Interest-free banking was introduced; Zakat (alms) and Ushr (agricultural tax) implemented as Islamic welfare."},
+{t:"Ideological Foundations",q:"OIC stands for:",o:["Organization of International Commerce","Organization of Islamic Cooperation","Office of Islamic Culture","Organization of Independent Countries"],a:1,e:"Slide 7: Pakistan maintains close ties with Muslim-majority countries especially through the OIC (Organization of Islamic Cooperation)."},
+{t:"Ideological Foundations",q:"The Council of Islamic Ideology (CII) does what?",o:["Runs the banking system","Advises the legislature on whether laws conform to Islamic teachings","Controls foreign policy","Manages elections"],a:1,e:"Slide 7: CII advises the legislature on whether laws conform to Islamic teachings."},
+{t:"Ideological Foundations",q:"Which court reviews laws to ensure they are not repugnant to Islam and can strike down un-Islamic laws?",o:["Supreme Court","High Court","Federal Shariat Court","Anti-Terrorism Court"],a:2,e:"Slide 7: The Federal Shariat Court reviews laws to ensure they are not repugnant to Islam, with power to strike down un-Islamic laws."},
+{t:"Ideological Foundations",q:"According to the slides, the president and prime minister of Pakistan must be:",o:["Lawyers","Muslims","Military officers","Above 60 years old"],a:1,e:"Slide 7: Requirements for leadership — the president and prime minister must be Muslims."},
+{t:"Ideological Foundations",q:"The Hudood Ordinances were introduced in 1979 under:",o:["Zulfikar Ali Bhutto","General Zia-ul-Haq","Ayub Khan","Pervez Musharraf"],a:1,e:"Slide 8: Hudood Ordinances (1979) were introduced under General Zia-ul-Haq, covering theft, adultery, false accusations, and drinking alcohol."},
+{t:"Ideological Foundations",q:"The Qisas and Diyat Ordinance (1990) introduced the concepts of:",o:["Interest-free loans","'An eye for an eye' (Qisas) and blood money (Diyat)","Compulsory prayer","Trade tariffs"],a:1,e:"Slide 8: Qisas ('an eye for an eye') and Diyat (blood money), allowing families to forgive offenders in murder cases."},
+{t:"Ideological Foundations",q:"Blasphemy laws were strengthened during which decade?",o:["1950s","1960s","1980s","2000s"],a:2,e:"Slide 8: Blasphemy laws were strengthened during the 1980s."}
+];
+
+/* ---------------- APP LOGIC ---------------- */
+const TOPICS = [...new Set(QUESTIONS.map(q=>q.t))];
+let pool=[], idx=0, score=0, currentMode='all';
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+function buildHome(){
+  document.getElementById('cnt-all').textContent = QUESTIONS.length+' MCQs';
+  const list=document.getElementById('topic-list');
+  list.innerHTML='';
+  TOPICS.forEach(t=>{
+    const n=QUESTIONS.filter(q=>q.t===t).length;
+    const b=document.createElement('button');
+    b.className='topic-btn';
+    b.innerHTML=`<span>${t}</span><span class="count">${n} MCQs</span>`;
+    b.onclick=()=>startQuiz(t);
+    list.appendChild(b);
+  });
+}
+
+function startQuiz(mode){
+  currentMode=mode;
+  const base = mode==='all' ? QUESTIONS : QUESTIONS.filter(q=>q.t===mode);
+  pool = shuffle(base).map(q=>{
+    const order=shuffle(q.o.map((_,i)=>i));
+    return {...q, o:order.map(i=>q.o[i]), a:order.indexOf(q.a)};
+  });
+  idx=0; score=0;
+  show('quiz'); renderQ();
+}
+
+function renderQ(){
+  const q=pool[idx];
+  document.getElementById('qnum').textContent=`Question ${idx+1} of ${pool.length}`;
+  document.getElementById('live-score').textContent=`Score: ${score}`;
+  document.getElementById('bar-fill').style.width=((idx)/pool.length*100)+'%';
+  document.getElementById('q-topic').textContent=q.t;
+  document.getElementById('q-text').textContent=q.q;
+  const box=document.getElementById('opts');
+  box.innerHTML='';
+  q.o.forEach((opt,i)=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=opt;
+    b.onclick=()=>answer(i,b);
+    box.appendChild(b);
+  });
+  document.getElementById('explain').classList.add('hidden');
+  document.getElementById('next-btn').classList.add('hidden');
+}
+
+function answer(i,btn){
+  const q=pool[idx];
+  const buttons=document.querySelectorAll('.opt');
+  buttons.forEach(b=>b.disabled=true);
+  if(i===q.a){score++; btn.classList.add('correct');}
+  else{btn.classList.add('wrong'); buttons[q.a].classList.add('correct');}
+  const ex=document.getElementById('explain');
+  ex.innerHTML='<b>'+(i===q.a?'Correct!':'Sahi jawab: '+q.o[q.a])+'</b><br>'+q.e;
+  ex.classList.remove('hidden');
+  document.getElementById('live-score').textContent=`Score: ${score}`;
+  const nb=document.getElementById('next-btn');
+  nb.textContent = idx===pool.length-1 ? 'See my result' : 'Next question';
+  nb.classList.remove('hidden');
+  nb.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function nextQ(){
+  idx++;
+  if(idx>=pool.length){showResult();return;}
+  renderQ();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showResult(){
+  const pct=Math.round(score/pool.length*100);
+  document.getElementById('final-score').textContent=`${score}/${pool.length}`;
+  document.getElementById('final-pct').textContent=pct+'%';
+  let v;
+  if(pct>=85)v='Mashallah! Exam ke liye bilkul ready ho. 🏆';
+  else if(pct>=65)v='Achha score! Galat walay questions ek baar aur dekh lo.';
+  else if(pct>=45)v='Theek shuruaat — slides revise karo aur dobara try karo.';
+  else v='Koi baat nahi, practice ke liye hi toh banaya hai. Dobara do!';
+  document.getElementById('verdict').textContent=v;
+  show('result');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function retry(){startQuiz(currentMode);}
+function goHome(){show('home');window.scrollTo({top:0,behavior:'smooth'});}
+function show(id){['home','quiz','result'].forEach(s=>document.getElementById(s).classList.toggle('hidden',s!==id));}
+
+buildHome();
+</script>
+</body>
+</html>
