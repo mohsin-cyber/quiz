@@ -124,6 +124,14 @@ input:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(43,1
 .p-line{font-size:14px;color:#C7D2E4;margin-top:5px}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(43,187,173,.16);border:1px solid var(--teal);color:#8FE6DC;font-weight:800;font-size:12px;letter-spacing:.6px;padding:6px 12px;border-radius:20px;margin-top:14px;text-transform:uppercase}
 .badge .b-dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.avatar-row{display:flex;align-items:center;gap:16px}
+.avatar{width:64px;height:64px;border-radius:50%;background:rgba(43,187,173,.18);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:#8FE6DC;border:2px solid rgba(43,187,173,.5);overflow:hidden;flex-shrink:0}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar-lg{width:96px;height:96px;margin:0 auto;font-size:34px;background:var(--ok-bg);color:var(--teal);border-color:var(--teal)}
+.edit-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28);color:#E7EDF7;font-family:'Nunito',sans-serif;font-weight:700;font-size:12.5px;padding:7px 14px;border-radius:20px;margin-top:14px;margin-left:10px;cursor:pointer;transition:background .15s}
+.edit-btn:hover{background:rgba(255,255,255,.18)}
+.photo-btn{display:block;margin:10px auto 0;background:none;border:1.5px solid var(--teal);color:var(--teal);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;padding:8px 18px;border-radius:20px;cursor:pointer}
+.photo-btn:hover{background:var(--ok-bg)}
 .section-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;color:var(--navy);margin:24px 0 10px}
 .coming{background:var(--card);border:1.5px dashed var(--border);border-radius:var(--radius);padding:18px;color:var(--muted);font-size:14px;line-height:1.65;text-align:center}
 .coming b{color:var(--navy)}
@@ -274,6 +282,37 @@ input:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(43,1
       </div>
     </div>
 
+    <!-- SCREEN: EDIT PROFILE -->
+    <div class="screen" id="screen-edit">
+      <div class="mobile-brand"><div class="brand">c<span class="o">o<i></i><i class="d2"></i></span>nnects<span class="dotp">.</span></div></div>
+      <span class="desk-title">Edit your profile ✎</span>
+      <div class="card">
+        <div class="avatar avatar-lg" id="ed-avatar"></div>
+        <button type="button" class="photo-btn" onclick="document.getElementById('photo-input').click()">Change photo</button>
+        <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="photoSelected(event)">
+
+        <label for="ed-name">Full name</label>
+        <input type="text" id="ed-name" maxlength="60" autocomplete="name">
+
+        <label for="ed-username">Username</label>
+        <input type="text" id="ed-username" maxlength="20" autocomplete="off" oninput="edUsernameChanged()">
+        <div class="uname-status" id="ed-uname-status"></div>
+
+        <label for="ed-university">University</label>
+        <select id="ed-university"></select>
+
+        <label for="ed-degree">Degree / Program</label>
+        <select id="ed-degree"></select>
+
+        <label for="ed-semester">Semester</label>
+        <select id="ed-semester"></select>
+
+        <button class="btn" id="btn-save" onclick="saveProfile()">Save changes</button>
+        <button class="link-btn" onclick="show('screen-home')">Cancel</button>
+        <div class="msg" id="msg-edit"></div>
+      </div>
+    </div>
+
     <!-- SCREEN: HOME -->
     <div class="screen" id="screen-home">
       <div class="topbar">
@@ -281,11 +320,16 @@ input:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(43,1
         <button class="signout" onclick="signOut()">Sign out</button>
       </div>
       <div class="profile-card">
-        <div class="p-name" id="home-name"></div>
-        <div class="p-user" id="home-username"></div>
-        <div class="p-line" id="home-uni"></div>
+        <div class="avatar-row">
+          <div class="avatar" id="home-avatar"></div>
+          <div>
+            <div class="p-name" id="home-name"></div>
+            <div class="p-user" id="home-username"></div>
+          </div>
+        </div>
+        <div class="p-line" id="home-uni" style="margin-top:12px"></div>
         <div class="p-line" id="home-degree"></div>
-        <span class="badge" id="home-badge" style="display:none"><span class="b-dot"></span> Founding Member</span>
+        <span class="badge" id="home-badge" style="display:none"><span class="b-dot"></span> Founding Member</span><button class="edit-btn" onclick="openEdit()">✎ Edit profile</button>
       </div>
       <div class="section-title">Your community</div>
       <div class="coming" id="home-community"></div>
@@ -308,8 +352,8 @@ input:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(43,1
    CONFIG — YEH DO LINES BADALNI HAIN:
    Supabase Dashboard → Project Settings → API Keys se copy karo
    ============================================================ */
-const SUPABASE_URL = 'https://npftdlprbrowztsdqxll.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_trZLqCjQ_ArGFX7y8a6XHQ_xcd19XsD';
+const SUPABASE_URL = 'PASTE_YOUR_PROJECT_URL_HERE';
+const SUPABASE_ANON_KEY = 'PASTE_YOUR_PUBLISHABLE_KEY_HERE';
 
 /* ---------- Dropdown data ---------- */
 const UNIVERSITIES = ['Iqra University','NED University','University of Karachi','FAST-NUCES','SZABIST','IBA Karachi','Bahria University','DOW University','Habib University','Sir Syed University','UIT University','Other (tell us — we\'ll add it!)'];
@@ -322,6 +366,8 @@ let pendingEmail = '';
 let flowMode = 'signup'; // 'signup' | 'reset'
 let unameTimer = null;
 let unameOk = false;
+let currentProfile = null;
+let edUnameTimer = null;
 
 const $ = id => document.getElementById(id);
 const configured = !SUPABASE_URL.includes('PASTE') && !SUPABASE_ANON_KEY.includes('PASTE');
@@ -350,9 +396,9 @@ function toggleEye(inputId,btn){
 
 /* ---------- init ---------- */
 function fillDropdowns(){
-  UNIVERSITIES.forEach(u=>$('university').insertAdjacentHTML('beforeend',`<option>${u}</option>`));
-  DEGREES.forEach(d=>$('degree').insertAdjacentHTML('beforeend',`<option>${d}</option>`));
-  SEMESTERS.forEach(s=>$('semester').insertAdjacentHTML('beforeend',`<option>${s}</option>`));
+  UNIVERSITIES.forEach(u=>{ $('university').insertAdjacentHTML('beforeend',`<option>${u}</option>`); $('ed-university').insertAdjacentHTML('beforeend',`<option>${u}</option>`); });
+  DEGREES.forEach(d=>{ $('degree').insertAdjacentHTML('beforeend',`<option>${d}</option>`); $('ed-degree').insertAdjacentHTML('beforeend',`<option>${d}</option>`); });
+  SEMESTERS.forEach(s=>{ $('semester').insertAdjacentHTML('beforeend',`<option>${s}</option>`); $('ed-semester').insertAdjacentHTML('beforeend',`<option>${s}</option>`); });
 }
 async function init(){
   fillDropdowns(); setupOtpBoxes();
@@ -363,7 +409,7 @@ async function init(){
 }
 async function routeUser(user){
   const { data: profile } = await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();
-  if(profile){ renderHome(profile); show('screen-home'); }
+  if(profile){ window.location.replace('app.html'); }
   else show('screen-setup');
 }
 
@@ -508,11 +554,105 @@ async function createProfile(){
       'Could not create your profile: '+error.message, 'error');
     return;
   }
-  renderHome(profile); show('screen-home');
+  window.location.replace('app.html');
+}
+
+/* ---------- EDIT PROFILE (Week 2) ---------- */
+function openEdit(){
+  const p=currentProfile; if(!p) return;
+  $('ed-name').value=p.full_name;
+  $('ed-username').value=p.username;
+  $('ed-university').value=p.university;
+  $('ed-degree').value=p.degree;
+  $('ed-semester').value=p.semester;
+  setAvatar($('ed-avatar'),p);
+  $('ed-uname-status').className='uname-status';
+  clearMsg('msg-edit');
+  show('screen-edit');
+}
+function edUsernameChanged(){
+  const el=$('ed-username');
+  el.value=el.value.toLowerCase().replace(/[^a-z0-9_]/g,'');
+  const st=$('ed-uname-status');
+  st.className='uname-status';
+  clearTimeout(edUnameTimer);
+  const u=el.value;
+  if(u.length<3||u===currentProfile.username) return;
+  edUnameTimer=setTimeout(async()=>{
+    const { data }=await sb.from('profiles').select('id').eq('username',u).neq('id',currentProfile.id).maybeSingle();
+    if(data){ st.textContent='✗ @'+u+' is taken — try another'; st.className='uname-status bad'; }
+    else{ st.textContent='✓ @'+u+' is available'; st.className='uname-status ok'; }
+  },450);
+}
+async function saveProfile(){
+  clearMsg('msg-edit');
+  const full_name=$('ed-name').value.trim();
+  const username=$('ed-username').value.trim();
+  const university=$('ed-university').value, degree=$('ed-degree').value, semester=$('ed-semester').value;
+  if(full_name.length<2){ msg('msg-edit','Please enter your name (at least 2 characters).','error'); return; }
+  if(!/^[a-z0-9_]{3,20}$/.test(username)){ msg('msg-edit','Username must be 3-20 characters: small letters, numbers, underscore.','error'); return; }
+  busy('btn-save',true,'Saving...','Save changes');
+  const { data:profile, error }=await sb.from('profiles')
+    .update({ full_name, username, university, degree, semester })
+    .eq('id',currentProfile.id).select().single();
+  busy('btn-save',false,'','Save changes');
+  if(error){
+    msg('msg-edit', error.code==='23505' ? 'That username was just taken — please choose another.' : 'Could not save: '+error.message,'error');
+    return;
+  }
+  renderHome(profile);
+  show('screen-home');
+}
+function resizeImage(file){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const size=512;
+      const s=Math.min(img.width,img.height);
+      const c=document.createElement('canvas');
+      c.width=size; c.height=size;
+      c.getContext('2d').drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,size,size);
+      c.toBlob(b=>b?resolve(b):reject(new Error('Could not process image')),'image/jpeg',0.85);
+    };
+    img.onerror=()=>reject(new Error('Could not read image'));
+    img.src=URL.createObjectURL(file);
+  });
+}
+async function photoSelected(ev){
+  const file=ev.target.files[0];
+  ev.target.value='';
+  if(!file) return;
+  if(!file.type.startsWith('image/')){ msg('msg-edit','Please choose an image file (JPG or PNG).','error'); return; }
+  msg('msg-edit','Uploading photo...','ok');
+  try{
+    const blob=await resizeImage(file);
+    const { data:{ user } }=await sb.auth.getUser();
+    const path=user.id+'/avatar.jpg';
+    const { error:upErr }=await sb.storage.from('avatars').upload(path,blob,{ upsert:true, contentType:'image/jpeg' });
+    if(upErr) throw upErr;
+    const { data:pub }=sb.storage.from('avatars').getPublicUrl(path);
+    const url=pub.publicUrl+'?t='+Date.now();
+    const { data:profile, error:dbErr }=await sb.from('profiles').update({ avatar_url:url }).eq('id',user.id).select().single();
+    if(dbErr) throw dbErr;
+    currentProfile=profile;
+    setAvatar($('ed-avatar'),profile);
+    msg('msg-edit','Photo updated ✓','ok');
+  }catch(e){
+    msg('msg-edit','Could not upload photo: '+e.message,'error');
+  }
 }
 
 /* ---------- HOME ---------- */
+function setAvatar(el,p){
+  if(p.avatar_url){ el.innerHTML='<img src="'+p.avatar_url+'" alt="Profile photo">'; }
+  else{
+    const initials=(p.full_name||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    el.textContent=initials;
+  }
+}
 function renderHome(p){
+  currentProfile=p;
+  setAvatar($('home-avatar'),p);
   $('home-name').textContent=p.full_name;
   $('home-username').textContent='@'+p.username;
   $('home-uni').textContent=p.university;
