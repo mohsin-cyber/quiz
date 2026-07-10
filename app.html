@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connects University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2A4A; --navy-deep:#12203B; --teal:#2BBBAD; --purple:#5B5FE9;
+  --paper:#F5F7F4; --card:#FFFFFF; --ink:#22293A; --muted:#6A7284;
+  --border:#E4E8E2; --gold:#E9C46A; --like:#E0526E;
+  --radius:16px; --nav-h:60px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+h1,h2,h3,.brand,.poppins{font-family:'Poppins',sans-serif}
+button{font-family:'Nunito',sans-serif;cursor:pointer}
+::-webkit-scrollbar{width:10px;height:8px}
+::-webkit-scrollbar-thumb{background:#D5DBD3;border-radius:5px}
+
+/* ============ TOP NAVBAR ============ */
+.navbar{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:0 18px;z-index:100}
+.brand{font-weight:700;font-size:22px;color:var(--navy);letter-spacing:-.5px;white-space:nowrap}
+.brand .o{position:relative;display:inline-block}
+.brand .o i{position:absolute;left:50%;top:52%;width:0;height:0;animation:orbit 9s linear infinite}
+.brand .o i::after{content:'';position:absolute;width:5px;height:5px;border-radius:50%;background:var(--purple);transform:translate(9px,-12px)}
+.brand .o i.d2{animation-delay:-4.5s}
+.brand .o i.d2::after{background:var(--teal);width:6px;height:6px}
+@keyframes orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.brand .o i{animation:none}}
+.brand .dotp{color:var(--purple)}
+.search{flex:1;max-width:400px;position:relative}
+.search input{width:100%;padding:10px 14px 10px 38px;border:1.5px solid var(--border);border-radius:22px;background:var(--paper);font-family:'Nunito',sans-serif;font-size:14px;outline:none}
+.search input:focus{border-color:var(--teal)}
+.search .ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px}
+.nav-icons{display:flex;align-items:center;gap:6px;margin-left:auto}
+.nav-ic{position:relative;width:42px;height:42px;border-radius:12px;border:none;background:transparent;font-size:19px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:background .15s}
+.nav-ic:hover{background:var(--paper)}
+.nav-ic.active{background:var(--navy);color:#fff}
+.nav-ic .dot-badge{position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--like);border:2px solid var(--card)}
+.nav-avatar{width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;border:none;margin-left:6px}
+
+/* ============ LAYOUT ============ */
+.layout{display:grid;grid-template-columns:250px minmax(0,620px) 320px;gap:24px;max-width:1250px;margin:0 auto;padding:calc(var(--nav-h) + 20px) 18px 90px;justify-content:center}
+.left-rail,.right-rail{position:sticky;top:calc(var(--nav-h) + 20px);height:fit-content}
+@media(max-width:1100px){.layout{grid-template-columns:230px minmax(0,620px)}.right-rail{display:none}}
+@media(max-width:820px){.layout{grid-template-columns:minmax(0,1fr);padding-top:calc(var(--nav-h) + 12px)}.left-rail{display:none}.search{display:none}}
+
+/* ============ LEFT RAIL ============ */
+.me-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.me-card .av{width:46px;height:46px}
+.me-card b{display:block;font-size:14.5px;color:var(--navy)}
+.me-card span{font-size:12.5px;color:var(--teal);font-weight:700}
+.rail-nav{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:8px;display:flex;flex-direction:column;gap:2px}
+.rail-item{display:flex;align-items:center;gap:14px;padding:11px 14px;border:none;background:transparent;border-radius:11px;font-size:14.5px;font-weight:700;color:var(--ink);text-align:left;transition:background .15s}
+.rail-item:hover{background:var(--paper)}
+.rail-item.active{background:var(--navy);color:#fff}
+.rail-item .ic{font-size:17px;width:22px;text-align:center}
+.rail-item .glimpse-tag{margin-left:auto;font-size:10px;background:linear-gradient(90deg,var(--teal),var(--purple));color:#fff;padding:2px 8px;border-radius:10px;letter-spacing:.5px}
+.founding-mini{margin-top:16px;background:linear-gradient(135deg,var(--navy),var(--navy-deep));border-radius:var(--radius);padding:16px;color:#fff;position:relative;overflow:hidden}
+.founding-mini::after{content:'';position:absolute;width:90px;height:90px;border-radius:50%;border:12px solid rgba(43,187,173,.15);right:-34px;bottom:-38px}
+.founding-mini b{font-size:13px;color:#8FE6DC;letter-spacing:.5px}
+.founding-mini p{font-size:12px;color:#AAB8CE;margin-top:5px;line-height:1.5}
+
+/* ============ AVATARS & STORY RINGS ============ */
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;flex-shrink:0;font-size:15px}
+.av.c1{background:#2BBBAD}.av.c2{background:#5B5FE9}.av.c3{background:#E9856A}.av.c4{background:#5A8DDE}.av.c5{background:#9B6BD1}.av.c6{background:#48A97E}
+
+/* ============ STORIES ============ */
+.stories{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.story{display:flex;flex-direction:column;align-items:center;gap:6px;border:none;background:none;flex-shrink:0}
+.story .ring{width:64px;height:64px;border-radius:50%;padding:3px;background:linear-gradient(45deg,var(--teal),var(--purple))}
+.story .ring.seen{background:var(--border)}
+.story .ring .av{width:100%;height:100%;border:2.5px solid var(--card);font-size:18px}
+.story small{font-size:11.5px;color:var(--muted);font-weight:700;max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story.you .ring{background:none;border:2px dashed var(--teal);display:flex;align-items:center;justify-content:center}
+.story.you .plus{width:100%;height:100%;border-radius:50%;background:var(--paper);color:var(--teal);font-size:24px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+/* ============ CREATE POST ============ */
+.composer{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:14px}
+.composer-top{display:flex;gap:12px;align-items:center}
+.composer input{flex:1;border:none;background:var(--paper);border-radius:22px;padding:12px 18px;font-family:'Nunito',sans-serif;font-size:14.5px;outline:none}
+.composer-actions{display:flex;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.chip-btn{display:flex;align-items:center;gap:7px;border:none;background:transparent;padding:8px 13px;border-radius:10px;font-size:13px;font-weight:700;color:var(--muted);transition:background .15s}
+.chip-btn:hover{background:var(--paper);color:var(--navy)}
+
+/* ============ POST CARD ============ */
+.post{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px}
+.post-head{display:flex;gap:12px;align-items:center}
+.post-head .av{width:44px;height:44px}
+.ph-name{font-size:14.5px;font-weight:800;color:var(--navy)}
+.ph-name .uni{display:inline-block;font-size:11px;font-weight:800;color:var(--teal);background:rgba(43,187,173,.12);padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:1px}
+.ph-meta{font-size:12.5px;color:var(--muted);margin-top:1px}
+.post-more{margin-left:auto;border:none;background:none;color:var(--muted);font-size:18px}
+.post-text{font-size:14.5px;line-height:1.65;margin-top:12px}
+.post-media{margin-top:12px;border-radius:14px;height:280px;display:flex;align-items:center;justify-content:center;font-size:52px;color:rgba(255,255,255,.9)}
+.pm1{background:linear-gradient(135deg,#1B2A4A,#5B5FE9)}
+.pm2{background:linear-gradient(135deg,#2BBBAD,#1B2A4A)}
+.pm3{background:linear-gradient(135deg,#E9856A,#9B6BD1)}
+.post-stats{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin-top:12px;font-weight:700}
+.post-actions{display:flex;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.pact{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;border:none;background:transparent;padding:9px;border-radius:10px;font-size:13.5px;font-weight:800;color:var(--muted);transition:all .15s}
+.pact:hover{background:var(--paper)}
+.pact.liked{color:var(--like)}
+
+/* ============ GLIMPSE ============ */
+.glimpse-head{display:flex;align-items:center;gap:10px;margin-top:20px}
+.glimpse-head h2{font-size:19px;color:var(--navy)}
+.glimpse-logo{font-size:11px;font-weight:700;background:linear-gradient(90deg,var(--teal),var(--purple));color:#fff;padding:3px 11px;border-radius:12px;letter-spacing:1px}
+.glimpse-row{display:flex;gap:12px;overflow-x:auto;padding:12px 2px;scrollbar-width:none}
+.glimpse-row::-webkit-scrollbar{display:none}
+.glimpse-card{width:150px;height:250px;border-radius:16px;flex-shrink:0;position:relative;overflow:hidden;border:none;color:#fff;text-align:left}
+.glimpse-card .bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px}
+.g1{background:linear-gradient(160deg,#5B5FE9,#12203B)}
+.g2{background:linear-gradient(160deg,#2BBBAD,#12203B)}
+.g3{background:linear-gradient(160deg,#E9856A,#12203B)}
+.g4{background:linear-gradient(160deg,#5A8DDE,#12203B)}
+.g5{background:linear-gradient(160deg,#9B6BD1,#12203B)}
+.glimpse-card .info{position:absolute;left:0;right:0;bottom:0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.glimpse-card .info b{font-size:12px;display:block}
+.glimpse-card .info span{font-size:11px;opacity:.85}
+.glimpse-card .views{position:absolute;top:10px;right:10px;font-size:11px;font-weight:800;background:rgba(0,0,0,.4);padding:3px 9px;border-radius:10px}
+.glimpse-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:16px}
+.glimpse-grid .glimpse-card{width:100%;height:280px}
+
+/* ============ RIGHT RAIL ============ */
+.rail-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.rail-card h3{font-size:14.5px;color:var(--navy);margin-bottom:14px}
+.suggest{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.suggest .av{width:40px;height:40px;font-size:13px}
+.suggest b{display:block;font-size:13.5px;color:var(--navy)}
+.suggest span{font-size:11.5px;color:var(--muted)}
+.follow-btn{margin-left:auto;border:1.5px solid var(--teal);background:none;color:var(--teal);font-weight:800;font-size:12px;padding:6px 14px;border-radius:16px;transition:all .15s}
+.follow-btn:hover,.follow-btn.on{background:var(--teal);color:#fff}
+.trend{display:block;width:100%;text-align:left;padding:9px 4px;border:none;background:none;border-bottom:1px solid var(--paper)}
+.trend b{font-size:13.5px;color:var(--navy);display:block}
+.trend span{font-size:11.5px;color:var(--muted)}
+.battle-card{background:linear-gradient(135deg,var(--navy),var(--navy-deep));border-radius:var(--radius);padding:18px;color:#fff;text-align:center}
+.battle-card small{font-size:10.5px;letter-spacing:2px;color:#8FE6DC;font-weight:800}
+.battle-vs{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0}
+.battle-vs .team{font-family:'Poppins',sans-serif;font-weight:700;font-size:16px}
+.battle-vs .vs{font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;color:var(--gold);border:1.5px solid var(--gold);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+.battle-card .join{width:100%;border:none;background:var(--teal);color:#fff;font-weight:800;font-size:13px;padding:10px;border-radius:11px;margin-top:6px}
+
+/* ============ MESSAGES ============ */
+.msgs-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-top:14px;display:grid;grid-template-columns:300px 1fr;min-height:560px;overflow:hidden}
+@media(max-width:820px){.msgs-wrap{grid-template-columns:1fr}.chat-pane{display:none}}
+.chat-list{border-right:1px solid var(--border);overflow-y:auto}
+.chat-list h3{padding:16px;font-size:16px;color:var(--navy);border-bottom:1px solid var(--border)}
+.chat-item{display:flex;gap:11px;align-items:center;width:100%;border:none;background:none;padding:13px 16px;text-align:left;transition:background .15s}
+.chat-item:hover,.chat-item.active{background:var(--paper)}
+.chat-item .av{width:44px;height:44px}
+.chat-item b{display:block;font-size:14px;color:var(--navy)}
+.chat-item span{font-size:12.5px;color:var(--muted);display:block;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-item .when{margin-left:auto;font-size:11px;color:var(--muted);align-self:flex-start;padding-top:4px}
+.chat-pane{display:flex;flex-direction:column}
+.chat-head{display:flex;align-items:center;gap:11px;padding:13px 18px;border-bottom:1px solid var(--border)}
+.chat-head .av{width:40px;height:40px}
+.chat-head b{font-size:14.5px;color:var(--navy);display:block}
+.chat-head span{font-size:12px;color:var(--teal);font-weight:700}
+.chat-body{flex:1;padding:20px;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.bubble{max-width:70%;padding:11px 15px;border-radius:16px;font-size:14px;line-height:1.5}
+.bubble.them{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:5px;align-self:flex-start}
+.bubble.me{background:var(--navy);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.chat-input{display:flex;gap:10px;padding:14px;border-top:1px solid var(--border)}
+.chat-input input{flex:1;border:1.5px solid var(--border);border-radius:22px;padding:11px 16px;font-family:'Nunito',sans-serif;font-size:14px;outline:none}
+.chat-input button{border:none;background:var(--teal);color:#fff;width:44px;height:44px;border-radius:50%;font-size:17px}
+
+/* ============ PROFILE ============ */
+.profile-wrap{margin-top:14px}
+.cover{height:170px;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(120deg,var(--navy) 0%,var(--purple) 60%,var(--teal) 120%);position:relative;overflow:hidden}
+.cover::after{content:'';position:absolute;width:200px;height:200px;border-radius:50%;border:26px solid rgba(255,255,255,.08);right:-60px;top:-80px}
+.profile-main{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:0 22px 20px}
+.profile-top{display:flex;align-items:flex-end;gap:18px;margin-top:-44px;flex-wrap:wrap}
+.profile-top .av{width:96px;height:96px;font-size:32px;border:4px solid var(--card)}
+.profile-id{padding-bottom:4px}
+.profile-id h2{font-size:21px;color:var(--navy)}
+.profile-id .un{font-size:14px;color:var(--teal);font-weight:800}
+.profile-id .uni-line{font-size:13px;color:var(--muted);margin-top:3px}
+.profile-btns{margin-left:auto;display:flex;gap:9px;padding-bottom:6px}
+.pbtn{border:none;background:var(--navy);color:#fff;font-weight:800;font-size:13px;padding:9px 18px;border-radius:11px}
+.pbtn.alt{background:var(--paper);color:var(--navy);border:1.5px solid var(--border)}
+.founding-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(43,187,173,.12);border:1px solid var(--teal);color:var(--teal);font-weight:800;font-size:11.5px;letter-spacing:.5px;padding:5px 12px;border-radius:16px;margin-top:10px;text-transform:uppercase}
+.pstats{display:flex;gap:28px;margin-top:16px}
+.pstat b{font-family:'Poppins',sans-serif;font-size:17px;color:var(--navy);display:block}
+.pstat span{font-size:12.5px;color:var(--muted);font-weight:700}
+.ptabs{display:flex;gap:4px;margin-top:18px;border-bottom:1.5px solid var(--border)}
+.ptab{border:none;background:none;padding:11px 18px;font-size:14px;font-weight:800;color:var(--muted);border-bottom:2.5px solid transparent;margin-bottom:-1.5px}
+.ptab.active{color:var(--navy);border-color:var(--teal)}
+
+/* ============ COMMUNITIES ============ */
+.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+@media(max-width:600px){.comm-grid{grid-template-columns:1fr}}
+.comm-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-align:left;padding:0;border:1px solid var(--border)}
+.comm-banner{height:70px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff}
+.cb1{background:linear-gradient(120deg,#1B2A4A,#5B5FE9)}.cb2{background:linear-gradient(120deg,#2BBBAD,#1B2A4A)}.cb3{background:linear-gradient(120deg,#9B6BD1,#5B5FE9)}.cb4{background:linear-gradient(120deg,#E9856A,#C0453A)}
+.comm-body{padding:14px}
+.comm-body b{font-size:14.5px;color:var(--navy);display:block}
+.comm-body span{font-size:12px;color:var(--muted)}
+.comm-join{margin-top:10px;width:100%;border:1.5px solid var(--teal);background:none;color:var(--teal);font-weight:800;font-size:12.5px;padding:8px;border-radius:10px}
+
+/* ============ SECTION VIEWS ============ */
+.view{display:none}
+.view.active{display:block}
+.page-title{font-size:20px;color:var(--navy);margin-top:16px}
+
+/* ============ MOBILE BOTTOM NAV ============ */
+.bottom-nav{display:none}
+@media(max-width:820px){
+  .bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);z-index:100;padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+  .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;border:none;background:none;font-size:19px;color:var(--muted);padding:5px}
+  .bn-item small{font-size:10px;font-weight:800}
+  .bn-item.active{color:var(--navy)}
+  .bn-item.create{margin-top:-18px}
+  .bn-item.create .plus{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--purple));color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(43,187,173,.4)}
+}
+.proto-tag{position:fixed;bottom:12px;right:12px;background:var(--navy);color:#8FE6DC;font-size:10.5px;font-weight:800;letter-spacing:1px;padding:5px 12px;border-radius:14px;z-index:200;opacity:.85}
+@media(max-width:820px){.proto-tag{display:none}}
+
+/* ============ EDIT MODAL ============ */
+.overlay{position:fixed;inset:0;background:rgba(18,32,59,.55);z-index:300;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.overlay.open{display:flex}
+.modal{background:var(--card);border-radius:18px;width:100%;max-width:440px;padding:22px}
+.modal h3{color:var(--navy);font-size:17px;margin-bottom:4px}
+.modal label{display:block;font-weight:800;font-size:13px;color:var(--navy);margin:14px 0 6px}
+.modal input,.modal select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:11px;font-family:'Nunito',sans-serif;font-size:15px;outline:none}
+.modal input:focus,.modal select:focus{border-color:var(--teal)}
+.m-avatar{width:88px;height:88px;font-size:30px;margin:8px auto 0}
+.photo-btn{display:block;margin:10px auto 0;background:none;border:1.5px solid var(--teal);color:var(--teal);font-weight:800;font-size:13px;padding:8px 18px;border-radius:20px}
+.m-btn{width:100%;border:none;background:var(--navy);color:#fff;font-weight:800;font-size:14.5px;padding:13px;border-radius:11px;margin-top:18px}
+.m-btn:disabled{opacity:.55}
+.m-cancel{width:100%;border:none;background:none;color:var(--muted);font-weight:800;font-size:13.5px;padding:10px;margin-top:6px}
+.m-msg{border-radius:11px;padding:11px 13px;font-size:13px;margin-top:12px;display:none}
+.m-msg.show{display:block}
+.m-msg.error{background:#FBEDEA;color:#C0453A}
+.m-msg.ok{background:#E7F6F4;color:#177467}
+.uname-status{font-size:12.5px;margin-top:6px;font-weight:800;display:none}
+.uname-status.ok{display:block;color:#177467}
+.uname-status.bad{display:block;color:#C0453A}
+
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <div class="brand">c<span class="o">o<i></i><i class="d2"></i></span>nnects<span class="dotp">.</span></div>
+  <div class="search"><span class="ic">🔍</span><input placeholder="Search students, universities, posts..."></div>
+  <div class="nav-icons">
+    <button class="nav-ic active" data-v="feed" onclick="go('feed',this)" title="Home">⌂</button>
+    <button class="nav-ic" data-v="glimpse" onclick="go('glimpse',this)" title="Glimpse">▶</button>
+    <button class="nav-ic" data-v="messages" onclick="go('messages',this)" title="Messages">✉<span class="dot-badge"></span></button>
+    <button class="nav-ic" title="Notifications">♡<span class="dot-badge"></span></button>
+    <button class="nav-avatar av" id="nav-av" onclick="go('profile',null)" title="My profile"></button>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- ================= LEFT RAIL ================= -->
+  <aside class="left-rail">
+    <div class="me-card">
+      <div class="av c1" id="me-av" style="width:46px;height:46px"></div>
+      <div><b id="me-name"></b><span id="me-un"></span></div>
+    </div>
+    <div class="rail-nav">
+      <button class="rail-item active" data-v="feed" onclick="go('feed',this)"><span class="ic">⌂</span> Home</button>
+      <button class="rail-item" data-v="glimpse" onclick="go('glimpse',this)"><span class="ic">▶</span> Glimpse <span class="glimpse-tag">✦ NEW</span></button>
+      <button class="rail-item" data-v="messages" onclick="go('messages',this)"><span class="ic">✉</span> Messages</button>
+      <button class="rail-item" data-v="communities" onclick="go('communities',this)"><span class="ic">◉</span> Communities</button>
+      <button class="rail-item"><span class="ic">✎</span> Quizzes</button>
+      <button class="rail-item"><span class="ic">🏆</span> Battles</button>
+      <button class="rail-item" data-v="profile" onclick="go('profile',this)"><span class="ic">☺</span> My Profile</button>
+      <button class="rail-item" onclick="signOut()"><span class="ic">⎋</span> Sign out</button>
+    </div>
+    <div class="founding-mini">
+      <b>✦ FOUNDING MEMBER</b>
+      <p>You joined in the first month. This badge stays with you forever.</p>
+    </div>
+  </aside>
+
+  <!-- ================= CENTER ================= -->
+  <main>
+
+    <!-- ========== VIEW: FEED ========== -->
+    <section class="view active" id="view-feed">
+      <!-- stories -->
+      <div class="stories">
+        <button class="story you"><div class="ring"><div class="plus">+</div></div><small>Your story</small></button>
+        <button class="story"><div class="ring"><div class="av c2">AK</div></div><small>ayesha_k</small></button>
+        <button class="story"><div class="ring"><div class="av c3">BA</div></div><small>bilal.ahmed</small></button>
+        <button class="story"><div class="ring"><div class="av c4">FN</div></div><small>fatima_noor</small></button>
+        <button class="story"><div class="ring seen"><div class="av c5">HS</div></div><small>hamza_shk</small></button>
+        <button class="story"><div class="ring"><div class="av c6">ZR</div></div><small>zara.r</small></button>
+        <button class="story"><div class="ring seen"><div class="av c2">UF</div></div><small>usman_f</small></button>
+        <button class="story"><div class="ring seen"><div class="av c3">MI</div></div><small>maryam.i</small></button>
+      </div>
+
+      <!-- composer -->
+      <div class="composer">
+        <div class="composer-top">
+          <div class="av c1" id="comp-av" style="width:44px;height:44px"></div>
+          <input id="comp-input" placeholder="What's happening on campus?">
+        </div>
+        <div class="composer-actions">
+          <button class="chip-btn">🖼 Photo</button>
+          <button class="chip-btn">▶ Glimpse</button>
+          <button class="chip-btn">📊 Poll</button>
+          <button class="chip-btn">✎ Quiz</button>
+        </div>
+      </div>
+
+      <!-- posts -->
+      <article class="post">
+        <div class="post-head">
+          <div class="av c2">AK</div>
+          <div><div class="ph-name">Ayesha Khan <span class="uni">NED</span></div><div class="ph-meta">@ayesha_k · 2h ago</div></div>
+          <button class="post-more">⋯</button>
+        </div>
+        <p class="post-text">Final year project ka pehla prototype chal gaya! 6 mahine ki raatein iss ek moment ke liye 🥹 Alhamdulillah. Juniors — FYP jaldi start karo, believe me.</p>
+        <div class="post-media pm1">🤖</div>
+        <div class="post-stats"><span>❤ 214</span><span>💬 43 comments</span><span>↗ 12 shares</span></div>
+        <div class="post-actions">
+          <button class="pact" onclick="likeToggle(this)">♡ Like</button>
+          <button class="pact">💬 Comment</button>
+          <button class="pact">↗ Share</button>
+          <button class="pact">⌁ Save</button>
+        </div>
+      </article>
+
+      <article class="post">
+        <div class="post-head">
+          <div class="av c3">BA</div>
+          <div><div class="ph-name">Bilal Ahmed <span class="uni">Iqra</span></div><div class="ph-meta">@bilal.ahmed · 4h ago</div></div>
+          <button class="post-more">⋯</button>
+        </div>
+        <p class="post-text">Pak Studies ka quiz connects pe practice kiya tha — aaj result aya, 89/100 🎯 Jo log abhi tak use nahi kar rahe, kya kar rahe ho bhai?</p>
+        <div class="post-stats"><span>❤ 156</span><span>💬 28 comments</span><span>↗ 31 shares</span></div>
+        <div class="post-actions">
+          <button class="pact" onclick="likeToggle(this)">♡ Like</button>
+          <button class="pact">💬 Comment</button>
+          <button class="pact">↗ Share</button>
+          <button class="pact">⌁ Save</button>
+        </div>
+      </article>
+
+      <!-- glimpse strip inside feed -->
+      <div class="glimpse-head"><h2>Glimpse</h2><span class="glimpse-logo">✦ GLIMPSE</span></div>
+      <div class="glimpse-row">
+        <button class="glimpse-card"><div class="bg g1">🎬</div><span class="views">▶ 12K</span><div class="info"><b>Campus life at FAST</b><span>@hamza_shk</span></div></button>
+        <button class="glimpse-card"><div class="bg g2">📚</div><span class="views">▶ 8.4K</span><div class="info"><b>Exam night routine</b><span>@fatima_noor</span></div></button>
+        <button class="glimpse-card"><div class="bg g3">🎨</div><span class="views">▶ 21K</span><div class="info"><b>Media Science projects</b><span>@mohsin</span></div></button>
+        <button class="glimpse-card"><div class="bg g4">⚽</div><span class="views">▶ 5.1K</span><div class="info"><b>Sports week IU</b><span>@zara.r</span></div></button>
+        <button class="glimpse-card"><div class="bg g5">🧪</div><span class="views">▶ 9.8K</span><div class="info"><b>Lab fails 😂</b><span>@usman_f</span></div></button>
+      </div>
+
+      <article class="post">
+        <div class="post-head">
+          <div class="av c4">FN</div>
+          <div><div class="ph-name">Fatima Noor <span class="uni">KU</span></div><div class="ph-meta">@fatima_noor · 7h ago</div></div>
+          <button class="post-more">⋯</button>
+        </div>
+        <p class="post-text">Karachi University ki library ka yeh corner — meri favorite study spot 📖 Kaunsi jagah hai tumhari uni mein jahan sab se sukoon milta hai?</p>
+        <div class="post-media pm2">📖</div>
+        <div class="post-stats"><span>❤ 342</span><span>💬 89 comments</span><span>↗ 7 shares</span></div>
+        <div class="post-actions">
+          <button class="pact" onclick="likeToggle(this)">♡ Like</button>
+          <button class="pact">💬 Comment</button>
+          <button class="pact">↗ Share</button>
+          <button class="pact">⌁ Save</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========== VIEW: GLIMPSE ========== -->
+    <section class="view" id="view-glimpse">
+      <div class="glimpse-head" style="margin-top:16px"><h2>Glimpse</h2><span class="glimpse-logo">✦ GLIMPSE</span></div>
+      <p style="font-size:13.5px;color:var(--muted);margin-top:4px">Short videos from campuses across Pakistan — 60 seconds ya usse kam.</p>
+      <div class="glimpse-grid">
+        <button class="glimpse-card"><div class="bg g1">🎬</div><span class="views">▶ 12K</span><div class="info"><b>Campus life at FAST</b><span>@hamza_shk</span></div></button>
+        <button class="glimpse-card"><div class="bg g3">🎨</div><span class="views">▶ 21K</span><div class="info"><b>Media Science projects</b><span>@mohsin</span></div></button>
+        <button class="glimpse-card"><div class="bg g2">📚</div><span class="views">▶ 8.4K</span><div class="info"><b>Exam night routine</b><span>@fatima_noor</span></div></button>
+        <button class="glimpse-card"><div class="bg g5">🧪</div><span class="views">▶ 9.8K</span><div class="info"><b>Lab fails 😂</b><span>@usman_f</span></div></button>
+        <button class="glimpse-card"><div class="bg g4">⚽</div><span class="views">▶ 5.1K</span><div class="info"><b>Sports week IU</b><span>@zara.r</span></div></button>
+        <button class="glimpse-card"><div class="bg g2">🎤</div><span class="views">▶ 15K</span><div class="info"><b>Farewell performance</b><span>@maryam.i</span></div></button>
+        <button class="glimpse-card"><div class="bg g1">💻</div><span class="views">▶ 6.7K</span><div class="info"><b>Hackathon 24hrs</b><span>@ali.dev</span></div></button>
+        <button class="glimpse-card"><div class="bg g3">🍜</div><span class="views">▶ 30K</span><div class="info"><b>Canteen food review</b><span>@foodie_sara</span></div></button>
+      </div>
+    </section>
+
+    <!-- ========== VIEW: MESSAGES ========== -->
+    <section class="view" id="view-messages">
+      <h2 class="page-title">Messages</h2>
+      <div class="msgs-wrap">
+        <div class="chat-list">
+          <h3>Chats</h3>
+          <button class="chat-item active"><div class="av c2">AK</div><div><b>Ayesha Khan</b><span>Quiz link bhejo yaar please</span></div><span class="when">2m</span></button>
+          <button class="chat-item"><div class="av c3">BA</div><div><b>Bilal Ahmed</b><span>Founding badge mil gaya! 🔥</span></div><span class="when">1h</span></button>
+          <button class="chat-item"><div class="av c4">FN</div><div><b>Fatima Noor</b><span>Notes share kar do semester 2 ke</span></div><span class="when">3h</span></button>
+          <button class="chat-item"><div class="av c5">HS</div><div><b>Hamza Sheikh</b><span>Battle kab hai IU vs FAST?</span></div><span class="when">1d</span></button>
+        </div>
+        <div class="chat-pane">
+          <div class="chat-head"><div class="av c2">AK</div><div><b>Ayesha Khan</b><span>● Online</span></div></div>
+          <div class="chat-body">
+            <div class="bubble them">Salam! Suna hai tumne Pak Studies ka quiz banaya tha?</div>
+            <div class="bubble me">Wa alaikum! Haan — connects.university pe hai, free hai</div>
+            <div class="bubble them">Quiz link bhejo yaar please 🙏</div>
+            <div class="bubble me">Bhej raha hun — aur signup bhi kar lena, founding member badge milega ✦</div>
+          </div>
+          <div class="chat-input"><input placeholder="Type a message..."><button>➤</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== VIEW: PROFILE ========== -->
+    <section class="view" id="view-profile">
+      <div class="profile-wrap">
+        <div class="cover"></div>
+        <div class="profile-main">
+          <div class="profile-top">
+            <div class="av c1" id="p-av"></div>
+            <div class="profile-id">
+              <h2 id="p-name"></h2>
+              <span class="un" id="p-un"></span>
+              <div class="uni-line" id="p-uniline"></div>
+            </div>
+            <div class="profile-btns">
+              <button class="pbtn" onclick="openEdit()">✎ Edit profile</button>
+              <button class="pbtn alt">Share</button>
+            </div>
+          </div>
+          <span class="founding-pill" id="p-founding" style="display:none">● Founding Member ✦</span>
+          <div class="pstats">
+            <div class="pstat"><b>24</b><span>Posts</span></div>
+            <div class="pstat"><b>318</b><span>Followers</span></div>
+            <div class="pstat"><b>127</b><span>Following</span></div>
+          </div>
+          <div class="ptabs">
+            <button class="ptab active">Posts</button>
+            <button class="ptab">Glimpse</button>
+            <button class="ptab">Quizzes</button>
+            <button class="ptab">About</button>
+          </div>
+        </div>
+        <article class="post">
+          <div class="post-head">
+            <div class="av c1" id="pp-av"></div>
+            <div><div class="ph-name"><span id="pp-name"></span> <span class="uni" id="pp-uni"></span></div><div class="ph-meta"><span id="pp-un"></span> · just now</div></div>
+            <button class="post-more">⋯</button>
+          </div>
+          <p class="post-text">Connects University ab live hai — Pakistan ke students ka apna platform. Founding members ka intezar hai 🚀✦</p>
+          <div class="post-media pm3">🚀</div>
+          <div class="post-stats"><span>❤ 97</span><span>💬 22 comments</span><span>↗ 18 shares</span></div>
+          <div class="post-actions">
+            <button class="pact" onclick="likeToggle(this)">♡ Like</button>
+            <button class="pact">💬 Comment</button>
+            <button class="pact">↗ Share</button>
+            <button class="pact">⌁ Save</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== VIEW: COMMUNITIES ========== -->
+    <section class="view" id="view-communities">
+      <h2 class="page-title">Communities</h2>
+      <p style="font-size:13.5px;color:var(--muted);margin-top:4px">Apni university, apna program, apne log.</p>
+      <div class="comm-grid">
+        <div class="comm-card"><div class="comm-banner cb1">🎓</div><div class="comm-body"><b>Iqra University</b><span>4,218 students</span><button class="comm-join">Joined ✓</button></div></div>
+        <div class="comm-card"><div class="comm-banner cb2">🎬</div><div class="comm-body"><b>IU · BS Media Science</b><span>312 students</span><button class="comm-join">Joined ✓</button></div></div>
+        <div class="comm-card"><div class="comm-banner cb3">✎</div><div class="comm-body"><b>Pak Studies — Exam Prep</b><span>1,109 students</span><button class="comm-join">Join</button></div></div>
+        <div class="comm-card"><div class="comm-banner cb4">💼</div><div class="comm-body"><b>Freelancers of Pakistan 🇵🇰</b><span>2,847 students</span><button class="comm-join">Join</button></div></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= RIGHT RAIL ================= -->
+  <aside class="right-rail">
+    <div class="rail-card">
+      <h3>Suggested for you</h3>
+      <div class="suggest"><div class="av c5">HS</div><div><b>Hamza Sheikh</b><span>FAST · BS CS</span></div><button class="follow-btn" onclick="followToggle(this)">Follow</button></div>
+      <div class="suggest"><div class="av c6">ZR</div><div><b>Zara Rehman</b><span>Iqra · BBA</span></div><button class="follow-btn" onclick="followToggle(this)">Follow</button></div>
+      <div class="suggest" style="margin-bottom:0"><div class="av c4">UF</div><div><b>Usman Farooq</b><span>NED · BE</span></div><button class="follow-btn" onclick="followToggle(this)">Follow</button></div>
+    </div>
+    <div class="rail-card">
+      <h3>Trending at your university</h3>
+      <button class="trend"><b>#MidtermSeason</b><span>1,240 posts</span></button>
+      <button class="trend"><b>#IqraFest2026</b><span>856 posts</span></button>
+      <button class="trend" style="border:none"><b>#FYPStruggles</b><span>603 posts</span></button>
+    </div>
+    <div class="battle-card">
+      <small>THIS FRIDAY · 8 PM</small>
+      <div class="battle-vs"><span class="team">IQRA</span><span class="vs">VS</span><span class="team">NED</span></div>
+      <div style="font-size:12px;color:#AAB8CE">Weekly Quiz Battle · Pak Studies</div>
+      <button class="join">Join your team 🏆</button>
+    </div>
+  </aside>
+</div>
+
+<!-- ================= MOBILE BOTTOM NAV ================= -->
+<nav class="bottom-nav">
+  <button class="bn-item active" data-v="feed" onclick="go('feed',this)">⌂<small>Home</small></button>
+  <button class="bn-item" data-v="glimpse" onclick="go('glimpse',this)">▶<small>Glimpse</small></button>
+  <button class="bn-item create"><span class="plus">+</span></button>
+  <button class="bn-item" data-v="messages" onclick="go('messages',this)">✉<small>Chats</small></button>
+  <button class="bn-item" data-v="profile" onclick="go('profile',this)">☺<small>Profile</small></button>
+</nav>
+
+
+
+
+<!-- ================= EDIT PROFILE MODAL ================= -->
+<div class="overlay" id="edit-overlay">
+  <div class="modal">
+    <h3>Edit profile</h3>
+    <div class="av c1 m-avatar" id="ed-avatar"></div>
+    <button type="button" class="photo-btn" onclick="document.getElementById('photo-input').click()">Change photo</button>
+    <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="photoSelected(event)">
+    <label>Full name</label>
+    <input type="text" id="ed-name" maxlength="60">
+    <label>Username</label>
+    <input type="text" id="ed-username" maxlength="20" oninput="edUsernameChanged()">
+    <div class="uname-status" id="ed-uname-status"></div>
+    <label>University</label>
+    <select id="ed-university"></select>
+    <label>Degree / Program</label>
+    <select id="ed-degree"></select>
+    <label>Semester</label>
+    <select id="ed-semester"></select>
+    <button class="m-btn" id="btn-save" onclick="saveProfile()">Save changes</button>
+    <button class="m-cancel" onclick="closeEdit()">Cancel</button>
+    <div class="m-msg" id="msg-edit"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   CONFIG — Supabase (same keys as index.html)
+   ============================================================ */
+const SUPABASE_URL = 'PASTE_YOUR_PROJECT_URL_HERE';
+const SUPABASE_ANON_KEY = 'PASTE_YOUR_PUBLISHABLE_KEY_HERE';
+
+const UNIVERSITIES = ['Iqra University','NED University','University of Karachi','FAST-NUCES','SZABIST','IBA Karachi','Bahria University','DOW University','Habib University','Sir Syed University','UIT University','Other (tell us — we\'ll add it!)'];
+const DEGREES = ['BS Media Science','BBA','BS Computer Science','BS Software Engineering','BE (Engineering)','BS Psychology','BS Accounting & Finance','MBBS','Pharm-D','LLB','BS English','BS Economics','MBA','MS / MPhil','Other'];
+const SEMESTERS = ['Semester 1','Semester 2','Semester 3','Semester 4','Semester 5','Semester 6','Semester 7','Semester 8','Final Year','Graduate / Alumni'];
+
+let sb=null, me=null, edUnameTimer=null;
+const $ = id => document.getElementById(id);
+
+/* ---------- UI helpers ---------- */
+function go(view, btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  document.querySelectorAll('.nav-ic[data-v],.rail-item[data-v],.bn-item[data-v]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.v===view);
+  });
+  window.scrollTo({top:0});
+}
+function likeToggle(btn){ const on=btn.classList.toggle('liked'); btn.innerHTML=on?'❤ Liked':'♡ Like'; }
+function followToggle(btn){ const on=btn.classList.toggle('on'); btn.textContent=on?'Following ✓':'Follow'; }
+function mmsg(text,type){ const el=$('msg-edit'); el.textContent=text; el.className='m-msg show '+type; }
+function setAv(el,p){
+  if(!el) return;
+  if(p.avatar_url){ el.innerHTML='<img src="'+p.avatar_url+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block">'; }
+  else{
+    const ini=(p.full_name||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    el.textContent=ini;
+  }
+}
+
+/* ---------- BOOT: guard + identity ---------- */
+async function boot(){
+  if(SUPABASE_URL.includes('PASTE')){ document.body.innerHTML='<p style="padding:40px;font-family:sans-serif">⚙️ CONFIG missing — paste your Supabase keys at the top of app.html</p>'; return; }
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const { data:{ session } } = await sb.auth.getSession();
+  if(!session){ window.location.replace('index.html'); return; }
+  const { data: profile } = await sb.from('profiles').select('*').eq('id',session.user.id).maybeSingle();
+  if(!profile){ window.location.replace('index.html'); return; }
+  me = profile;
+  renderIdentity();
+  fillEditDropdowns();
+}
+function renderIdentity(){
+  setAv($('nav-av'),me); setAv($('me-av'),me); setAv($('comp-av'),me);
+  setAv($('p-av'),me); setAv($('pp-av'),me);
+  $('me-name').textContent=me.full_name;
+  $('me-un').textContent='@'+me.username;
+  $('comp-input').placeholder='What\'s happening on campus, '+me.full_name.split(' ')[0]+'?';
+  $('p-name').textContent=me.full_name;
+  $('p-un').textContent='@'+me.username;
+  $('p-uniline').textContent=me.university+' · '+me.degree+' · '+me.semester;
+  $('p-founding').style.display = me.is_founding ? 'inline-flex' : 'none';
+  $('pp-name').textContent=me.full_name;
+  $('pp-un').textContent='@'+me.username;
+  $('pp-uni').textContent=me.university.split(' ')[0];
+}
+async function signOut(){
+  await sb.auth.signOut();
+  window.location.replace('index.html');
+}
+
+/* ---------- EDIT PROFILE ---------- */
+function fillEditDropdowns(){
+  UNIVERSITIES.forEach(u=>$('ed-university').insertAdjacentHTML('beforeend',`<option>${u}</option>`));
+  DEGREES.forEach(d=>$('ed-degree').insertAdjacentHTML('beforeend',`<option>${d}</option>`));
+  SEMESTERS.forEach(s=>$('ed-semester').insertAdjacentHTML('beforeend',`<option>${s}</option>`));
+}
+function openEdit(){
+  $('ed-name').value=me.full_name;
+  $('ed-username').value=me.username;
+  $('ed-university').value=me.university;
+  $('ed-degree').value=me.degree;
+  $('ed-semester').value=me.semester;
+  setAv($('ed-avatar'),me);
+  $('ed-uname-status').className='uname-status';
+  $('msg-edit').className='m-msg';
+  $('edit-overlay').classList.add('open');
+}
+function closeEdit(){ $('edit-overlay').classList.remove('open'); }
+function edUsernameChanged(){
+  const el=$('ed-username');
+  el.value=el.value.toLowerCase().replace(/[^a-z0-9_]/g,'');
+  const st=$('ed-uname-status');
+  st.className='uname-status';
+  clearTimeout(edUnameTimer);
+  const u=el.value;
+  if(u.length<3||u===me.username) return;
+  edUnameTimer=setTimeout(async()=>{
+    const { data }=await sb.from('profiles').select('id').eq('username',u).neq('id',me.id).maybeSingle();
+    if(data){ st.textContent='✗ @'+u+' is taken'; st.className='uname-status bad'; }
+    else{ st.textContent='✓ @'+u+' is available'; st.className='uname-status ok'; }
+  },450);
+}
+async function saveProfile(){
+  const full_name=$('ed-name').value.trim();
+  const username=$('ed-username').value.trim();
+  const university=$('ed-university').value, degree=$('ed-degree').value, semester=$('ed-semester').value;
+  if(full_name.length<2){ mmsg('Please enter your name.','error'); return; }
+  if(!/^[a-z0-9_]{3,20}$/.test(username)){ mmsg('Username must be 3-20 characters: small letters, numbers, underscore.','error'); return; }
+  $('btn-save').disabled=true;
+  const { data:profile, error }=await sb.from('profiles')
+    .update({ full_name, username, university, degree, semester })
+    .eq('id',me.id).select().single();
+  $('btn-save').disabled=false;
+  if(error){ mmsg(error.code==='23505'?'That username was just taken.':'Could not save: '+error.message,'error'); return; }
+  me=profile; renderIdentity(); closeEdit();
+}
+function resizeImage(file){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const size=512, s=Math.min(img.width,img.height);
+      const c=document.createElement('canvas'); c.width=size; c.height=size;
+      c.getContext('2d').drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,size,size);
+      c.toBlob(b=>b?resolve(b):reject(new Error('Could not process image')),'image/jpeg',0.85);
+    };
+    img.onerror=()=>reject(new Error('Could not read image'));
+    img.src=URL.createObjectURL(file);
+  });
+}
+async function photoSelected(ev){
+  const file=ev.target.files[0]; ev.target.value='';
+  if(!file) return;
+  if(!file.type.startsWith('image/')){ mmsg('Please choose an image file.','error'); return; }
+  mmsg('Uploading photo...','ok');
+  try{
+    const blob=await resizeImage(file);
+    const path=me.id+'/avatar.jpg';
+    const { error:upErr }=await sb.storage.from('avatars').upload(path,blob,{ upsert:true, contentType:'image/jpeg' });
+    if(upErr) throw upErr;
+    const { data:pub }=sb.storage.from('avatars').getPublicUrl(path);
+    const url=pub.publicUrl+'?t='+Date.now();
+    const { data:profile, error:dbErr }=await sb.from('profiles').update({ avatar_url:url }).eq('id',me.id).select().single();
+    if(dbErr) throw dbErr;
+    me=profile; setAv($('ed-avatar'),me); renderIdentity();
+    mmsg('Photo updated ✓','ok');
+  }catch(e){ mmsg('Could not upload photo: '+e.message,'error'); }
+}
+
+boot();
+</script>
+</body>
+</html>
