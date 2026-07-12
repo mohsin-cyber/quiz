@@ -511,7 +511,7 @@ async function googleLogin(){
   const onWeb = location.protocol==='http:'||location.protocol==='https:';
   const redirectTo = onWeb ? (location.origin+location.pathname) : 'https://connects.university';
   if(!onWeb){ msg('msg-auth','Google sign-in works on the live site — open connects.university to use it. (Local files can\'t receive Google\'s redirect.)','error'); return; }
-  const { error } = await sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo } });
+  const { error } = await sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo, queryParams:{ prompt:'select_account' } } });
   if(error) msg('msg-auth','Google sign-in failed: '+error.message,'error');
 }
 
