@@ -174,8 +174,8 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 .cover{height:170px;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(120deg,var(--navy) 0%,var(--purple) 60%,var(--teal) 120%);position:relative;overflow:hidden}
 .cover::after{content:'';position:absolute;width:200px;height:200px;border-radius:50%;border:26px solid rgba(255,255,255,.08);right:-60px;top:-80px}
 .profile-main{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:0 22px 20px}
-.profile-top{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
-.profile-top .av{width:96px;height:96px;font-size:32px;border:4px solid var(--card);margin-top:-44px}
+.profile-top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:18px}
+.profile-top .av{width:88px;height:88px;font-size:30px;border:3px solid var(--border)}
 .profile-id{padding-bottom:4px}
 .profile-id h2{font-size:21px;color:var(--navy)}
 .profile-id .un{font-size:14px;color:var(--teal);font-weight:800}
@@ -241,6 +241,32 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 .uname-status.ok{display:block;color:#177467}
 .uname-status.bad{display:block;color:#C0453A}
 
+
+/* ============ WEEK 3: LIVE FEED ============ */
+.composer-bottom{display:flex;align-items:center;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.post-btn{margin-left:auto;border:none;background:var(--navy);color:#fff;font-weight:800;font-size:13.5px;padding:10px 22px;border-radius:20px}
+.post-btn:disabled{opacity:.5}
+.pact.sparked{color:#D99A06}
+.spark-count{font-size:12px;font-weight:800;color:#D99A06;background:rgba(233,196,106,.18);padding:3px 10px;border-radius:12px;margin-left:8px}
+.del-btn{margin-left:auto;border:none;background:none;color:var(--muted);font-size:15px;cursor:pointer}
+.del-btn:hover{color:#C0453A}
+.comments-box{margin-top:12px;border-top:1px solid var(--border);padding-top:12px}
+.cmt{display:flex;gap:10px;margin-bottom:12px}
+.cmt .av{width:34px;height:34px;font-size:12px}
+.cmt-bubble{background:var(--paper);border-radius:12px;padding:9px 13px;flex:1}
+.cmt-bubble b{font-size:13px;color:var(--navy)}
+.cmt-bubble p{font-size:13.5px;line-height:1.5;margin-top:2px}
+.cmt-bubble .best-tag{font-size:10.5px;font-weight:800;color:#fff;background:linear-gradient(90deg,var(--teal),var(--purple));padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:1px}
+.cmt.is-best .cmt-bubble{border:1.5px solid var(--teal);background:#F0FAF8}
+.best-pick{border:none;background:none;color:var(--muted);font-size:11.5px;font-weight:800;cursor:pointer;margin-top:4px;padding:0}
+.best-pick:hover{color:var(--teal)}
+.cmt-input-row{display:flex;gap:9px;margin-top:4px}
+.cmt-input-row input{flex:1;border:1.5px solid var(--border);border-radius:18px;padding:9px 14px;font-family:'Nunito',sans-serif;font-size:13.5px;outline:none}
+.cmt-input-row input:focus{border-color:var(--teal)}
+.cmt-input-row button{border:none;background:var(--teal);color:#fff;font-weight:800;border-radius:50%;width:38px;height:38px;font-size:15px}
+.empty-feed{background:var(--card);border:1.5px dashed var(--border);border-radius:var(--radius);padding:34px 20px;text-align:center;color:var(--muted);font-size:14.5px;line-height:1.7;margin-top:16px}
+.empty-feed b{color:var(--navy)}
+
 </style>
 </head>
 <body>
@@ -287,92 +313,31 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 
     <!-- ========== VIEW: FEED ========== -->
     <section class="view active" id="view-feed">
-      <!-- stories -->
+      <!-- stories (dummy — Week 5) -->
       <div class="stories">
         <button class="story you"><div class="ring"><div class="plus">+</div></div><small>Your story</small></button>
         <button class="story"><div class="ring"><div class="av c2">AK</div></div><small>ayesha_k</small></button>
         <button class="story"><div class="ring"><div class="av c3">BA</div></div><small>bilal.ahmed</small></button>
         <button class="story"><div class="ring"><div class="av c4">FN</div></div><small>fatima_noor</small></button>
         <button class="story"><div class="ring seen"><div class="av c5">HS</div></div><small>hamza_shk</small></button>
-        <button class="story"><div class="ring"><div class="av c6">ZR</div></div><small>zara.r</small></button>
-        <button class="story"><div class="ring seen"><div class="av c2">UF</div></div><small>usman_f</small></button>
-        <button class="story"><div class="ring seen"><div class="av c3">MI</div></div><small>maryam.i</small></button>
+        <button class="story"><div class="ring seen"><div class="av c6">ZR</div></div><small>zara.r</small></button>
       </div>
 
-      <!-- composer -->
+      <!-- composer (LIVE) -->
       <div class="composer">
         <div class="composer-top">
           <div class="av c1" id="comp-av" style="width:44px;height:44px"></div>
-          <input id="comp-input" placeholder="What's happening on campus?">
+          <input id="comp-input" maxlength="1000" placeholder="What's happening on campus?">
         </div>
-        <div class="composer-actions">
-          <button class="chip-btn">🖼 Photo</button>
-          <button class="chip-btn">▶ Glimpse</button>
-          <button class="chip-btn">📊 Poll</button>
-          <button class="chip-btn">✎ Quiz</button>
+        <div class="composer-bottom">
+          <button class="chip-btn" title="Coming soon">🖼 Photo</button>
+          <button class="chip-btn" title="Coming soon">📊 Poll</button>
+          <button class="post-btn" id="post-btn" onclick="createPost()">Post</button>
         </div>
       </div>
 
-      <!-- posts -->
-      <article class="post">
-        <div class="post-head">
-          <div class="av c2">AK</div>
-          <div><div class="ph-name">Ayesha Khan <span class="uni">NED</span></div><div class="ph-meta">@ayesha_k · 2h ago</div></div>
-          <button class="post-more">⋯</button>
-        </div>
-        <p class="post-text">Final year project ka pehla prototype chal gaya! 6 mahine ki raatein iss ek moment ke liye 🥹 Alhamdulillah. Juniors — FYP jaldi start karo, believe me.</p>
-        <div class="post-media pm1">🤖</div>
-        <div class="post-stats"><span>❤ 214</span><span>💬 43 comments</span><span>↗ 12 shares</span></div>
-        <div class="post-actions">
-          <button class="pact" onclick="likeToggle(this)">♡ Like</button>
-          <button class="pact">💬 Comment</button>
-          <button class="pact">↗ Share</button>
-          <button class="pact">⌁ Save</button>
-        </div>
-      </article>
-
-      <article class="post">
-        <div class="post-head">
-          <div class="av c3">BA</div>
-          <div><div class="ph-name">Bilal Ahmed <span class="uni">Iqra</span></div><div class="ph-meta">@bilal.ahmed · 4h ago</div></div>
-          <button class="post-more">⋯</button>
-        </div>
-        <p class="post-text">Pak Studies ka quiz connects pe practice kiya tha — aaj result aya, 89/100 🎯 Jo log abhi tak use nahi kar rahe, kya kar rahe ho bhai?</p>
-        <div class="post-stats"><span>❤ 156</span><span>💬 28 comments</span><span>↗ 31 shares</span></div>
-        <div class="post-actions">
-          <button class="pact" onclick="likeToggle(this)">♡ Like</button>
-          <button class="pact">💬 Comment</button>
-          <button class="pact">↗ Share</button>
-          <button class="pact">⌁ Save</button>
-        </div>
-      </article>
-
-      <!-- glimpse strip inside feed -->
-      <div class="glimpse-head"><h2>Glimpse</h2><span class="glimpse-logo">✦ GLIMPSE</span></div>
-      <div class="glimpse-row">
-        <button class="glimpse-card"><div class="bg g1">🎬</div><span class="views">▶ 12K</span><div class="info"><b>Campus life at FAST</b><span>@hamza_shk</span></div></button>
-        <button class="glimpse-card"><div class="bg g2">📚</div><span class="views">▶ 8.4K</span><div class="info"><b>Exam night routine</b><span>@fatima_noor</span></div></button>
-        <button class="glimpse-card"><div class="bg g3">🎨</div><span class="views">▶ 21K</span><div class="info"><b>Media Science projects</b><span>@mohsin</span></div></button>
-        <button class="glimpse-card"><div class="bg g4">⚽</div><span class="views">▶ 5.1K</span><div class="info"><b>Sports week IU</b><span>@zara.r</span></div></button>
-        <button class="glimpse-card"><div class="bg g5">🧪</div><span class="views">▶ 9.8K</span><div class="info"><b>Lab fails 😂</b><span>@usman_f</span></div></button>
-      </div>
-
-      <article class="post">
-        <div class="post-head">
-          <div class="av c4">FN</div>
-          <div><div class="ph-name">Fatima Noor <span class="uni">KU</span></div><div class="ph-meta">@fatima_noor · 7h ago</div></div>
-          <button class="post-more">⋯</button>
-        </div>
-        <p class="post-text">Karachi University ki library ka yeh corner — meri favorite study spot 📖 Kaunsi jagah hai tumhari uni mein jahan sab se sukoon milta hai?</p>
-        <div class="post-media pm2">📖</div>
-        <div class="post-stats"><span>❤ 342</span><span>💬 89 comments</span><span>↗ 7 shares</span></div>
-        <div class="post-actions">
-          <button class="pact" onclick="likeToggle(this)">♡ Like</button>
-          <button class="pact">💬 Comment</button>
-          <button class="pact">↗ Share</button>
-          <button class="pact">⌁ Save</button>
-        </div>
-      </article>
+      <!-- LIVE FEED -->
+      <div id="feed-posts"></div>
     </section>
 
     <!-- ========== VIEW: GLIMPSE ========== -->
@@ -445,22 +410,7 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
             <button class="ptab">About</button>
           </div>
         </div>
-        <article class="post">
-          <div class="post-head">
-            <div class="av c1" id="pp-av"></div>
-            <div><div class="ph-name"><span id="pp-name"></span> <span class="uni" id="pp-uni"></span></div><div class="ph-meta"><span id="pp-un"></span> · just now</div></div>
-            <button class="post-more">⋯</button>
-          </div>
-          <p class="post-text">Connects University ab live hai — Pakistan ke students ka apna platform. Founding members ka intezar hai 🚀✦</p>
-          <div class="post-media pm3">🚀</div>
-          <div class="post-stats"><span>❤ 97</span><span>💬 22 comments</span><span>↗ 18 shares</span></div>
-          <div class="post-actions">
-            <button class="pact" onclick="likeToggle(this)">♡ Like</button>
-            <button class="pact">💬 Comment</button>
-            <button class="pact">↗ Share</button>
-            <button class="pact">⌁ Save</button>
-          </div>
-        </article>
+        <div id="profile-posts" style="margin-top:4px"></div>
       </div>
     </section>
 
@@ -559,6 +509,7 @@ function go(view, btn){
   document.querySelectorAll('.nav-ic[data-v],.rail-item[data-v],.bn-item[data-v]').forEach(b=>{
     b.classList.toggle('active', b.dataset.v===view);
   });
+  if(view==='profile') loadProfilePosts();
   window.scrollTo({top:0});
 }
 function likeToggle(btn){ const on=btn.classList.toggle('liked'); btn.innerHTML=on?'❤ Liked':'♡ Like'; }
@@ -584,10 +535,11 @@ async function boot(){
   me = profile;
   renderIdentity();
   fillEditDropdowns();
+  loadFeed();
 }
 function renderIdentity(){
   setAv($('nav-av'),me); setAv($('me-av'),me); setAv($('comp-av'),me);
-  setAv($('p-av'),me); setAv($('pp-av'),me);
+  setAv($('p-av'),me);
   $('me-name').textContent=me.full_name;
   $('me-un').textContent='@'+me.username;
   $('comp-input').placeholder='What\'s happening on campus, '+me.full_name.split(' ')[0]+'?';
@@ -595,9 +547,6 @@ function renderIdentity(){
   $('p-un').textContent='@'+me.username;
   $('p-uniline').textContent=me.university+' · '+me.degree+' · '+me.semester;
   $('p-founding').style.display = me.is_founding ? 'inline-flex' : 'none';
-  $('pp-name').textContent=me.full_name;
-  $('pp-un').textContent='@'+me.username;
-  $('pp-uni').textContent=me.university.split(' ')[0];
 }
 async function signOut(){
   await sb.auth.signOut();
@@ -681,6 +630,187 @@ async function photoSelected(ev){
     mmsg('Photo updated ✓','ok');
   }catch(e){ mmsg('Could not upload photo: '+e.message,'error'); }
 }
+
+
+/* ============================================================
+   WEEK 3 — LIVE FEED ENGINE
+   ============================================================ */
+let myLikes=new Set(), mySparks=new Set();
+
+function esc(s){ return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function timeAgo(iso){
+  const s=Math.floor((Date.now()-new Date(iso).getTime())/1000);
+  if(s<60) return 'just now';
+  if(s<3600) return Math.floor(s/60)+'m ago';
+  if(s<86400) return Math.floor(s/3600)+'h ago';
+  return Math.floor(s/86400)+'d ago';
+}
+
+async function loadMyEngagement(){
+  const [l,sp]=await Promise.all([
+    sb.from('post_likes').select('post_id').eq('user_id',me.id),
+    sb.from('post_sparks').select('post_id').eq('user_id',me.id)
+  ]);
+  myLikes=new Set((l.data||[]).map(r=>r.post_id));
+  mySparks=new Set((sp.data||[]).map(r=>r.post_id));
+}
+
+async function loadFeed(){
+  await loadMyEngagement();
+  const { data:posts, error } = await sb.from('posts')
+    .select('*, profiles(full_name,username,avatar_url,university), post_likes(count), post_sparks(count), comments(count)')
+    .order('created_at',{ascending:false}).limit(30);
+  const box=$('feed-posts');
+  if(error){ box.innerHTML='<div class="empty-feed">Feed load nahi hua: '+esc(error.message)+'</div>'; return; }
+  if(!posts.length){
+    box.innerHTML='<div class="empty-feed"><b>Yahan abhi khamoshi hai 🌱</b><br>Pehli post karne wale tum ho sakte ho — upar likho aur Post dabao!</div>';
+    return;
+  }
+  box.innerHTML=posts.map(renderPost).join('');
+}
+
+async function loadProfilePosts(){
+  const { data:posts } = await sb.from('posts')
+    .select('*, profiles(full_name,username,avatar_url,university), post_likes(count), post_sparks(count), comments(count)')
+    .eq('user_id',me.id).order('created_at',{ascending:false});
+  const box=$('profile-posts');
+  if(!posts||!posts.length){ box.innerHTML='<div class="empty-feed">Tumhari abhi koi post nahi — feed pe ja ke pehli post karo! ✎</div>'; return; }
+  box.innerHTML=posts.map(renderPost).join('');
+}
+
+function avHtml(p){
+  if(p.avatar_url) return '<div class="av c1"><img src="'+p.avatar_url+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>';
+  const ini=(p.full_name||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  return '<div class="av c1">'+ini+'</div>';
+}
+
+function renderPost(p){
+  const likes=p.post_likes?.[0]?.count||0;
+  const sparks=p.post_sparks?.[0]?.count||0;
+  const cmts=p.comments?.[0]?.count||0;
+  const liked=myLikes.has(p.id), sparked=mySparks.has(p.id);
+  const mine=p.user_id===me.id;
+  return `<article class="post" id="post-${p.id}">
+    <div class="post-head">
+      ${avHtml(p.profiles)}
+      <div><div class="ph-name">${esc(p.profiles.full_name)} <span class="uni">${esc(p.profiles.university.split(' ')[0])}</span></div>
+      <div class="ph-meta">@${esc(p.profiles.username)} · ${timeAgo(p.created_at)}</div></div>
+      ${sparks>0?'<span class="spark-count">⚡ '+sparks+'</span>':''}
+      ${mine?'<button class="del-btn" onclick="deletePost(\''+p.id+'\')" title="Delete post">🗑</button>':''}
+    </div>
+    <p class="post-text">${esc(p.content)}</p>
+    <div class="post-stats"><span id="lc-${p.id}">❤ ${likes}</span><span>💬 ${cmts} comments</span></div>
+    <div class="post-actions">
+      <button class="pact ${liked?'liked':''}" id="lk-${p.id}" onclick="toggleLike('${p.id}')">${liked?'❤ Liked':'♡ Like'}</button>
+      <button class="pact" onclick="openComments('${p.id}','${p.user_id}','${p.best_comment_id||''}')">💬 Comment</button>
+      <button class="pact ${sparked?'sparked':''}" id="sp-${p.id}" onclick="toggleSpark('${p.id}')">${sparked?'⚡ Sparked':'⚡ Spark'}</button>
+    </div>
+    <div class="comments-box" id="cm-${p.id}" style="display:none"></div>
+  </article>`;
+}
+
+async function createPost(){
+  const inp=$('comp-input');
+  const content=inp.value.trim();
+  if(!content) return;
+  $('post-btn').disabled=true;
+  const { error }=await sb.from('posts').insert({ user_id:me.id, content });
+  $('post-btn').disabled=false;
+  if(error){ alert('Post nahi hui: '+error.message); return; }
+  inp.value='';
+  loadFeed();
+}
+
+async function deletePost(id){
+  if(!confirm('Delete this post?')) return;
+  await sb.from('posts').delete().eq('id',id);
+  document.getElementById('post-'+id)?.remove();
+}
+
+async function toggleLike(id){
+  const btn=$('lk-'+id), lc=$('lc-'+id);
+  const n=parseInt(lc.textContent.replace(/\D/g,''))||0;
+  if(myLikes.has(id)){
+    myLikes.delete(id);
+    btn.classList.remove('liked'); btn.innerHTML='♡ Like'; lc.textContent='❤ '+(n-1);
+    await sb.from('post_likes').delete().eq('post_id',id).eq('user_id',me.id);
+  }else{
+    myLikes.add(id);
+    btn.classList.add('liked'); btn.innerHTML='❤ Liked'; lc.textContent='❤ '+(n+1);
+    await sb.from('post_likes').insert({ post_id:id, user_id:me.id });
+  }
+}
+
+async function toggleSpark(id){
+  const btn=$('sp-'+id);
+  if(mySparks.has(id)){
+    mySparks.delete(id);
+    btn.classList.remove('sparked'); btn.innerHTML='⚡ Spark';
+    await sb.from('post_sparks').delete().eq('post_id',id).eq('user_id',me.id);
+    loadFeed();
+  }else{
+    const { error }=await sb.from('post_sparks').insert({ post_id:id, user_id:me.id });
+    if(error){
+      alert('⚡ Aaj ke 3 Sparks khatam! Kal phir milenge — isi liye toh Spark qeemti hai 😄');
+      return;
+    }
+    mySparks.add(id);
+    btn.classList.add('sparked'); btn.innerHTML='⚡ Sparked';
+    loadFeed();
+  }
+}
+
+/* ---------- COMMENTS + 🎯 SAHI JAWAB ---------- */
+async function openComments(postId, ownerId, bestId){
+  const box=$('cm-'+postId);
+  if(box.style.display!=='none'){ box.style.display='none'; return; }
+  box.style.display='block';
+  box.innerHTML='<p style="font-size:13px;color:var(--muted)">Loading comments...</p>';
+  await renderComments(postId, ownerId, bestId);
+}
+
+async function renderComments(postId, ownerId, bestId){
+  const box=$('cm-'+postId);
+  const { data:cmts }=await sb.from('comments')
+    .select('*, profiles(full_name,username,avatar_url)')
+    .eq('post_id',postId).order('created_at',{ascending:true});
+  const isOwner = ownerId===me.id;
+  let list=(cmts||[]);
+  // 🎯 best comment sabse upar
+  list.sort((a,b)=>(a.id===bestId?-1:0)-(b.id===bestId?-1:0));
+  let htmlStr=list.map(c=>{
+    const best=c.id===bestId;
+    return `<div class="cmt ${best?'is-best':''}">
+      ${avHtml(c.profiles)}
+      <div class="cmt-bubble">
+        <b>${esc(c.profiles.full_name)}</b>${best?'<span class="best-tag">🎯 SAHI JAWAB</span>':''}
+        <p>${esc(c.content)}</p>
+        ${isOwner&&!best?'<button class="best-pick" onclick="markBest(\''+postId+'\',\''+c.id+'\',\''+ownerId+'\')">🎯 Mark as Sahi Jawab</button>':''}
+      </div>
+    </div>`;
+  }).join('');
+  htmlStr+=`<div class="cmt-input-row">
+    <input id="ci-${postId}" maxlength="300" placeholder="Write a comment...">
+    <button onclick="addComment('${postId}','${ownerId}','${bestId||''}')">➤</button>
+  </div>`;
+  box.innerHTML=htmlStr;
+}
+
+async function addComment(postId, ownerId, bestId){
+  const inp=$('ci-'+postId);
+  const content=inp.value.trim();
+  if(!content) return;
+  const { error }=await sb.from('comments').insert({ post_id:postId, user_id:me.id, content });
+  if(error){ alert('Comment nahi hua: '+error.message); return; }
+  await renderComments(postId, ownerId, bestId);
+}
+
+async function markBest(postId, commentId, ownerId){
+  const { error }=await sb.from('posts').update({ best_comment_id:commentId }).eq('id',postId);
+  if(error){ alert('Could not mark: '+error.message); return; }
+  await renderComments(postId, ownerId, commentId);
+}
+
 
 boot();
 </script>
