@@ -596,10 +596,10 @@ async function boot(){
 function renderIdentity(){
   setAv($('nav-av'),me); setAv($('me-av'),me); setAv($('comp-av'),me);
   setAv($('p-av'),me);
-  $('me-name').textContent=me.full_name;
+  $('me-name').innerHTML=esc(me.full_name)+(me.is_verified?'<span class="vtick">✓</span>':'');
   $('me-un').textContent='@'+me.username;
   $('comp-input').placeholder='What\'s happening on campus, '+me.full_name.split(' ')[0]+'?';
-  $('p-name').textContent=me.full_name;
+  $('p-name').innerHTML=esc(me.full_name)+(me.is_verified?'<span class="vtick">✓</span>':'');
   $('p-un').textContent='@'+me.username;
   $('p-uniline').textContent=me.university+' · '+me.degree+' · '+me.semester;
   $('p-founding').style.display = me.is_founding ? 'inline-flex' : 'none';
@@ -930,7 +930,7 @@ async function openComments(postId, ownerId, bestId){
 async function renderComments(postId, ownerId, bestId){
   const box=$('cm-'+postId);
   const { data:cmts }=await sb.from('comments')
-    .select('*, profiles!user_id(full_name,username,avatar_url)')
+    .select('*, profiles!user_id(full_name,username,avatar_url,is_verified)')
     .eq('post_id',postId).order('created_at',{ascending:true});
   const isOwner = ownerId===me.id;
   let list=(cmts||[]);
@@ -941,7 +941,7 @@ async function renderComments(postId, ownerId, bestId){
     return `<div class="cmt ${best?'is-best':''}">
       ${avHtml(c.profiles)}
       <div class="cmt-bubble">
-        <b>${esc(c.profiles.full_name)}</b>${best?'<span class="best-tag">🎯 RIGHT ANSWER</span>':''}
+        <b>${esc(c.profiles.full_name)}${c.profiles.is_verified?'<span class="vtick">✓</span>':''}</b>
         <p>${esc(c.content)}</p>
         ${isOwner&&!best?'<button class="best-pick" onclick="markBest(\''+postId+'\',\''+c.id+'\',\''+ownerId+'\',\''+c.user_id+'\')">🎯 Mark as Right Answer</button>':''}
       </div>
