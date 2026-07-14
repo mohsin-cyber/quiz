@@ -284,6 +284,29 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 .notif-empty{padding:30px 16px;text-align:center;color:var(--muted);font-size:13px}
 @media(max-width:480px){.notif-panel{right:8px;left:8px;width:auto;top:60px}}
 
+
+/* ============ WEEK 4: VERIFIED / PHOTOS / POLLS / COMMUNITIES ============ */
+.vtick{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--teal);color:#fff;font-size:10px;font-weight:800;margin-left:5px;vertical-align:-2px}
+.verified-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(43,187,173,.12);border:1px solid var(--teal);color:var(--teal);font-weight:800;font-size:11.5px;letter-spacing:.5px;padding:5px 12px;border-radius:16px;margin-top:10px;margin-left:8px;text-transform:uppercase}
+.post-img{margin-top:12px;border-radius:14px;width:100%;max-height:420px;object-fit:cover;display:block;border:1px solid var(--border)}
+.img-chip{display:none;align-items:center;gap:10px;margin-top:10px;background:var(--paper);border:1.5px solid var(--border);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:700;color:var(--navy)}
+.img-chip.show{display:flex}
+.img-chip img{width:40px;height:40px;border-radius:8px;object-fit:cover}
+.img-chip button{margin-left:auto;border:none;background:none;color:var(--muted);font-size:15px;cursor:pointer}
+.poll-editor{display:none;margin-top:12px;flex-direction:column;gap:8px}
+.poll-editor.show{display:flex}
+.poll-editor input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:11px;font-family:'Nunito',sans-serif;font-size:14px;outline:none}
+.poll-editor input:focus{border-color:var(--teal)}
+.poll-block{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.poll-opt{position:relative;border:1.5px solid var(--border);border-radius:11px;padding:10px 14px;font-size:13.5px;font-weight:700;color:var(--navy);cursor:pointer;overflow:hidden;background:none;text-align:left;width:100%}
+.poll-opt .bar{position:absolute;inset:0;background:rgba(43,187,173,.14);width:0%;transition:width .4s;z-index:0}
+.poll-opt .lbl{position:relative;z-index:1;display:flex;justify-content:space-between;gap:10px}
+.poll-opt.myvote{border-color:var(--teal)}
+.poll-opt.myvote .lbl::after{content:'✓'}
+.poll-total{font-size:12px;color:var(--muted);font-weight:700}
+.comm-open{margin-top:10px;width:100%;border:none;background:var(--navy);color:#fff;font-weight:800;font-size:12.5px;padding:9px;border-radius:10px;cursor:pointer}
+.comm-back{border:none;background:none;color:var(--purple);font-weight:800;font-size:13.5px;cursor:pointer;padding:0;margin-top:16px}
+
 </style>
 </head>
 <body>
@@ -351,9 +374,17 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
           <div class="av c1" id="comp-av" style="width:44px;height:44px"></div>
           <input id="comp-input" maxlength="1000" placeholder="What's happening on campus?">
         </div>
+        <div class="img-chip" id="img-chip"><img id="img-chip-preview" alt=""><span>Photo attached</span><button onclick="removePostPhoto()">✕</button></div>
+        <div class="poll-editor" id="poll-editor">
+          <input id="poll-opt-0" maxlength="60" placeholder="Option 1">
+          <input id="poll-opt-1" maxlength="60" placeholder="Option 2">
+          <input id="poll-opt-2" maxlength="60" placeholder="Option 3 (optional)">
+          <input id="poll-opt-3" maxlength="60" placeholder="Option 4 (optional)">
+        </div>
         <div class="composer-bottom">
-          <button class="chip-btn" onclick="toast('📸 Photo posts — coming in a future week!')">🖼 Photo</button>
-          <button class="chip-btn" onclick="toast('📊 Polls — coming in a future week!')">📊 Poll</button>
+          <button class="chip-btn" onclick="document.getElementById('post-photo-input').click()">🖼 Photo</button>
+          <button class="chip-btn" onclick="togglePollEditor()">📊 Poll</button>
+          <input type="file" id="post-photo-input" accept="image/*" style="display:none" onchange="postPhotoSelected(event)">
           <button class="post-btn" id="post-btn" onclick="createPost()">Post</button>
         </div>
       </div>
@@ -419,7 +450,7 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
               <button class="pbtn alt">Share</button>
             </div>
           </div>
-          <span class="founding-pill" id="p-founding" style="display:none">● Founding Member ✦</span>
+          <span class="founding-pill" id="p-founding" style="display:none">● Founding Member ✦</span><span class="verified-pill" id="p-verified" style="display:none">✓ Verified Student</span>
           <div class="pstats">
             <div class="pstat"><b>24</b><span>Posts</span></div>
             <div class="pstat"><b>318</b><span>Followers</span></div>
@@ -440,11 +471,11 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
     <section class="view" id="view-communities">
       <h2 class="page-title">Communities</h2>
       <p style="font-size:13.5px;color:var(--muted);margin-top:4px">Apni university, apna program, apne log.</p>
-      <div class="comm-grid">
-        <div class="comm-card"><div class="comm-banner cb1">🎓</div><div class="comm-body"><b>Iqra University</b><span>4,218 students</span><button class="comm-join">Joined ✓</button></div></div>
-        <div class="comm-card"><div class="comm-banner cb2">🎬</div><div class="comm-body"><b>IU · BS Media Science</b><span>312 students</span><button class="comm-join">Joined ✓</button></div></div>
-        <div class="comm-card"><div class="comm-banner cb3">✎</div><div class="comm-body"><b>Pak Studies — Exam Prep</b><span>1,109 students</span><button class="comm-join">Join</button></div></div>
-        <div class="comm-card"><div class="comm-banner cb4">💼</div><div class="comm-body"><b>Freelancers of Pakistan 🇵🇰</b><span>2,847 students</span><button class="comm-join">Join</button></div></div>
+      <div class="comm-grid" id="comm-grid"></div>
+      <div id="comm-feed-wrap" style="display:none">
+        <button class="comm-back" onclick="$('comm-feed-wrap').style.display='none'">← Back to communities</button>
+        <h3 class="page-title" id="comm-feed-title" style="font-size:17px"></h3>
+        <div id="comm-posts"></div>
       </div>
     </section>
 
@@ -532,6 +563,7 @@ function go(view, btn){
     b.classList.toggle('active', b.dataset.v===view);
   });
   if(view==='profile') loadProfilePosts();
+  if(view==='communities'){ renderCommunities(); $('comm-feed-wrap').style.display='none'; }
   window.scrollTo({top:0});
 }
 function likeToggle(btn){ const on=btn.classList.toggle('liked'); btn.innerHTML=on?'❤ Liked':'♡ Like'; }
@@ -571,6 +603,7 @@ function renderIdentity(){
   $('p-un').textContent='@'+me.username;
   $('p-uniline').textContent=me.university+' · '+me.degree+' · '+me.semester;
   $('p-founding').style.display = me.is_founding ? 'inline-flex' : 'none';
+  $('p-verified').style.display = me.is_verified ? 'inline-flex' : 'none';
 }
 async function signOut(){
   await sb.auth.signOut();
@@ -682,7 +715,7 @@ async function loadMyEngagement(){
 async function loadFeed(){
   await loadMyEngagement();
   const { data:posts, error } = await sb.from('posts')
-    .select('*, profiles!user_id(full_name,username,avatar_url,university), post_likes(count), post_sparks(count), comments(count)')
+    .select('*, profiles!user_id(full_name,username,avatar_url,university,is_verified), post_likes(count), post_sparks(count), comments(count), poll_votes(option_index,user_id)')
     .order('created_at',{ascending:false}).limit(30);
   const box=$('feed-posts');
   if(error){ box.innerHTML='<div class="empty-feed">Feed load nahi hua: '+esc(error.message)+'</div>'; return; }
@@ -695,7 +728,7 @@ async function loadFeed(){
 
 async function loadProfilePosts(){
   const { data:posts } = await sb.from('posts')
-    .select('*, profiles!user_id(full_name,username,avatar_url,university), post_likes(count), post_sparks(count), comments(count)')
+    .select('*, profiles!user_id(full_name,username,avatar_url,university,is_verified), post_likes(count), post_sparks(count), comments(count), poll_votes(option_index,user_id)')
     .eq('user_id',me.id).order('created_at',{ascending:false});
   const box=$('profile-posts');
   if(!posts||!posts.length){ box.innerHTML='<div class="empty-feed">Tumhari abhi koi post nahi — feed pe ja ke pehli post karo! ✎</div>'; return; }
@@ -717,12 +750,14 @@ function renderPost(p){
   return `<article class="post" id="post-${p.id}">
     <div class="post-head">
       ${avHtml(p.profiles)}
-      <div><div class="ph-name">${esc(p.profiles.full_name)} <span class="uni">${esc(p.profiles.university.split(' ')[0])}</span></div>
+      <div><div class="ph-name">${esc(p.profiles.full_name)}${p.profiles.is_verified?'<span class="vtick">✓</span>':''} <span class="uni">${esc(p.profiles.university.split(' ')[0])}</span></div>
       <div class="ph-meta">@${esc(p.profiles.username)} · ${timeAgo(p.created_at)}</div></div>
       ${sparks>0?'<span class="spark-count">⚡ '+sparks+'</span>':''}
       ${mine?'<button class="del-btn" onclick="deletePost(\''+p.id+'\')" title="Delete post">🗑</button>':''}
     </div>
     <p class="post-text">${esc(p.content)}</p>
+    ${p.image_url?'<img class="post-img" src="'+p.image_url+'" alt="Post photo" loading="lazy">':''}
+    ${p.poll_options?renderPoll(p):''}
     <div class="post-stats"><span id="lc-${p.id}">❤ ${likes}</span><span>💬 ${cmts} comments</span></div>
     <div class="post-actions">
       <button class="pact ${liked?'liked':''}" id="lk-${p.id}" onclick="toggleLike('${p.id}','${p.user_id}')">${liked?'❤ Liked':'♡ Like'}</button>
@@ -736,13 +771,27 @@ function renderPost(p){
 async function createPost(){
   const inp=$('comp-input');
   const content=inp.value.trim();
-  if(!content) return;
+  if(!content){ toast('Write something first — even one line!'); return; }
   $('post-btn').disabled=true;
-  const { error }=await sb.from('posts').insert({ user_id:me.id, content });
+  try{
+    let image_url=null;
+    if(pendingPostImage){
+      const blob=await resizePostImage(pendingPostImage);
+      const path=me.id+'/p'+Date.now()+'.jpg';
+      const { error:upErr }=await sb.storage.from('post-images').upload(path,blob,{ contentType:'image/jpeg' });
+      if(upErr) throw upErr;
+      image_url=sb.storage.from('post-images').getPublicUrl(path).data.publicUrl;
+    }
+    const poll_options=getPollOptions();
+    const { error }=await sb.from('posts').insert({ user_id:me.id, content, image_url, poll_options });
+    if(error) throw error;
+    inp.value='';
+    removePostPhoto();
+    $('poll-editor').classList.remove('show');
+    for(let i=0;i<4;i++)$('poll-opt-'+i).value='';
+    loadFeed();
+  }catch(e){ toast('Post nahi hui: '+e.message); }
   $('post-btn').disabled=false;
-  if(error){ toast('Post nahi hui: '+error.message); return; }
-  inp.value='';
-  loadFeed();
 }
 
 async function deletePost(id){
@@ -784,6 +833,89 @@ async function toggleSpark(id, ownerId){
     notify(ownerId,'spark',id);
     loadFeed();
   }
+}
+
+/* ---------- POLLS 📊 ---------- */
+function renderPoll(p){
+  const votes=p.poll_votes||[];
+  const total=votes.length;
+  const counts=[0,0,0,0];
+  let myVote=-1;
+  votes.forEach(v=>{ counts[v.option_index]++; if(v.user_id===me.id) myVote=v.option_index; });
+  const opts=p.poll_options.map((opt,i)=>{
+    const pct=total?Math.round(counts[i]*100/total):0;
+    return `<button class="poll-opt ${myVote===i?'myvote':''}" onclick="votePoll('${p.id}',${i})">
+      <span class="bar" style="width:${pct}%"></span>
+      <span class="lbl"><span>${esc(opt)}</span><span>${pct}%</span></span>
+    </button>`;
+  }).join('');
+  return `<div class="poll-block">${opts}<span class="poll-total">${total} vote${total===1?'':'s'}</span></div>`;
+}
+async function votePoll(postId, idx){
+  const { error }=await sb.from('poll_votes').upsert({ post_id:postId, user_id:me.id, option_index:idx },{ onConflict:'post_id,user_id' });
+  if(error){ toast('Vote failed: '+error.message); return; }
+  loadFeed();
+}
+function togglePollEditor(){
+  $('poll-editor').classList.toggle('show');
+}
+function getPollOptions(){
+  if(!$('poll-editor').classList.contains('show')) return null;
+  const opts=[];
+  for(let i=0;i<4;i++){ const v=$('poll-opt-'+i).value.trim(); if(v) opts.push(v); }
+  return opts.length>=2?opts:null;
+}
+
+/* ---------- PHOTO POSTS 📸 ---------- */
+let pendingPostImage=null;
+function resizePostImage(file){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const maxW=1080;
+      const scale=Math.min(1,maxW/img.width);
+      const c=document.createElement('canvas');
+      c.width=Math.round(img.width*scale); c.height=Math.round(img.height*scale);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      c.toBlob(b=>b?resolve(b):reject(new Error('Could not process image')),'image/jpeg',0.85);
+    };
+    img.onerror=()=>reject(new Error('Could not read image'));
+    img.src=URL.createObjectURL(file);
+  });
+}
+async function postPhotoSelected(ev){
+  const file=ev.target.files[0]; ev.target.value='';
+  if(!file) return;
+  if(!file.type.startsWith('image/')){ toast('Please choose an image file.'); return; }
+  pendingPostImage=file;
+  $('img-chip-preview').src=URL.createObjectURL(file);
+  $('img-chip').classList.add('show');
+}
+function removePostPhoto(){
+  pendingPostImage=null;
+  $('img-chip').classList.remove('show');
+}
+
+/* ---------- COMMUNITIES (Week 4) ---------- */
+function renderCommunities(){
+  const grid=$('comm-grid');
+  grid.innerHTML=`
+    <div class="comm-card"><div class="comm-banner cb1">🎓</div><div class="comm-body"><b>${esc(me.university)}</b><span>Everyone from your university</span><button class="comm-open" onclick="openCommunity('uni')">Open community</button></div></div>
+    <div class="comm-card"><div class="comm-banner cb2">📚</div><div class="comm-body"><b>${esc(me.university.split(' ')[0])} · ${esc(me.degree)}</b><span>Your program-mates</span><button class="comm-open" onclick="openCommunity('degree')">Open community</button></div></div>`;
+}
+async function openCommunity(scope){
+  const title = scope==='uni' ? me.university : me.university.split(' ')[0]+' · '+me.degree;
+  $('comm-feed-title').textContent=title;
+  $('comm-feed-wrap').style.display='block';
+  $('comm-posts').innerHTML='<div class="empty-feed">Loading...</div>';
+  let q=sb.from('posts')
+    .select('*, profiles!user_id!inner(full_name,username,avatar_url,university,degree,is_verified), post_likes(count), post_sparks(count), comments(count), poll_votes(option_index,user_id)')
+    .eq('profiles.university', me.university);
+  if(scope==='degree') q=q.eq('profiles.degree', me.degree);
+  const { data:posts, error }=await q.order('created_at',{ascending:false}).limit(30);
+  if(error){ $('comm-posts').innerHTML='<div class="empty-feed">Could not load: '+esc(error.message)+'</div>'; return; }
+  if(!posts.length){ $('comm-posts').innerHTML='<div class="empty-feed"><b>No posts here yet 🌱</b><br>Be the first to post from your community!</div>'; return; }
+  $('comm-posts').innerHTML=posts.map(renderPost).join('');
 }
 
 /* ---------- COMMENTS + 🎯 RIGHT ANSWER ---------- */
