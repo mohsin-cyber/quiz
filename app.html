@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Connects University</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -941,7 +942,7 @@ async function renderComments(postId, ownerId, bestId){
     return `<div class="cmt ${best?'is-best':''}">
       ${avHtml(c.profiles)}
       <div class="cmt-bubble">
-        <b>${esc(c.profiles.full_name)}${c.profiles.is_verified?'<span class="vtick">✓</span>':''}</b>
+        <b>${esc(c.profiles.full_name)}${c.profiles.is_verified?'<span class="vtick">✓</span>':''}</b>${best?'<span class="best-tag">🎯 RIGHT ANSWER</span>':''}
         <p>${esc(c.content)}</p>
         ${isOwner&&!best?'<button class="best-pick" onclick="markBest(\''+postId+'\',\''+c.id+'\',\''+ownerId+'\',\''+c.user_id+'\')">🎯 Mark as Right Answer</button>':''}
       </div>
