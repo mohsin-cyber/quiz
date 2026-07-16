@@ -308,6 +308,62 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 .comm-open{margin-top:10px;width:100%;border:none;background:var(--navy);color:#fff;font-weight:800;font-size:12.5px;padding:9px;border-radius:10px;cursor:pointer}
 .comm-back{border:none;background:none;color:var(--purple);font-weight:800;font-size:13.5px;cursor:pointer;padding:0;margin-top:16px}
 
+
+/* ============ WEEK 5: RESPECT / SEARCH / GLIMPSE / THREADS ============ */
+.search{position:relative}
+.search-drop{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 14px 34px rgba(27,42,74,.16);max-height:420px;overflow-y:auto;display:none;z-index:250}
+.search-drop.open{display:block}
+.search-group{padding:10px 14px 4px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.search-item{display:flex;align-items:center;gap:10px;width:100%;border:none;background:none;padding:9px 14px;text-align:left}
+.search-item:hover{background:var(--paper)}
+.search-item .av{width:34px;height:34px;font-size:12px;flex-shrink:0}
+.search-item b{font-size:13.5px;color:var(--navy);display:block}
+.search-item span{font-size:11.5px;color:var(--muted)}
+.search-empty{padding:22px;text-align:center;font-size:13px;color:var(--muted)}
+
+.author-btn{display:flex;gap:12px;align-items:center;border:none;background:none;padding:0;cursor:pointer;text-align:left;flex:1;min-width:0}
+.pbtn:disabled{opacity:.6;cursor:default}
+
+.cmt-actions{display:flex;gap:16px;margin-top:4px}
+.cmt-replies{margin-left:44px;margin-top:8px;display:flex;flex-direction:column;gap:10px}
+.cmt-reply .av{width:28px;height:28px;font-size:10px}
+.cmt-name{cursor:pointer}
+.reply-box{margin-top:6px}
+
+.g-upload-btn{width:100%;border:none;background:var(--navy);color:#fff;font-weight:800;font-size:13.5px;padding:12px;border-radius:12px;margin:16px 0}
+.glimpse-feed{max-width:420px;margin:0 auto}
+.g-item{scroll-snap-align:start;aspect-ratio:9/16;max-height:calc(100vh - var(--nav-h) - 40px);background:#000;border-radius:16px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:16px}
+.g-item video{width:100%;height:100%;object-fit:contain}
+.g-side{position:absolute;right:10px;bottom:76px;display:flex;flex-direction:column;gap:16px;align-items:center;z-index:5}
+.g-side button{border:none;background:rgba(0,0,0,.4);color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.g-side button.liked{color:var(--like)}
+.g-side button.sparked{color:#E9C46A}
+.g-side small{color:#fff;font-size:10px;font-weight:800;margin-top:1px}
+.g-info{position:absolute;left:12px;right:66px;bottom:16px;color:#fff;z-index:5}
+.g-author{display:flex;align-items:center;gap:8px;border:none;background:none;color:#fff;padding:0;font-weight:800;font-size:13px}
+.g-author .av{width:30px;height:30px;font-size:11px;border:1.5px solid #fff}
+.g-cap{font-size:13px;margin-top:8px;line-height:1.5}
+.g-audio{font-size:11.5px;margin-top:6px;display:flex;align-items:center;gap:6px;opacity:.9}
+.g-audio .av{width:16px;height:16px;font-size:7px}
+.g-mute{position:absolute;top:14px;right:14px;border:none;background:rgba(0,0,0,.4);color:#fff;width:34px;height:34px;border-radius:50%;font-size:13px;z-index:5}
+.g-empty{color:var(--muted);text-align:center;padding:60px 20px;background:var(--card);border-radius:16px;border:1.5px dashed var(--border)}
+
+.g-comments{position:fixed;left:0;right:0;bottom:0;max-height:65vh;background:var(--card);border-radius:20px 20px 0 0;z-index:400;display:none;flex-direction:column;box-shadow:0 -10px 30px rgba(0,0,0,.22);max-width:420px;margin:0 auto}
+.g-comments.open{display:flex}
+.g-comments-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.g-comments-head b{font-size:14px;color:var(--navy)}
+.g-comments-head button{border:none;background:none;font-size:18px;color:var(--muted)}
+.g-comments-body{overflow-y:auto;padding:14px 18px}
+
+.upload-overlay{position:fixed;inset:0;background:rgba(18,32,59,.6);z-index:300;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.upload-overlay.open{display:flex}
+.upload-modal{background:var(--card);border-radius:18px;width:100%;max-width:420px;padding:22px}
+.upload-modal h3{color:var(--navy);font-size:17px;margin-bottom:14px}
+.upload-modal label{display:block;font-weight:800;font-size:13px;color:var(--navy);margin:12px 0 6px}
+.upload-modal input,.upload-modal select,.upload-modal textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:11px;font-family:'Nunito',sans-serif;font-size:14px;outline:none}
+.upload-preview{width:100%;max-height:280px;border-radius:12px;margin-top:10px;background:#000;display:none}
+.upload-preview.show{display:block}
+
 </style>
 </head>
 <body>
@@ -315,13 +371,13 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 <!-- ================= NAVBAR ================= -->
 <nav class="navbar">
   <div class="brand">c<span class="o">o<i></i><i class="d2"></i></span>nnects<span class="dotp">.</span></div>
-  <div class="search"><span class="ic">🔍</span><input placeholder="Search students, universities, posts..."></div>
+  <div class="search"><span class="ic">🔍</span><input id="search-input" oninput="onSearchInput()" placeholder="Search students, universities, posts..."><div class="search-drop" id="search-drop"></div></div>
   <div class="nav-icons">
     <button class="nav-ic active" data-v="feed" onclick="go('feed',this)" title="Home">⌂</button>
     <button class="nav-ic" data-v="glimpse" onclick="go('glimpse',this)" title="Glimpse">▶</button>
     <button class="nav-ic" data-v="messages" onclick="go('messages',this)" title="Messages">✉<span class="dot-badge"></span></button>
     <button class="nav-ic" onclick="toggleNotifPanel()" title="Notifications">🔔<span class="dot-badge" id="notif-dot" style="display:none"></span></button>
-    <button class="nav-avatar av" id="nav-av" onclick="go('profile',null)" title="My profile"></button>
+    <button class="nav-avatar av" id="nav-av" onclick="openProfile(me.id)" title="My profile"></button>
   </div>
 </nav>
 
@@ -334,10 +390,10 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 
   <!-- ================= LEFT RAIL ================= -->
   <aside class="left-rail">
-    <div class="me-card">
+    <button class="me-card" onclick="openProfile(me.id)" style="cursor:pointer;border:1px solid var(--border);width:100%">
       <div class="av c1" id="me-av" style="width:46px;height:46px"></div>
       <div><b id="me-name"></b><span id="me-un"></span></div>
-    </div>
+    </button>
     <div class="rail-nav">
       <button class="rail-item active" data-v="feed" onclick="go('feed',this)"><span class="ic">⌂</span> Home</button>
       <button class="rail-item" data-v="glimpse" onclick="go('glimpse',this)"><span class="ic">▶</span> Glimpse <span class="glimpse-tag">✦ NEW</span></button>
@@ -345,7 +401,7 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
       <button class="rail-item" data-v="communities" onclick="go('communities',this)"><span class="ic">◉</span> Communities</button>
       <button class="rail-item"><span class="ic">✎</span> Quizzes</button>
       <button class="rail-item"><span class="ic">🏆</span> Battles</button>
-      <button class="rail-item" data-v="profile" onclick="go('profile',this)"><span class="ic">☺</span> My Profile</button>
+      <button class="rail-item" data-v="profile" onclick="openProfile(me.id)"><span class="ic">☺</span> My Profile</button>
       <button class="rail-item" onclick="signOut()"><span class="ic">⎋</span> Sign out</button>
     </div>
     <div class="founding-mini">
@@ -396,18 +452,8 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 
     <!-- ========== VIEW: GLIMPSE ========== -->
     <section class="view" id="view-glimpse">
-      <div class="glimpse-head" style="margin-top:16px"><h2>Glimpse</h2><span class="glimpse-logo">✦ GLIMPSE</span></div>
-      <p style="font-size:13.5px;color:var(--muted);margin-top:4px">Short videos from campuses across Pakistan — 60 seconds ya usse kam.</p>
-      <div class="glimpse-grid">
-        <button class="glimpse-card"><div class="bg g1">🎬</div><span class="views">▶ 12K</span><div class="info"><b>Campus life at FAST</b><span>@hamza_shk</span></div></button>
-        <button class="glimpse-card"><div class="bg g3">🎨</div><span class="views">▶ 21K</span><div class="info"><b>Media Science projects</b><span>@mohsin</span></div></button>
-        <button class="glimpse-card"><div class="bg g2">📚</div><span class="views">▶ 8.4K</span><div class="info"><b>Exam night routine</b><span>@fatima_noor</span></div></button>
-        <button class="glimpse-card"><div class="bg g5">🧪</div><span class="views">▶ 9.8K</span><div class="info"><b>Lab fails 😂</b><span>@usman_f</span></div></button>
-        <button class="glimpse-card"><div class="bg g4">⚽</div><span class="views">▶ 5.1K</span><div class="info"><b>Sports week IU</b><span>@zara.r</span></div></button>
-        <button class="glimpse-card"><div class="bg g2">🎤</div><span class="views">▶ 15K</span><div class="info"><b>Farewell performance</b><span>@maryam.i</span></div></button>
-        <button class="glimpse-card"><div class="bg g1">💻</div><span class="views">▶ 6.7K</span><div class="info"><b>Hackathon 24hrs</b><span>@ali.dev</span></div></button>
-        <button class="glimpse-card"><div class="bg g3">🍜</div><span class="views">▶ 30K</span><div class="info"><b>Canteen food review</b><span>@foodie_sara</span></div></button>
-      </div>
+      <button class="g-upload-btn" onclick="openGlimpseUpload()">🎬 Upload a Glimpse</button>
+      <div class="glimpse-feed" id="glimpse-feed"></div>
     </section>
 
     <!-- ========== VIEW: MESSAGES ========== -->
@@ -446,7 +492,7 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
               <span class="un" id="p-un"></span>
               <div class="uni-line" id="p-uniline"></div>
             </div>
-            <div class="profile-btns">
+            <div class="profile-btns" id="profile-btns">
               <button class="pbtn" onclick="openEdit()">✎ Edit profile</button>
               <button class="pbtn alt">Share</button>
             </div>
@@ -511,11 +557,35 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
   <button class="bn-item" data-v="glimpse" onclick="go('glimpse',this)">▶<small>Glimpse</small></button>
   <button class="bn-item create"><span class="plus">+</span></button>
   <button class="bn-item" data-v="messages" onclick="go('messages',this)">✉<small>Chats</small></button>
-  <button class="bn-item" data-v="profile" onclick="go('profile',this)">☺<small>Profile</small></button>
+  <button class="bn-item" data-v="profile" onclick="openProfile(me.id)">☺<small>Profile</small></button>
 </nav>
 
 
 
+
+<!-- ================= GLIMPSE UPLOAD MODAL ================= -->
+<div class="upload-overlay" id="glimpse-upload-overlay">
+  <div class="upload-modal">
+    <h3>Upload a Glimpse</h3>
+    <label>Video file (9:16 works best, max 40MB for now)</label>
+    <input type="file" id="glimpse-file-input" accept="video/*" onchange="glimpseFileSelected(event)">
+    <video class="upload-preview" id="glimpse-preview" controls muted></video>
+    <label>Caption (optional)</label>
+    <textarea id="glimpse-caption" rows="2" maxlength="200" placeholder="Say something about this Glimpse..."></textarea>
+    <label>Audio (optional)</label>
+    <select id="glimpse-audio-source"><option value="">Original audio (your own video)</option></select>
+    <p class="hint" style="margin-top:6px">If you pick someone else's audio, we'll credit them — but your uploaded video should already have that audio playing in it (record it that way first).</p>
+    <button class="m-btn" id="btn-glimpse-upload" onclick="submitGlimpse()">Post Glimpse</button>
+    <button class="m-cancel" onclick="closeGlimpseUpload()">Cancel</button>
+    <div class="m-msg" id="msg-glimpse-upload"></div>
+  </div>
+</div>
+
+<!-- ================= GLIMPSE COMMENTS SHEET ================= -->
+<div class="g-comments" id="g-comments-sheet">
+  <div class="g-comments-head"><b>Comments</b><button onclick="closeGlimpseComments()">✕</button></div>
+  <div class="g-comments-body" id="g-comments-body"></div>
+</div>
 
 <!-- ================= EDIT PROFILE MODAL ================= -->
 <div class="overlay" id="edit-overlay">
@@ -563,8 +633,9 @@ function go(view, btn){
   document.querySelectorAll('.nav-ic[data-v],.rail-item[data-v],.bn-item[data-v]').forEach(b=>{
     b.classList.toggle('active', b.dataset.v===view);
   });
-  if(view==='profile') loadProfilePosts();
   if(view==='communities'){ renderCommunities(); $('comm-feed-wrap').style.display='none'; }
+  if(view==='glimpse') loadGlimpses();
+  const sd=$('search-drop'); if(sd) sd.classList.remove('open');
   window.scrollTo({top:0});
 }
 function likeToggle(btn){ const on=btn.classList.toggle('liked'); btn.innerHTML=on?'❤ Liked':'♡ Like'; }
@@ -590,21 +661,42 @@ async function boot(){
   me = profile;
   renderIdentity();
   fillEditDropdowns();
+  await loadRespects();
   loadFeed();
   refreshUnreadDot();
   setupRealtime();
 }
 function renderIdentity(){
   setAv($('nav-av'),me); setAv($('me-av'),me); setAv($('comp-av'),me);
-  setAv($('p-av'),me);
   $('me-name').innerHTML=esc(me.full_name)+(me.is_verified?'<span class="vtick"></span>':'');
   $('me-un').textContent='@'+me.username;
   $('comp-input').placeholder='What\'s happening on campus, '+me.full_name.split(' ')[0]+'?';
-  $('p-name').innerHTML=esc(me.full_name)+(me.is_verified?'<span class="vtick"></span>':'');
-  $('p-un').textContent='@'+me.username;
-  $('p-uniline').textContent=me.university+' · '+me.degree+' · '+me.semester;
-  $('p-founding').style.display = me.is_founding ? 'inline-flex' : 'none';
-  $('p-verified').style.display = me.is_verified ? 'inline-flex' : 'none';
+}
+function renderProfileHeader(p){
+  setAv($('p-av'),p);
+  $('p-name').innerHTML=esc(p.full_name)+(p.is_verified?'<span class="vtick"></span>':'');
+  $('p-un').textContent='@'+p.username;
+  $('p-uniline').textContent=p.university+' · '+p.degree+' · '+p.semester;
+  $('p-founding').style.display = p.is_founding ? 'inline-flex' : 'none';
+  $('p-verified').style.display = p.is_verified ? 'inline-flex' : 'none';
+}
+let viewingProfileId=null;
+async function openProfile(userId){
+  viewingProfileId = userId;
+  go('profile');
+  if(userId===me.id){
+    renderProfileHeader(me);
+    $('profile-btns').innerHTML='<button class="pbtn" onclick="openEdit()">✎ Edit profile</button><button class="pbtn alt">Share</button>';
+    loadProfilePosts(me.id);
+    return;
+  }
+  $('p-name').textContent='Loading...';
+  $('profile-posts').innerHTML='';
+  const { data:prof, error } = await sb.from('profiles').select('*').eq('id',userId).maybeSingle();
+  if(error || !prof){ toast('Profile not found.'); return; }
+  renderProfileHeader(prof);
+  $('profile-btns').innerHTML=respectButtonHtml(userId);
+  loadProfilePosts(userId);
 }
 async function signOut(){
   await sb.auth.signOut();
@@ -713,6 +805,13 @@ async function loadMyEngagement(){
   mySparks=new Set((sp.data||[]).map(r=>r.post_id));
 }
 
+function shuffleArr(a){ const arr=a.slice(); for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+function sortByRespect(items){
+  const mine = items.filter(x=>{ const r=myRespects.get(x.user_id); return r && r.status==='accepted'; });
+  const rest = items.filter(x=>{ const r=myRespects.get(x.user_id); return !(r && r.status==='accepted'); });
+  return [...shuffleArr(mine), ...shuffleArr(rest)];
+}
+
 async function loadFeed(){
   await loadMyEngagement();
   const { data:posts, error } = await sb.from('posts')
@@ -724,15 +823,21 @@ async function loadFeed(){
     box.innerHTML='<div class="empty-feed"><b>Yahan abhi khamoshi hai 🌱</b><br>Pehli post karne wale tum ho sakte ho — upar likho aur Post dabao!</div>';
     return;
   }
-  box.innerHTML=posts.map(renderPost).join('');
+  box.innerHTML=sortByRespect(posts).map(renderPost).join('');
 }
 
-async function loadProfilePosts(){
+async function loadProfilePosts(userId){
+  const uid = userId || me.id;
   const { data:posts } = await sb.from('posts')
     .select('*, profiles!user_id(full_name,username,avatar_url,university,is_verified), post_likes(count), post_sparks(count), comments(count), poll_votes(option_index,user_id)')
-    .eq('user_id',me.id).order('created_at',{ascending:false});
+    .eq('user_id',uid).order('created_at',{ascending:false});
   const box=$('profile-posts');
-  if(!posts||!posts.length){ box.innerHTML='<div class="empty-feed">Tumhari abhi koi post nahi — feed pe ja ke pehli post karo! ✎</div>'; return; }
+  if(!posts||!posts.length){
+    box.innerHTML = uid===me.id
+      ? '<div class="empty-feed">Tumhari abhi koi post nahi — feed pe ja ke pehli post karo! ✎</div>'
+      : '<div class="empty-feed">No posts yet.</div>';
+    return;
+  }
   box.innerHTML=posts.map(renderPost).join('');
 }
 
@@ -750,9 +855,9 @@ function renderPost(p){
   const mine=p.user_id===me.id;
   return `<article class="post" id="post-${p.id}">
     <div class="post-head">
-      ${avHtml(p.profiles)}
+      <button class="author-btn" onclick="openProfile('${p.user_id}')">${avHtml(p.profiles)}
       <div><div class="ph-name">${esc(p.profiles.full_name)}${p.profiles.is_verified?'<span class="vtick"></span>':''} <span class="uni">${esc(p.profiles.university.split(' ')[0])}</span></div>
-      <div class="ph-meta">@${esc(p.profiles.username)} · ${timeAgo(p.created_at)}</div></div>
+      <div class="ph-meta">@${esc(p.profiles.username)} · ${timeAgo(p.created_at)}</div></div></button>
       ${sparks>0?'<span class="spark-count">⚡ '+sparks+'</span>':''}
       ${mine?'<button class="del-btn" onclick="deletePost(\''+p.id+'\')" title="Delete post">🗑</button>':''}
     </div>
@@ -762,7 +867,7 @@ function renderPost(p){
     <div class="post-stats"><span id="lc-${p.id}">❤ ${likes}</span><span>💬 ${cmts} comments</span></div>
     <div class="post-actions">
       <button class="pact ${liked?'liked':''}" id="lk-${p.id}" onclick="toggleLike('${p.id}','${p.user_id}')">${liked?'❤ Liked':'♡ Like'}</button>
-      <button class="pact" onclick="openComments('${p.id}','${p.user_id}','${p.best_comment_id||''}')">💬 Comment</button>
+      <button class="pact" onclick="openComments('post','${p.id}','${p.user_id}','${p.best_comment_id||''}')">💬 Comment</button>
       <button class="pact ${sparked?'sparked':''}" id="sp-${p.id}" onclick="toggleSpark('${p.id}','${p.user_id}')">${sparked?'⚡ Sparked':'⚡ Spark'}</button>
     </div>
     <div class="comments-box" id="cm-${p.id}" style="display:none"></div>
@@ -920,56 +1025,91 @@ async function openCommunity(scope){
 }
 
 /* ---------- COMMENTS + 🎯 RIGHT ANSWER ---------- */
-async function openComments(postId, ownerId, bestId){
-  const box=$('cm-'+postId);
-  if(box.style.display!=='none'){ box.style.display='none'; return; }
-  box.style.display='block';
+async function openComments(targetType, targetId, ownerId, bestId){
+  const boxId = targetType==='post' ? 'cm-'+targetId : 'gcm-'+targetId;
+  const box=$(boxId);
+  if(targetType==='post'){
+    if(box.style.display!=='none'){ box.style.display='none'; return; }
+    box.style.display='block';
+  }
   box.innerHTML='<p style="font-size:13px;color:var(--muted)">Loading comments...</p>';
-  await renderComments(postId, ownerId, bestId);
+  await renderComments(targetType, targetId, ownerId, bestId);
 }
 
-async function renderComments(postId, ownerId, bestId){
-  const box=$('cm-'+postId);
+async function renderComments(targetType, targetId, ownerId, bestId){
+  const boxId = targetType==='post' ? 'cm-'+targetId : 'gcm-'+targetId;
+  const box=$(boxId);
+  const col = targetType==='post' ? 'post_id' : 'glimpse_id';
   const { data:cmts }=await sb.from('comments')
     .select('*, profiles!user_id(full_name,username,avatar_url,is_verified)')
-    .eq('post_id',postId).order('created_at',{ascending:true});
+    .eq(col,targetId).order('created_at',{ascending:true});
   const isOwner = ownerId===me.id;
-  let list=(cmts||[]);
-  // 🎯 best comment sabse upar
-  list.sort((a,b)=>(a.id===bestId?-1:0)-(b.id===bestId?-1:0));
-  let htmlStr=list.map(c=>{
-    const best=c.id===bestId;
-    return `<div class="cmt ${best?'is-best':''}">
+  const all=cmts||[];
+  const top=all.filter(c=>!c.parent_comment_id);
+  const byParent={};
+  all.forEach(c=>{ if(c.parent_comment_id){ (byParent[c.parent_comment_id]=byParent[c.parent_comment_id]||[]).push(c); } });
+  if(targetType==='post') top.sort((a,b)=>(a.id===bestId?-1:0)-(b.id===bestId?-1:0));
+
+  function oneComment(c, isReply){
+    const best = targetType==='post' && c.id===bestId;
+    const replyBtn = `<button class="best-pick" onclick="toggleReplyBox('${targetType}','${targetId}','${c.id}','${ownerId}','${bestId||''}')">↩ Reply</button>`;
+    const markBtn = (targetType==='post' && isOwner && !best) ? `<button class="best-pick" onclick="markBest('${targetId}','${c.id}','${ownerId}','${c.user_id}')">🎯 Mark as Right Answer</button>` : '';
+    return `<div class="cmt ${best?'is-best':''} ${isReply?'cmt-reply':''}">
       ${avHtml(c.profiles)}
       <div class="cmt-bubble">
-        <b>${esc(c.profiles.full_name)}${c.profiles.is_verified?'<span class="vtick"></span>':''}</b>${best?'<span class="best-tag">🎯 RIGHT ANSWER</span>':''}
+        <b class="cmt-name" onclick="openProfile('${c.user_id}')">${esc(c.profiles.full_name)}${c.profiles.is_verified?'<span class="vtick"></span>':''}</b>${best?'<span class="best-tag">🎯 RIGHT ANSWER</span>':''}
         <p>${esc(c.content)}</p>
-        ${isOwner&&!best?'<button class="best-pick" onclick="markBest(\''+postId+'\',\''+c.id+'\',\''+ownerId+'\',\''+c.user_id+'\')">🎯 Mark as Right Answer</button>':''}
+        <div class="cmt-actions">${replyBtn}${markBtn}</div>
+        <div class="reply-box" id="rb-${c.id}" style="display:none"></div>
       </div>
     </div>`;
+  }
+
+  let htmlStr = top.map(c=>{
+    let block = oneComment(c,false);
+    const replies=byParent[c.id]||[];
+    if(replies.length) block += '<div class="cmt-replies">' + replies.map(r=>oneComment(r,true)).join('') + '</div>';
+    return block;
   }).join('');
-  htmlStr+=`<div class="cmt-input-row">
-    <input id="ci-${postId}" maxlength="300" placeholder="Write a comment...">
-    <button onclick="addComment('${postId}','${ownerId}','${bestId||''}')">➤</button>
+
+  htmlStr += `<div class="cmt-input-row">
+    <input id="ci-${targetType}-${targetId}" maxlength="300" placeholder="Write a comment...">
+    <button onclick="addComment('${targetType}','${targetId}','${ownerId}','${bestId||''}',null)">➤</button>
   </div>`;
-  box.innerHTML=htmlStr;
+  box.innerHTML = htmlStr || '<p style="font-size:13px;color:var(--muted)">No comments yet — be the first!</p>' + box.innerHTML;
+  box.innerHTML = htmlStr;
 }
 
-async function addComment(postId, ownerId, bestId){
-  const inp=$('ci-'+postId);
+function toggleReplyBox(targetType, targetId, parentId, ownerId, bestId){
+  const rb=$('rb-'+parentId);
+  if(rb.style.display!=='none'){ rb.style.display='none'; rb.innerHTML=''; return; }
+  rb.style.display='block';
+  rb.innerHTML=`<div class="cmt-input-row">
+    <input id="rci-${parentId}" maxlength="300" placeholder="Write a reply...">
+    <button onclick="addComment('${targetType}','${targetId}','${ownerId}','${bestId}','${parentId}')">➤</button>
+  </div>`;
+  $('rci-'+parentId).focus();
+}
+
+async function addComment(targetType, targetId, ownerId, bestId, parentId){
+  const inputId = parentId ? 'rci-'+parentId : 'ci-'+targetType+'-'+targetId;
+  const inp=$(inputId);
   const content=inp.value.trim();
   if(!content) return;
-  const { error }=await sb.from('comments').insert({ post_id:postId, user_id:me.id, content });
+  const row = { user_id:me.id, content };
+  if(parentId) row.parent_comment_id = parentId;
+  if(targetType==='post') row.post_id = targetId; else row.glimpse_id = targetId;
+  const { error }=await sb.from('comments').insert(row);
   if(error){ toast('Comment nahi hua: '+error.message); return; }
-  notify(ownerId,'comment',postId);
-  await renderComments(postId, ownerId, bestId);
+  notify(ownerId, 'comment', targetType==='post'?targetId:null, targetType==='glimpse'?targetId:null);
+  await renderComments(targetType, targetId, ownerId, bestId);
 }
 
 async function markBest(postId, commentId, ownerId, commentAuthorId){
   const { error }=await sb.from('posts').update({ best_comment_id:commentId }).eq('id',postId);
   if(error){ toast('Could not mark: '+error.message); return; }
-  notify(commentAuthorId,'best_answer',postId);
-  await renderComments(postId, ownerId, commentId);
+  notify(commentAuthorId, 'best_answer', postId);
+  await renderComments('post', postId, ownerId, commentId);
 }
 
 
@@ -987,16 +1127,19 @@ function toast(msg){
 /* ============================================================
    NOTIFICATIONS
    ============================================================ */
-async function notify(recipientId, type, postId){
+async function notify(recipientId, type, postId, glimpseId){
   if(!recipientId || recipientId===me.id) return; // khud ko notification nahi
-  await sb.from('notifications').insert({ recipient_id:recipientId, actor_id:me.id, type, post_id:postId });
+  await sb.from('notifications').insert({ recipient_id:recipientId, actor_id:me.id, type, post_id:postId||null, glimpse_id:glimpseId||null });
 }
 function notifText(n){
   const name=esc(n.actor.full_name);
-  if(n.type==='like') return `<b>${name}</b> liked your post`;
-  if(n.type==='comment') return `<b>${name}</b> commented on your post`;
-  if(n.type==='spark') return `<b>${name}</b> gave your post a Spark ⚡`;
+  const what = n.glimpse_id ? 'Glimpse' : 'post';
+  if(n.type==='like') return `<b>${name}</b> liked your ${what}`;
+  if(n.type==='comment') return `<b>${name}</b> commented on your ${what}`;
+  if(n.type==='spark') return `<b>${name}</b> gave your ${what} a Spark ⚡`;
   if(n.type==='best_answer') return `<b>${name}</b> marked your comment as the Right Answer 🎯`;
+  if(n.type==='respect_request') return `<b>${name}</b> sent you a Respect request 🤝`;
+  if(n.type==='respect_accepted') return `<b>${name}</b> accepted your Respect — you're connected now 🤝`;
   return 'New activity';
 }
 async function loadNotifications(){
@@ -1050,6 +1193,257 @@ function setupRealtime(){
     .subscribe();
 }
 
+
+
+/* ============================================================
+   RESPECT 🤝 — mutual connection system
+   ============================================================ */
+let myRespects = new Map(); // otherUserId -> {id, status, direction}
+
+async function loadRespects(){
+  const { data } = await sb.from('respects').select('*').or('requester_id.eq.'+me.id+',target_id.eq.'+me.id);
+  myRespects = new Map();
+  (data||[]).forEach(r=>{
+    const other = r.requester_id===me.id ? r.target_id : r.requester_id;
+    const direction = r.requester_id===me.id ? 'sent' : 'received';
+    myRespects.set(other, { id:r.id, status:r.status, direction });
+  });
+}
+function respectButtonHtml(otherId){
+  const r = myRespects.get(otherId);
+  if(!r) return '<button class="pbtn" onclick="sendRespect(\''+otherId+'\')">🤝 Respect</button>';
+  if(r.status==='accepted') return '<button class="pbtn alt" onclick="removeRespect(\''+r.id+'\',\''+otherId+'\')">🤝 Respected ✓</button>';
+  if(r.direction==='sent') return '<button class="pbtn alt" disabled>Pending...</button>';
+  return '<button class="pbtn" onclick="acceptRespect(\''+r.id+'\',\''+otherId+'\')">Accept Respect</button>';
+}
+async function sendRespect(otherId){
+  const { data, error } = await sb.from('respects').insert({ requester_id:me.id, target_id:otherId }).select().single();
+  if(error){ toast('Could not send respect: '+error.message); return; }
+  myRespects.set(otherId, { id:data.id, status:'pending', direction:'sent' });
+  notify(otherId,'respect_request');
+  if(viewingProfileId===otherId) $('profile-btns').innerHTML=respectButtonHtml(otherId);
+}
+async function acceptRespect(id, otherId){
+  const { error } = await sb.from('respects').update({ status:'accepted' }).eq('id',id);
+  if(error){ toast('Could not accept: '+error.message); return; }
+  myRespects.set(otherId, { id, status:'accepted', direction:'received' });
+  notify(otherId,'respect_accepted');
+  if(viewingProfileId===otherId) $('profile-btns').innerHTML=respectButtonHtml(otherId);
+  loadFeed();
+}
+async function removeRespect(id, otherId){
+  await sb.from('respects').delete().eq('id',id);
+  myRespects.delete(otherId);
+  if(viewingProfileId===otherId) $('profile-btns').innerHTML=respectButtonHtml(otherId);
+  loadFeed();
+}
+
+/* ============================================================
+   SEARCH 🔍 — accounts, posts, glimpse captions
+   ============================================================ */
+let searchTimer=null;
+function onSearchInput(){
+  clearTimeout(searchTimer);
+  const q=$('search-input').value.trim();
+  const drop=$('search-drop');
+  if(q.length<2){ drop.classList.remove('open'); return; }
+  searchTimer=setTimeout(()=>runSearch(q), 300);
+}
+async function runSearch(q){
+  const drop=$('search-drop');
+  drop.classList.add('open');
+  drop.innerHTML='<div class="search-empty">Searching...</div>';
+  const like = '%'+q+'%';
+  const [profRes, postRes, gRes] = await Promise.all([
+    sb.from('profiles').select('id,full_name,username,avatar_url,university').or('full_name.ilike.'+like+',username.ilike.'+like).limit(5),
+    sb.from('posts').select('id,content,user_id,profiles!user_id(full_name,username)').ilike('content',like).limit(3),
+    sb.from('glimpses').select('id,caption,user_id,profiles!user_id(full_name,username)').ilike('caption',like).limit(3)
+  ]);
+  const people=profRes.data||[], posts=postRes.data||[], glimpses=gRes.data||[];
+  if(!people.length && !posts.length && !glimpses.length){ drop.innerHTML='<div class="search-empty">No results for "'+esc(q)+'"</div>'; return; }
+  let h='';
+  if(people.length){
+    h+='<div class="search-group">Accounts</div>';
+    h+=people.map(p=>'<button class="search-item" onclick="closeSearchAndOpen(\''+p.id+'\')">'+avHtml(p)+'<div><b>'+esc(p.full_name)+'</b><span>@'+esc(p.username)+' · '+esc((p.university||'').split(' ')[0])+'</span></div></button>').join('');
+  }
+  if(posts.length){
+    h+='<div class="search-group">Posts</div>';
+    h+=posts.map(p=>'<button class="search-item" onclick="closeSearchAndOpen(\''+p.user_id+'\')"><div class="av c1">📝</div><div><b>'+esc((p.profiles&&p.profiles.full_name)||'Post')+'</b><span>'+esc(p.content.slice(0,50))+'</span></div></button>').join('');
+  }
+  if(glimpses.length){
+    h+='<div class="search-group">Glimpse</div>';
+    h+=glimpses.map(g=>'<button class="search-item" onclick="closeSearchAndOpen(\''+g.user_id+'\')"><div class="av c1">▶</div><div><b>'+esc((g.profiles&&g.profiles.full_name)||'Glimpse')+'</b><span>'+esc((g.caption||'').slice(0,50))+'</span></div></button>').join('');
+  }
+  drop.innerHTML=h;
+}
+function closeSearchAndOpen(userId){
+  $('search-drop').classList.remove('open');
+  $('search-input').value='';
+  openProfile(userId);
+}
+document.addEventListener('click', function(e){
+  const s=document.querySelector('.search');
+  if(s && !s.contains(e.target)){ const d=$('search-drop'); if(d) d.classList.remove('open'); }
+});
+
+/* ============================================================
+   GLIMPSE 📹 — short video feed (beta: Supabase Storage,
+   will move to Bunny Stream once volume grows)
+   ============================================================ */
+let myGlimpseLikes=new Set(), myGlimpseSparks=new Set(), glimpseObserver=null;
+
+async function loadGlimpseEngagement(){
+  const [l,sp]=await Promise.all([
+    sb.from('glimpse_likes').select('glimpse_id').eq('user_id',me.id),
+    sb.from('glimpse_sparks').select('glimpse_id').eq('user_id',me.id)
+  ]);
+  myGlimpseLikes=new Set((l.data||[]).map(r=>r.glimpse_id));
+  myGlimpseSparks=new Set((sp.data||[]).map(r=>r.glimpse_id));
+}
+
+async function loadGlimpses(){
+  await loadGlimpseEngagement();
+  const { data, error } = await sb.from('glimpses')
+    .select('*, profiles!user_id(full_name,username,avatar_url), glimpse_likes(count), glimpse_sparks(count), audio:glimpses!audio_source_id(user_id, source_profile:profiles!user_id(username))')
+    .order('created_at',{ascending:false}).limit(30);
+  const box=$('glimpse-feed');
+  if(error){ box.innerHTML='<div class="g-empty">Could not load Glimpse: '+esc(error.message)+'</div>'; return; }
+  if(!data.length){ box.innerHTML='<div class="g-empty"><b>No Glimpses yet 🎬</b><br>Be the first to upload one!</div>'; return; }
+  box.innerHTML=shuffleArr(data).map(renderGlimpseItem).join('');
+  setupGlimpseObserver();
+}
+
+function renderGlimpseItem(g){
+  const likes=g.glimpse_likes?.[0]?.count||0;
+  const sparks=g.glimpse_sparks?.[0]?.count||0;
+  const liked=myGlimpseLikes.has(g.id), sparked=myGlimpseSparks.has(g.id);
+  const audioLabel = (g.audio && g.audio.source_profile)
+    ? '🎵 audio by @'+esc(g.audio.source_profile.username)
+    : '🎵 Original audio · @'+esc(g.profiles.username);
+  return '<div class="g-item" id="gi-'+g.id+'">'
+    + '<video src="'+g.video_url+'" loop muted playsinline data-gid="'+g.id+'"></video>'
+    + '<button class="g-mute" onclick="toggleGlimpseMute(\''+g.id+'\',this)">🔇</button>'
+    + '<div class="g-side">'
+      + '<button class="'+(liked?'liked':'')+'" id="gl-'+g.id+'" onclick="toggleGlimpseLike(\''+g.id+'\',\''+g.user_id+'\')">'+(liked?'❤':'♡')+'<small id="glc-'+g.id+'">'+likes+'</small></button>'
+      + '<button class="'+(sparked?'sparked':'')+'" id="gs-'+g.id+'" onclick="toggleGlimpseSpark(\''+g.id+'\',\''+g.user_id+'\')">⚡<small>'+sparks+'</small></button>'
+      + '<button onclick="openGlimpseComments(\''+g.id+'\',\''+g.user_id+'\')">💬</button>'
+    + '</div>'
+    + '<div class="g-info">'
+      + '<button class="g-author" onclick="openProfile(\''+g.user_id+'\')">'+avHtml(g.profiles)+' '+esc(g.profiles.full_name)+'</button>'
+      + (g.caption?'<div class="g-cap">'+esc(g.caption)+'</div>':'')
+      + '<div class="g-audio">'+audioLabel+'</div>'
+    + '</div>'
+  + '</div>';
+}
+
+function setupGlimpseObserver(){
+  if(glimpseObserver) glimpseObserver.disconnect();
+  glimpseObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      const vid=en.target.querySelector('video');
+      if(!vid) return;
+      if(en.isIntersecting && en.intersectionRatio>0.6) vid.play().catch(()=>{});
+      else vid.pause();
+    });
+  }, { threshold:[0,0.6,1] });
+  document.querySelectorAll('.g-item').forEach(el=>glimpseObserver.observe(el));
+}
+function toggleGlimpseMute(gid, btn){
+  const vid=document.querySelector('video[data-gid="'+gid+'"]');
+  if(!vid) return;
+  vid.muted=!vid.muted;
+  btn.textContent = vid.muted ? '🔇' : '🔊';
+}
+async function toggleGlimpseLike(id, ownerId){
+  const btn=$('gl-'+id), lc=$('glc-'+id);
+  const n=parseInt(lc.textContent)||0;
+  if(myGlimpseLikes.has(id)){
+    myGlimpseLikes.delete(id);
+    btn.classList.remove('liked'); btn.firstChild.textContent='♡'; lc.textContent=n-1;
+    await sb.from('glimpse_likes').delete().eq('glimpse_id',id).eq('user_id',me.id);
+  }else{
+    myGlimpseLikes.add(id);
+    btn.classList.add('liked'); btn.firstChild.textContent='❤'; lc.textContent=n+1;
+    await sb.from('glimpse_likes').insert({ glimpse_id:id, user_id:me.id });
+    notify(ownerId,'like',null,id);
+  }
+}
+async function toggleGlimpseSpark(id, ownerId){
+  const btn=$('gs-'+id);
+  if(myGlimpseSparks.has(id)){
+    myGlimpseSparks.delete(id);
+    btn.classList.remove('sparked');
+    await sb.from('glimpse_sparks').delete().eq('glimpse_id',id).eq('user_id',me.id);
+  }else{
+    const { error } = await sb.from('glimpse_sparks').insert({ glimpse_id:id, user_id:me.id });
+    if(error){ toast('⚡ Aaj ke 3 Sparks khatam! Kal phir milenge 😄'); return; }
+    myGlimpseSparks.add(id);
+    btn.classList.add('sparked');
+    notify(ownerId,'spark',null,id);
+  }
+  loadGlimpses();
+}
+function openGlimpseComments(id, ownerId){
+  $('g-comments-sheet').classList.add('open');
+  $('g-comments-body').innerHTML='<p style="font-size:13px;color:var(--muted)">Loading comments...</p>';
+  window.__gcCtx={id,ownerId};
+  renderGCommentsWrapper(id, ownerId);
+}
+async function renderGCommentsWrapper(id, ownerId){
+  const holder=$('g-comments-body');
+  holder.id='gcm-'+id;
+  await renderComments('glimpse', id, ownerId, null);
+}
+function closeGlimpseComments(){
+  $('g-comments-sheet').classList.remove('open');
+}
+
+/* ---------- Glimpse upload ---------- */
+let pendingGlimpseFile=null;
+async function openGlimpseUpload(){
+  $('glimpse-upload-overlay').classList.add('open');
+  $('msg-glimpse-upload').className='m-msg';
+  const sel=$('glimpse-audio-source');
+  sel.innerHTML='<option value="">Original audio (your own video)</option>';
+  const { data } = await sb.from('glimpses').select('id, caption, profiles!user_id(username)').order('created_at',{ascending:false}).limit(15);
+  (data||[]).forEach(g=>{
+    sel.insertAdjacentHTML('beforeend','<option value="'+g.id+'">@'+esc(g.profiles.username)+' — '+esc((g.caption||'Glimpse').slice(0,30))+'</option>');
+  });
+}
+function closeGlimpseUpload(){
+  $('glimpse-upload-overlay').classList.remove('open');
+  pendingGlimpseFile=null;
+  $('glimpse-preview').classList.remove('show');
+  $('glimpse-caption').value='';
+}
+function glimpseFileSelected(ev){
+  const file=ev.target.files[0];
+  if(!file) return;
+  if(!file.type.startsWith('video/')){ toast('Please choose a video file.'); ev.target.value=''; return; }
+  if(file.size > 40*1024*1024){ toast('Video too large for beta (max 40MB). Try a shorter clip.'); ev.target.value=''; return; }
+  pendingGlimpseFile=file;
+  const prev=$('glimpse-preview');
+  prev.src=URL.createObjectURL(file);
+  prev.classList.add('show');
+}
+async function submitGlimpse(){
+  if(!pendingGlimpseFile){ toast('Please choose a video first.'); return; }
+  const caption=$('glimpse-caption').value.trim();
+  const audioSource=$('glimpse-audio-source').value || null;
+  $('btn-glimpse-upload').disabled=true;
+  try{
+    const path=me.id+'/g'+Date.now()+'.mp4';
+    const { error:upErr } = await sb.storage.from('glimpses').upload(path, pendingGlimpseFile, { contentType: pendingGlimpseFile.type });
+    if(upErr) throw upErr;
+    const video_url = sb.storage.from('glimpses').getPublicUrl(path).data.publicUrl;
+    const { error } = await sb.from('glimpses').insert({ user_id:me.id, video_url, caption: caption||null, audio_source_id: audioSource });
+    if(error) throw error;
+    closeGlimpseUpload();
+    toast('Glimpse posted! 🎬');
+    loadGlimpses();
+  }catch(e){ document.getElementById('msg-glimpse-upload').className='m-msg show error'; document.getElementById('msg-glimpse-upload').textContent='Upload failed: '+e.message; }
+  $('btn-glimpse-upload').disabled=false;
+}
 
 boot();
 </script>
