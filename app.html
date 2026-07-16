@@ -364,6 +364,11 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 .upload-preview{width:100%;max-height:280px;border-radius:12px;margin-top:10px;background:#000;display:none}
 .upload-preview.show{display:block}
 
+
+.flash-highlight{animation:flashHl 2s ease}
+@keyframes flashHl{0%{box-shadow:0 0 0 3px var(--teal)}70%{box-shadow:0 0 0 3px var(--teal)}100%{box-shadow:none}}
+.notif-item:hover{background:var(--paper)}
+
 </style>
 </head>
 <body>
@@ -532,9 +537,7 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
   <aside class="right-rail">
     <div class="rail-card">
       <h3>Suggested for you</h3>
-      <div class="suggest"><div class="av c5">HS</div><div><b>Hamza Sheikh</b><span>FAST · BS CS</span></div><button class="follow-btn" onclick="followToggle(this)">Follow</button></div>
-      <div class="suggest"><div class="av c6">ZR</div><div><b>Zara Rehman</b><span>Iqra · BBA</span></div><button class="follow-btn" onclick="followToggle(this)">Follow</button></div>
-      <div class="suggest" style="margin-bottom:0"><div class="av c4">UF</div><div><b>Usman Farooq</b><span>NED · BE</span></div><button class="follow-btn" onclick="followToggle(this)">Follow</button></div>
+      <div id="suggest-list"><div class="search-empty" style="padding:12px">Loading...</div></div>
     </div>
     <div class="rail-card">
       <h3>Trending at your university</h3>
@@ -578,6 +581,16 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
     <button class="m-btn" id="btn-glimpse-upload" onclick="submitGlimpse()">Post Glimpse</button>
     <button class="m-cancel" onclick="closeGlimpseUpload()">Cancel</button>
     <div class="m-msg" id="msg-glimpse-upload"></div>
+  </div>
+</div>
+
+<!-- ================= GLIMPSE EDIT MODAL ================= -->
+<div class="upload-overlay" id="glimpse-edit-overlay">
+  <div class="upload-modal">
+    <h3>Edit caption</h3>
+    <textarea id="glimpse-edit-caption" rows="3" maxlength="200" placeholder="Update your caption..."></textarea>
+    <button class="m-btn" onclick="saveGlimpseCaption()">Save</button>
+    <button class="m-cancel" onclick="closeGlimpseEdit()">Cancel</button>
   </div>
 </div>
 
@@ -635,11 +648,11 @@ function go(view, btn){
   });
   if(view==='communities'){ renderCommunities(); $('comm-feed-wrap').style.display='none'; }
   if(view==='glimpse') loadGlimpses();
+  closeGlimpseComments();
+  document.querySelectorAll('video').forEach(v=>{ try{v.pause();}catch(e){} });
   const sd=$('search-drop'); if(sd) sd.classList.remove('open');
   window.scrollTo({top:0});
 }
-function likeToggle(btn){ const on=btn.classList.toggle('liked'); btn.innerHTML=on?'❤ Liked':'♡ Like'; }
-function followToggle(btn){ const on=btn.classList.toggle('on'); btn.textContent=on?'Following ✓':'Follow'; }
 function mmsg(text,type){ const el=$('msg-edit'); el.textContent=text; el.className='m-msg show '+type; }
 function setAv(el,p){
   if(!el) return;
@@ -663,6 +676,7 @@ async function boot(){
   fillEditDropdowns();
   await loadRespects();
   loadFeed();
+  loadSuggestions();
   refreshUnreadDot();
   setupRealtime();
 }
@@ -814,16 +828,57 @@ function sortByRespect(items){
 
 async function loadFeed(){
   await loadMyEngagement();
-  const { data:posts, error } = await sb.from('posts')
-    .select('*, profiles!user_id(full_name,username,avatar_url,university,is_verified), post_likes(count), post_sparks(count), comments(count), poll_votes(option_index,user_id)')
-    .order('created_at',{ascending:false}).limit(30);
+  await loadGlimpseEngagement();
+  const [postRes, gRes] = await Promise.all([
+    sb.from('posts')
+      .select('*, profiles!user_id(full_name,username,avatar_url,university,is_verified), post_likes(count), post_sparks(count), comments(count), poll_votes(option_index,user_id)')
+      .order('created_at',{ascending:false}).limit(30),
+    sb.from('glimpses')
+      .select('*, profiles!user_id(full_name,username,avatar_url,university,is_verified), glimpse_likes(count), glimpse_sparks(count), audio:glimpses!audio_source_id(user_id, source_profile:profiles!user_id(username))')
+      .order('created_at',{ascending:false}).limit(10)
+  ]);
   const box=$('feed-posts');
-  if(error){ box.innerHTML='<div class="empty-feed">Feed load nahi hua: '+esc(error.message)+'</div>'; return; }
-  if(!posts.length){
+  if(postRes.error){ box.innerHTML='<div class="empty-feed">Feed load nahi hua: '+esc(postRes.error.message)+'</div>'; return; }
+  const posts=postRes.data||[], glimpses=gRes.data||[];
+  window.__gcap=window.__gcap||{}; glimpses.forEach(g=>window.__gcap[g.id]=g.caption||'');
+  const merged=[...posts, ...glimpses];
+  if(!merged.length){
     box.innerHTML='<div class="empty-feed"><b>Yahan abhi khamoshi hai 🌱</b><br>Pehli post karne wale tum ho sakte ho — upar likho aur Post dabao!</div>';
     return;
   }
-  box.innerHTML=sortByRespect(posts).map(renderPost).join('');
+  box.innerHTML=sortByRespect(merged).map(item=> 'video_url' in item ? renderGlimpseFeedCard(item) : renderPost(item)).join('');
+}
+
+function renderGlimpseFeedCard(g){
+  const likes=g.glimpse_likes?.[0]?.count||0;
+  const sparks=g.glimpse_sparks?.[0]?.count||0;
+  const liked=myGlimpseLikes.has(g.id), sparked=myGlimpseSparks.has(g.id);
+  const mine=g.user_id===me.id;
+  const audioLabel = (g.audio && g.audio.source_profile)
+    ? '🎵 audio by @'+esc(g.audio.source_profile.username)
+    : '🎵 Original audio · @'+esc(g.profiles.username);
+  const edited = g.edited_at ? ' <span style="opacity:.6;font-size:11px">· edited</span>' : '';
+  return `<article class="post" id="fg-${g.id}">
+    <div class="post-head">
+      <button class="author-btn" onclick="openProfile('${g.user_id}')">${avHtml(g.profiles)}
+      <div><div class="ph-name">${esc(g.profiles.full_name)}${g.profiles.is_verified?'<span class="vtick"></span>':''} <span class="uni" style="background:rgba(91,95,233,.12);color:var(--purple)">✦ GLIMPSE</span></div>
+      <div class="ph-meta">@${esc(g.profiles.username)} · ${timeAgo(g.created_at)}</div></div></button>
+      ${sparks>0?'<span class="spark-count">⚡ '+sparks+'</span>':''}
+      ${mine?'<button class="del-btn" onclick="deleteGlimpse(\''+g.id+'\')" title="Delete Glimpse">🗑</button>':''}
+    </div>
+    <div style="background:#000;border-radius:14px;margin-top:12px;display:flex;justify-content:center">
+      <video src="${g.video_url}" controls playsinline preload="metadata" style="max-height:460px;max-width:100%;border-radius:14px"></video>
+    </div>
+    ${g.caption?'<p class="post-text">'+esc(g.caption)+edited+'</p>':(g.edited_at?'<p class="post-text" style="opacity:.6;font-size:12px">· edited</p>':'')}
+    <div class="post-stats"><span>${audioLabel}</span></div>
+    <div class="post-actions">
+      <button class="pact ${liked?'liked':''}" id="gl-${g.id}" onclick="toggleGlimpseLike('${g.id}','${g.user_id}')">${liked?'❤':'♡'} <small id="glc-${g.id}">${likes}</small></button>
+      <button class="pact" onclick="openComments('glimpse','${g.id}','${g.user_id}','','gcm-${g.id}')">💬 Comment</button>
+      <button class="pact ${sparked?'sparked':''}" id="gs-${g.id}" onclick="toggleGlimpseSpark('${g.id}','${g.user_id}')">⚡ ${sparked?'Sparked':'Spark'}</button>
+      ${mine?'<button class="pact" onclick="openGlimpseEdit(\''+g.id+'\')">✎ Edit</button>':''}
+    </div>
+    <div class="comments-box" id="gcm-${g.id}" style="display:none"></div>
+  </article>`;
 }
 
 async function loadProfilePosts(userId){
@@ -1025,19 +1080,19 @@ async function openCommunity(scope){
 }
 
 /* ---------- COMMENTS + 🎯 RIGHT ANSWER ---------- */
-async function openComments(targetType, targetId, ownerId, bestId){
-  const boxId = targetType==='post' ? 'cm-'+targetId : 'gcm-'+targetId;
+async function openComments(targetType, targetId, ownerId, bestId, containerId){
+  const boxId = containerId || (targetType==='post' ? 'cm-'+targetId : 'gcm-'+targetId);
   const box=$(boxId);
-  if(targetType==='post'){
-    if(box.style.display!=='none'){ box.style.display='none'; return; }
+  if(!containerId || containerId.startsWith('cm-') || containerId.startsWith('gcm-')){
+    if(box.style.display!=='none' && box.innerHTML!==''){ box.style.display='none'; box.innerHTML=''; return; }
     box.style.display='block';
   }
   box.innerHTML='<p style="font-size:13px;color:var(--muted)">Loading comments...</p>';
-  await renderComments(targetType, targetId, ownerId, bestId);
+  await renderComments(targetType, targetId, ownerId, bestId, boxId);
 }
 
-async function renderComments(targetType, targetId, ownerId, bestId){
-  const boxId = targetType==='post' ? 'cm-'+targetId : 'gcm-'+targetId;
+async function renderComments(targetType, targetId, ownerId, bestId, containerId){
+  const boxId = containerId || (targetType==='post' ? 'cm-'+targetId : 'gcm-'+targetId);
   const box=$(boxId);
   const col = targetType==='post' ? 'post_id' : 'glimpse_id';
   const { data:cmts }=await sb.from('comments')
@@ -1052,7 +1107,7 @@ async function renderComments(targetType, targetId, ownerId, bestId){
 
   function oneComment(c, isReply){
     const best = targetType==='post' && c.id===bestId;
-    const replyBtn = `<button class="best-pick" onclick="toggleReplyBox('${targetType}','${targetId}','${c.id}','${ownerId}','${bestId||''}')">↩ Reply</button>`;
+    const replyBtn = `<button class="best-pick" onclick="toggleReplyBox('${targetType}','${targetId}','${c.id}','${ownerId}','${bestId||''}','${boxId}')">↩ Reply</button>`;
     const markBtn = (targetType==='post' && isOwner && !best) ? `<button class="best-pick" onclick="markBest('${targetId}','${c.id}','${ownerId}','${c.user_id}')">🎯 Mark as Right Answer</button>` : '';
     return `<div class="cmt ${best?'is-best':''} ${isReply?'cmt-reply':''}">
       ${avHtml(c.profiles)}
@@ -1073,26 +1128,26 @@ async function renderComments(targetType, targetId, ownerId, bestId){
   }).join('');
 
   htmlStr += `<div class="cmt-input-row">
-    <input id="ci-${targetType}-${targetId}" maxlength="300" placeholder="Write a comment...">
-    <button onclick="addComment('${targetType}','${targetId}','${ownerId}','${bestId||''}',null)">➤</button>
+    <input id="ci-${boxId}" maxlength="300" placeholder="Write a comment...">
+    <button onclick="addComment('${targetType}','${targetId}','${ownerId}','${bestId||''}',null,'${boxId}')">➤</button>
   </div>`;
   box.innerHTML = htmlStr || '<p style="font-size:13px;color:var(--muted)">No comments yet — be the first!</p>' + box.innerHTML;
   box.innerHTML = htmlStr;
 }
 
-function toggleReplyBox(targetType, targetId, parentId, ownerId, bestId){
+function toggleReplyBox(targetType, targetId, parentId, ownerId, bestId, boxId){
   const rb=$('rb-'+parentId);
   if(rb.style.display!=='none'){ rb.style.display='none'; rb.innerHTML=''; return; }
   rb.style.display='block';
   rb.innerHTML=`<div class="cmt-input-row">
     <input id="rci-${parentId}" maxlength="300" placeholder="Write a reply...">
-    <button onclick="addComment('${targetType}','${targetId}','${ownerId}','${bestId}','${parentId}')">➤</button>
+    <button onclick="addComment('${targetType}','${targetId}','${ownerId}','${bestId}','${parentId}','${boxId}')">➤</button>
   </div>`;
   $('rci-'+parentId).focus();
 }
 
-async function addComment(targetType, targetId, ownerId, bestId, parentId){
-  const inputId = parentId ? 'rci-'+parentId : 'ci-'+targetType+'-'+targetId;
+async function addComment(targetType, targetId, ownerId, bestId, parentId, boxId){
+  const inputId = parentId ? 'rci-'+parentId : 'ci-'+boxId;
   const inp=$(inputId);
   const content=inp.value.trim();
   if(!content) return;
@@ -1102,14 +1157,14 @@ async function addComment(targetType, targetId, ownerId, bestId, parentId){
   const { error }=await sb.from('comments').insert(row);
   if(error){ toast('Comment nahi hua: '+error.message); return; }
   notify(ownerId, 'comment', targetType==='post'?targetId:null, targetType==='glimpse'?targetId:null);
-  await renderComments(targetType, targetId, ownerId, bestId);
+  await renderComments(targetType, targetId, ownerId, bestId, boxId);
 }
 
 async function markBest(postId, commentId, ownerId, commentAuthorId){
   const { error }=await sb.from('posts').update({ best_comment_id:commentId }).eq('id',postId);
   if(error){ toast('Could not mark: '+error.message); return; }
   notify(commentAuthorId, 'best_answer', postId);
-  await renderComments('post', postId, ownerId, commentId);
+  await renderComments('post', postId, ownerId, commentId, 'cm-'+postId);
 }
 
 
@@ -1149,7 +1204,7 @@ async function loadNotifications(){
   const box=$('notif-list');
   if(error){ box.innerHTML='<div class="notif-empty">Could not load notifications</div>'; return; }
   if(!data.length){ box.innerHTML='<div class="notif-empty">No notifications yet</div>'; return; }
-  box.innerHTML=data.map(n=>`<div class="notif-item">${avHtml(n.actor)}<div><p>${notifText(n)}</p><span>${timeAgo(n.created_at)}</span></div></div>`).join('');
+  box.innerHTML=data.map(n=>`<button class="notif-item" style="width:100%;border:none;background:none;text-align:left;cursor:pointer" onclick="openNotifTarget('${n.type}','${n.post_id||''}','${n.glimpse_id||''}','${n.actor_id}')">${avHtml(n.actor)}<div><p>${notifText(n)}</p><span>${timeAgo(n.created_at)}</span></div></button>`).join('');
 }
 async function refreshUnreadDot(){
   const { count } = await sb.from('notifications').select('id',{count:'exact',head:true}).eq('recipient_id',me.id).eq('is_read',false);
@@ -1213,7 +1268,7 @@ function respectButtonHtml(otherId){
   const r = myRespects.get(otherId);
   if(!r) return '<button class="pbtn" onclick="sendRespect(\''+otherId+'\')">🤝 Respect</button>';
   if(r.status==='accepted') return '<button class="pbtn alt" onclick="removeRespect(\''+r.id+'\',\''+otherId+'\')">🤝 Respected ✓</button>';
-  if(r.direction==='sent') return '<button class="pbtn alt" disabled>Pending...</button>';
+  if(r.direction==='sent') return '<button class="pbtn alt" onclick="removeRespect(\''+r.id+'\',\''+otherId+'\')" title="Click to cancel request">Pending...</button>';
   return '<button class="pbtn" onclick="acceptRespect(\''+r.id+'\',\''+otherId+'\')">Accept Respect</button>';
 }
 async function sendRespect(otherId){
@@ -1222,6 +1277,7 @@ async function sendRespect(otherId){
   myRespects.set(otherId, { id:data.id, status:'pending', direction:'sent' });
   notify(otherId,'respect_request');
   if(viewingProfileId===otherId) $('profile-btns').innerHTML=respectButtonHtml(otherId);
+  renderSuggestions();
 }
 async function acceptRespect(id, otherId){
   const { error } = await sb.from('respects').update({ status:'accepted' }).eq('id',id);
@@ -1229,12 +1285,14 @@ async function acceptRespect(id, otherId){
   myRespects.set(otherId, { id, status:'accepted', direction:'received' });
   notify(otherId,'respect_accepted');
   if(viewingProfileId===otherId) $('profile-btns').innerHTML=respectButtonHtml(otherId);
+  renderSuggestions();
   loadFeed();
 }
 async function removeRespect(id, otherId){
   await sb.from('respects').delete().eq('id',id);
   myRespects.delete(otherId);
   if(viewingProfileId===otherId) $('profile-btns').innerHTML=respectButtonHtml(otherId);
+  renderSuggestions();
   loadFeed();
 }
 
@@ -1309,14 +1367,21 @@ async function loadGlimpses(){
   const box=$('glimpse-feed');
   if(error){ box.innerHTML='<div class="g-empty">Could not load Glimpse: '+esc(error.message)+'</div>'; return; }
   if(!data.length){ box.innerHTML='<div class="g-empty"><b>No Glimpses yet 🎬</b><br>Be the first to upload one!</div>'; return; }
+  window.__gcap={}; data.forEach(g=>window.__gcap[g.id]=g.caption||'');
   box.innerHTML=shuffleArr(data).map(renderGlimpseItem).join('');
   setupGlimpseObserver();
 }
 
+function glimpseCaptionHtml(g){
+  const edited = g.edited_at ? ' <span style="opacity:.65;font-size:11px">· edited</span>' : '';
+  if(g.caption) return '<div class="g-cap">'+esc(g.caption)+edited+'</div>';
+  return g.edited_at ? '<div class="g-cap" style="opacity:.7;font-size:12px">· edited</div>' : '';
+}
 function renderGlimpseItem(g){
   const likes=g.glimpse_likes?.[0]?.count||0;
   const sparks=g.glimpse_sparks?.[0]?.count||0;
   const liked=myGlimpseLikes.has(g.id), sparked=myGlimpseSparks.has(g.id);
+  const mine = g.user_id===me.id;
   const audioLabel = (g.audio && g.audio.source_profile)
     ? '🎵 audio by @'+esc(g.audio.source_profile.username)
     : '🎵 Original audio · @'+esc(g.profiles.username);
@@ -1327,13 +1392,54 @@ function renderGlimpseItem(g){
       + '<button class="'+(liked?'liked':'')+'" id="gl-'+g.id+'" onclick="toggleGlimpseLike(\''+g.id+'\',\''+g.user_id+'\')">'+(liked?'❤':'♡')+'<small id="glc-'+g.id+'">'+likes+'</small></button>'
       + '<button class="'+(sparked?'sparked':'')+'" id="gs-'+g.id+'" onclick="toggleGlimpseSpark(\''+g.id+'\',\''+g.user_id+'\')">⚡<small>'+sparks+'</small></button>'
       + '<button onclick="openGlimpseComments(\''+g.id+'\',\''+g.user_id+'\')">💬</button>'
+      + (mine ? '<button onclick="openGlimpseEdit(\''+g.id+'\')" title="Edit caption">✎</button>'
+              + '<button onclick="deleteGlimpse(\''+g.id+'\')" title="Delete Glimpse">🗑</button>' : '')
     + '</div>'
     + '<div class="g-info">'
       + '<button class="g-author" onclick="openProfile(\''+g.user_id+'\')">'+avHtml(g.profiles)+' '+esc(g.profiles.full_name)+'</button>'
-      + (g.caption?'<div class="g-cap">'+esc(g.caption)+'</div>':'')
+      + glimpseCaptionHtml(g)
       + '<div class="g-audio">'+audioLabel+'</div>'
     + '</div>'
   + '</div>';
+}
+
+/* ---------- Glimpse edit + delete ---------- */
+let editingGlimpseId=null;
+function openGlimpseEdit(id){
+  editingGlimpseId=id;
+  const el=document.querySelector('#gi-'+id+' .g-cap');
+  $('glimpse-edit-caption').value = window.__gcap && window.__gcap[id] !== undefined ? window.__gcap[id] : '';
+  $('glimpse-edit-overlay').classList.add('open');
+}
+function closeGlimpseEdit(){
+  $('glimpse-edit-overlay').classList.remove('open');
+  editingGlimpseId=null;
+}
+async function saveGlimpseCaption(){
+  if(!editingGlimpseId) return;
+  const caption=$('glimpse-edit-caption').value.trim();
+  const { error } = await sb.from('glimpses').update({ caption: caption||null, edited_at: new Date().toISOString() }).eq('id',editingGlimpseId);
+  if(error){ toast('Could not save: '+error.message); return; }
+  closeGlimpseEdit();
+  toast('Caption updated ✎');
+  loadGlimpses();
+  if($('view-feed').classList.contains('active')) loadFeed();
+}
+async function deleteGlimpse(id){
+  if(!confirm('Delete this Glimpse? This cannot be undone.')) return;
+  // best-effort: storage se video file bhi hatao
+  try{
+    const { data:g } = await sb.from('glimpses').select('video_url').eq('id',id).maybeSingle();
+    if(g && g.video_url && g.video_url.includes('/glimpses/')){
+      const path=g.video_url.split('/glimpses/')[1].split('?')[0];
+      await sb.storage.from('glimpses').remove([path]);
+    }
+  }catch(e){}
+  const { error } = await sb.from('glimpses').delete().eq('id',id);
+  if(error){ toast('Could not delete: '+error.message); return; }
+  toast('Glimpse deleted');
+  document.getElementById('gi-'+id)?.remove();
+  document.getElementById('fg-'+id)?.remove();
 }
 
 function setupGlimpseObserver(){
@@ -1381,21 +1487,17 @@ async function toggleGlimpseSpark(id, ownerId){
     btn.classList.add('sparked');
     notify(ownerId,'spark',null,id);
   }
-  loadGlimpses();
+  if($('view-glimpse').classList.contains('active')) loadGlimpses();
+  if($('view-feed').classList.contains('active')) loadFeed();
 }
 function openGlimpseComments(id, ownerId){
   $('g-comments-sheet').classList.add('open');
   $('g-comments-body').innerHTML='<p style="font-size:13px;color:var(--muted)">Loading comments...</p>';
-  window.__gcCtx={id,ownerId};
-  renderGCommentsWrapper(id, ownerId);
-}
-async function renderGCommentsWrapper(id, ownerId){
-  const holder=$('g-comments-body');
-  holder.id='gcm-'+id;
-  await renderComments('glimpse', id, ownerId, null);
+  renderComments('glimpse', id, ownerId, null, 'g-comments-body');
 }
 function closeGlimpseComments(){
   $('g-comments-sheet').classList.remove('open');
+  $('g-comments-body').innerHTML='';
 }
 
 /* ---------- Glimpse upload ---------- */
@@ -1443,6 +1545,57 @@ async function submitGlimpse(){
     loadGlimpses();
   }catch(e){ document.getElementById('msg-glimpse-upload').className='m-msg show error'; document.getElementById('msg-glimpse-upload').textContent='Upload failed: '+e.message; }
   $('btn-glimpse-upload').disabled=false;
+}
+
+
+async function openNotifTarget(type, postId, glimpseId, actorId){
+  $('notif-panel').classList.remove('open');
+  if(type==='respect_request' || type==='respect_accepted'){ openProfile(actorId); return; }
+  if(glimpseId){
+    go('glimpse');
+    await loadGlimpses();
+    const el=document.getElementById('gi-'+glimpseId);
+    if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.classList.add('flash-highlight'); setTimeout(()=>el.classList.remove('flash-highlight'),2100); }
+    else toast('That Glimpse is not in the recent feed anymore.');
+    return;
+  }
+  if(postId){
+    go('feed');
+    if(!document.getElementById('post-'+postId)) await loadFeed();
+    const el=document.getElementById('post-'+postId);
+    if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.classList.add('flash-highlight'); setTimeout(()=>el.classList.remove('flash-highlight'),2100); }
+    else toast('That post is not in the recent feed anymore.');
+  }
+}
+
+
+/* ---------- SUGGESTED FOR YOU (real users) ---------- */
+let suggestedProfiles=[];
+function suggestRespectBtn(otherId){
+  const r = myRespects.get(otherId);
+  if(!r) return '<button class="follow-btn" onclick="sendRespect(\''+otherId+'\')">Respect</button>';
+  if(r.status==='accepted') return '<button class="follow-btn following" onclick="removeRespect(\''+r.id+'\',\''+otherId+'\')">Respected ✓</button>';
+  if(r.direction==='sent') return '<button class="follow-btn following" onclick="removeRespect(\''+r.id+'\',\''+otherId+'\')" title="Click to cancel">Pending</button>';
+  return '<button class="follow-btn" onclick="acceptRespect(\''+r.id+'\',\''+otherId+'\')">Accept</button>';
+}
+async function loadSuggestions(){
+  const { data } = await sb.from('profiles')
+    .select('id,full_name,username,avatar_url,university,degree,is_verified')
+    .neq('id',me.id).limit(20);
+  suggestedProfiles = shuffleArr(data||[]).slice(0,3);
+  renderSuggestions();
+}
+function renderSuggestions(){
+  const box=$('suggest-list');
+  if(!box) return;
+  if(!suggestedProfiles.length){ box.innerHTML='<div class="search-empty" style="padding:12px">No suggestions yet</div>'; return; }
+  box.innerHTML=suggestedProfiles.map((p,i)=>
+    '<div class="suggest"'+(i===suggestedProfiles.length-1?' style="margin-bottom:0"':'')+'>'
+    + '<button class="author-btn" onclick="openProfile(\''+p.id+'\')" style="flex:1;display:flex;gap:10px;align-items:center">'+avHtml(p)
+    + '<div><b>'+esc(p.full_name)+(p.is_verified?'<span class="vtick"></span>':'')+'</b><span>'+esc((p.university||'').split(' ')[0])+' · '+esc(p.degree||'')+'</span></div></button>'
+    + '<span id="sg-'+p.id+'">'+suggestRespectBtn(p.id)+'</span>'
+    + '</div>'
+  ).join('');
 }
 
 boot();
