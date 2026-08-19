@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://connects.university/</loc></url>
+  <url><loc>https://connects.university/faq.html</loc></url>
   <url>
-    <loc>https://connects.university/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://connects.university/quiz/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://connects.university/founder.html</loc>
+    <image:image><image:loc>https://connects.university/mohsin-haider-shakeel-founder-connects-university.png</image:loc><image:caption>Mohsin Haider Shakeel, founder of Connects University</image:caption></image:image>
   </url>
 </urlset>
