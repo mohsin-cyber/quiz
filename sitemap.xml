@@ -6,4 +6,8 @@
     <loc>https://connects.university/founder.html</loc>
     <image:image><image:loc>https://connects.university/mohsin-haider-shakeel-founder-connects-university.png</image:loc><image:caption>Mohsin Haider Shakeel, founder of Connects University</image:caption></image:image>
   </url>
+  <url>
+    <loc>https://connects.university/mentor.html</loc>
+    <image:image><image:loc>https://connects.university/raza-abbas-mentor-connects-university.png</image:loc><image:caption>Raza Abbas, strategic mentor to Connects University</image:caption></image:image>
+  </url>
 </urlset>

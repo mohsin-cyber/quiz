@@ -1,0 +1,82 @@
+.mentor-card img {
+  object-position: center 34%;
+}
+
+.profile-hero.mentor-profile img {
+  aspect-ratio: 1 / 1;
+  object-position: center 34%;
+}
+
+.linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 9px;
+  padding: 11px 16px;
+  border-radius: 13px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(19,36,67,.16);
+}
+
+.linkedin-link:hover {
+  background: var(--navy2);
+}
+
+.mentor-highlights {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.mentor-highlights article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fff;
+}
+
+.mentor-highlights span {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.mentor-highlights h3 {
+  margin: 8px 0 5px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.mentor-highlights p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.footer a {
+  color: #526079;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .mentor-card img,
+  .profile-hero.mentor-profile img {
+    aspect-ratio: 1 / 1;
+    object-position: center 34%;
+  }
+
+  .mentor-highlights {
+    grid-template-columns: 1fr;
+  }
+}
