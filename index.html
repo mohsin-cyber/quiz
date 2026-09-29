@@ -2,26 +2,132 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#132443" />
-    <meta name="description" content="Connects University is a free student education and campus community platform for learners, teachers and universities across Pakistan." />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'sha256-Qj+hzBf1pVnDikHfz5MEUBC58TeFYwtO6Jq3TD0cAFQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co; media-src 'self' blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co; worker-src 'self' blob:; upgrade-insecure-requests" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1026" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Connects University — Pakistan's network for college and university students, teachers and universities. Our new web and mobile apps are in development. Get early access." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.supabase.co https://*.googleusercontent.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; upgrade-insecure-requests" />
     <link rel="canonical" href="https://connects.university/" />
-    <meta property="og:title" content="Connects University — Pakistan's Student Network" />
-    <meta property="og:description" content="Free learning resources, campus discovery and a verified student community." />
+    <meta property="og:title" content="Connects University — New app coming soon" />
+    <meta property="og:description" content="Pakistan's verified student network is getting rebuilt for web, iOS and Android. Get early access." />
     <meta property="og:url" content="https://connects.university/" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://connects.university/icons/connects-icon-512.png" />
+    <meta property="og:image" content="https://connects.university/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/connects-icon.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/connects-icon-192.png" />
-    <title>Connects University</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Connects University","url":"https://connects.university/","logo":"https://connects.university/connects-logo-dark.svg","founder":{"@type":"Person","name":"Mohsin Haider Shakeel","url":"https://connects.university/founder.html"}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/coming-soon.css?v=1" />
+    <title>Connects University — Coming soon</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Connects University","url":"https://connects.university/","logo":"https://connects.university/connects-logo-dark.svg","sameAs":["https://www.instagram.com/connects.university/"]}</script>
     <script src="/route-restore.js"></script>
-    <script type="module" crossorigin src="/assets/index-eYK4TrKf.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BGfh92pj.css">
+    <script src="/vendor/supabase-2.117.2.js" defer></script>
+    <script src="/coming-soon.js?v=1" defer></script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Moving colour blobs behind the glass -->
+    <div class="aurora" aria-hidden="true">
+      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main class="stage">
+      <header class="top">
+        <img class="wordmark" src="/connects-logo-light.svg" alt="Connects University" width="180" height="48" />
+      </header>
+
+      <section class="hero glass">
+        <span class="pill"><span class="pulse" aria-hidden="true"></span>Under development</span>
+        <h1>Something better is <span class="grad">on its way.</span></h1>
+        <p class="lead">Pakistan's network for college and university students, teachers and campuses is being rebuilt: a faster web app and brand-new apps for iPhone and Android. Your account is safe, and early members get in first.</p>
+
+        <ul class="status" aria-label="Build status">
+          <li class="glass-chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg>
+            <span><b>Web</b><small>Rebuilding</small></span>
+          </li>
+          <li class="glass-chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 5h3"/></svg>
+            <span><b>iOS</b><small>In development</small></span>
+          </li>
+          <li class="glass-chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg>
+            <span><b>Android</b><small>In development</small></span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Auth card: states are switched by coming-soon.js -->
+      <section class="auth glass" id="auth" aria-live="polite">
+        <div class="view" data-view="loading"><div class="spinner" aria-label="Loading"></div></div>
+
+        <div class="view" data-view="signed-out" hidden>
+          <h2>Get early access</h2>
+          <p class="muted">Create your account now. We'll let you in the moment the new app opens.</p>
+
+          <button class="btn btn-google" id="google-btn" type="button">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+            Continue with Google
+          </button>
+
+          <div class="divider"><span>or use email</span></div>
+
+          <div class="seg" role="tablist" aria-label="Account">
+            <button type="button" role="tab" class="seg-btn active" data-mode="signup" aria-selected="true">Create account</button>
+            <button type="button" role="tab" class="seg-btn" data-mode="signin" aria-selected="false">Sign in</button>
+            <span class="seg-thumb" aria-hidden="true"></span>
+          </div>
+
+          <form id="email-form" novalidate>
+            <label class="field" data-only="signup">
+              <span>Full name</span>
+              <input name="name" type="text" autocomplete="name" placeholder="Ayesha Khan" />
+            </label>
+            <label class="field">
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+            </label>
+            <label class="field">
+              <span>Password</span>
+              <input name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required />
+            </label>
+            <button class="btn btn-primary" type="submit" id="submit-btn">Create account</button>
+            <button class="link" type="button" id="forgot-btn" data-only="signin" hidden>Forgot password?</button>
+          </form>
+        </div>
+
+        <div class="view" data-view="reset" hidden>
+          <h2>Set a new password</h2>
+          <p class="muted">Choose a new password for your account.</p>
+          <form id="reset-form" novalidate>
+            <label class="field">
+              <span>New password</span>
+              <input name="password" type="password" autocomplete="new-password" minlength="8" required />
+            </label>
+            <button class="btn btn-primary" type="submit">Save password</button>
+          </form>
+        </div>
+
+        <div class="view" data-view="signed-in" hidden>
+          <div class="avatar" id="avatar" aria-hidden="true"></div>
+          <h2>You're in, <span id="first-name">friend</span>.</h2>
+          <p class="muted">Your spot is saved. We'll email <b id="user-email"></b> as soon as the new Connects is ready on web, iPhone and Android.</p>
+          <a class="btn btn-ghost" href="https://www.instagram.com/connects.university/" target="_blank" rel="noopener">Follow updates on Instagram</a>
+          <button class="link" type="button" id="signout-btn">Sign out</button>
+        </div>
+
+        <p class="msg" id="msg" role="status"></p>
+      </section>
+
+      <footer class="foot">
+        <nav aria-label="Links">
+          <a href="/faq.html">FAQ</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://www.instagram.com/connects.university/" target="_blank" rel="noopener">Instagram</a>
+        </nav>
+        <p>© <span id="year">2026</span> Connects University · Made in Pakistan</p>
+      </footer>
+    </main>
   </body>
 </html>
