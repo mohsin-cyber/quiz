@@ -2,7 +2,7 @@
   "name": "Connects University",
   "short_name": "Connects",
   "description": "Pakistan's trusted student learning and campus network.",
-  "start_url": "/",
+  "start_url": "/app/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#f4f8f7",
