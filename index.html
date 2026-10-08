@@ -3,25 +3,174 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#132443" />
-    <meta name="description" content="Connects University is a free student education and campus community platform for learners, teachers and universities across Pakistan." />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'sha256-Qj+hzBf1pVnDikHfz5MEUBC58TeFYwtO6Jq3TD0cAFQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co; media-src 'self' blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co; worker-src 'self' blob:; upgrade-insecure-requests" />
+    <meta name="theme-color" content="#0b1026" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; upgrade-insecure-requests" />
+    <title>Connects University — Learn something in 60 seconds</title>
+    <meta name="description" content="Connects is Pakistan's clean learning feed: short educational videos made by university students, checked by AI, with no vulgar content. Free for every student." />
     <link rel="canonical" href="https://connects.university/" />
-    <meta property="og:title" content="Connects University — Pakistan's Student Network" />
-    <meta property="og:description" content="Free learning resources, campus discovery and a verified student community." />
+    <meta property="og:title" content="Connects University — Learn something in 60 seconds" />
+    <meta property="og:description" content="Pakistan's clean learning feed: short educational videos by university students. No vulgar content. Free." />
     <meta property="og:url" content="https://connects.university/" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://connects.university/icons/connects-icon-512.png" />
+    <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="/connects-icon.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/connects-icon-192.png" />
-    <title>Connects University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/landing.css" />
+    <script src="/landing.js"></script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Connects University","url":"https://connects.university/","logo":"https://connects.university/connects-logo-dark.svg","founder":{"@type":"Person","name":"Mohsin Haider Shakeel","url":"https://connects.university/founder.html"}}</script>
-    <script src="/route-restore.js"></script>
-    <script type="module" crossorigin src="/assets/index-CwusrmuX.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CwqN6nVF.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div class="aurora" aria-hidden="true"><i></i><i></i></div>
+
+    <header class="nav">
+      <a class="brand" href="/" aria-label="Connects University home">
+        <img src="/connects-logo-light.svg" alt="Connects University" width="150" height="40" />
+      </a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#how">How it works</a>
+        <a href="#safe">Clean &amp; safe</a>
+        <a href="#creators">For creators</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-primary btn-sm" href="/app/">Open app on web</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="kicker">Pakistan's clean learning feed</span>
+          <h1>Scroll less.<br /><span class="grad">Learn something</span> in 60 seconds.</h1>
+          <p class="lead">
+            Short educational videos made by university students — study tips, coding, MDCAT,
+            business, careers and campus life. Every video is checked by AI. No vulgar content. Ever.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/app/">Open app on web</a>
+            <a class="btn btn-glass" href="#how">See how it works</a>
+          </div>
+          <div class="stores" aria-label="Phone apps">
+            <span class="store"><b>Google Play</b><small>Coming soon</small></span>
+            <span class="store"><b>App Store</b><small>Coming soon</small></span>
+          </div>
+        </div>
+
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="chips"><span class="on">✦ For you</span><span>💻 Programming</span><span>🩺 MDCAT</span></div>
+            <div class="reel">
+              <span class="tag">💻 Programming &amp; CS</span>
+              <div class="reel-title">Binary search<em>in 45 seconds</em></div>
+              <div class="reel-side"><i>♥<small>1.2k</small></i><i>💬<small>86</small></i><i>⚡<small>40</small></i></div>
+              <div class="reel-who"><span class="av">HA</span><b>Hamza Ali <span class="tick">✓</span></b><small>NED University</small></div>
+              <p class="reel-cap">Save this before your DSA quiz!</p>
+              <div class="bar"><i></i></div>
+            </div>
+            <div class="tabbar"><span class="on">▶ For you</span><span>⌕ Explore</span><span class="plus">+</span><span>✉</span><span>◎</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="strip" aria-label="What makes Connects different">
+        <div><b>60 sec</b><span>max video length</span></div>
+        <div><b>AI-checked</b><span>every upload</span></div>
+        <div><b>.edu.pk</b><span>verified student tick</span></div>
+        <div><b>Free</b><span>for every student</span></div>
+      </section>
+
+      <section id="how" class="section">
+        <h2>How it works</h2>
+        <div class="cards three">
+          <article class="card">
+            <span class="num">1</span>
+            <h3>Pick what you want to learn</h3>
+            <p>Choose your interests — programming, medicine, business, English, Islamic studies and more. Your feed starts there.</p>
+          </article>
+          <article class="card">
+            <span class="num">2</span>
+            <h3>Scroll, but smarter</h3>
+            <p>Every swipe teaches you something. The app learns what you actually watch and finds you better lessons.</p>
+          </article>
+          <article class="card">
+            <span class="num">3</span>
+            <h3>Teach what you know</h3>
+            <p>Record a 60-second explainer of a topic you're good at. Help thousands of students — and get noticed.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="safe" class="section split">
+        <div>
+          <h2>Clean by design</h2>
+          <p class="lead small">
+            Instagram and TikTok are built to keep you entertained. Connects is built to keep you learning —
+            in a space you'd be happy to show your parents and teachers.
+          </p>
+        </div>
+        <ul class="checks">
+          <li><b>AI checks every video</b> — it looks at the frames, listens to the audio and reads the caption before anything goes live.</li>
+          <li><b>Off-topic or vulgar? It never reaches the feed.</b> Unclear cases go to a human moderator.</li>
+          <li><b>Report in one tap.</b> Several reports hide a video until it's reviewed.</li>
+          <li><b>Block anyone,</b> and delete your account and data whenever you want.</li>
+        </ul>
+      </section>
+
+      <section id="creators" class="section">
+        <h2>For students who teach</h2>
+        <div class="cards three">
+          <article class="card">
+            <h3>✓ University tick</h3>
+            <p>Sign in with your university email (like <code>you@iqra.edu.pk</code>) and get the verified tick on your profile.</p>
+          </article>
+          <article class="card">
+            <h3>📈 Real reach</h3>
+            <p>A new platform means your videos actually get seen — not buried under celebrities and memes.</p>
+          </article>
+          <article class="card">
+            <h3>🎓 Be discovered</h3>
+            <p>Your Glimpses become a public portfolio of what you know — for universities, teachers and future employers.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section mission">
+        <h2>Why we're building this</h2>
+        <blockquote>
+          “Pakistan has millions of bright students, but our phones are full of distraction.
+          Connects is my try at flipping that — a feed where every scroll makes you a little smarter.
+          It won't be easy, but students teaching students can change how a whole country learns.”
+          <cite>— Mohsin Haider, founder, BS Media Science student at Iqra University</cite>
+        </blockquote>
+      </section>
+
+      <section id="faq" class="section faq">
+        <h2>Questions</h2>
+        <details><summary>Is Connects free?</summary><p>Yes. Watching, posting and learning are free for every student.</p></details>
+        <details><summary>Who can join?</summary><p>University students across Pakistan. A university email gives you the verified tick, but any email or Google account can join.</p></details>
+        <details><summary>What can I post?</summary><p>Anything that helps students learn: explainers, study and exam tips, skills, careers, internships and clean campus life. Videos up to 60 seconds.</p></details>
+        <details><summary>When is the phone app coming?</summary><p>Android and iPhone apps are in testing. Until then, use the full app on the web — it works on your phone's browser too.</p></details>
+        <details><summary>How do I delete my account?</summary><p>Inside the app: Profile → Delete account. Or read <a href="/delete-account.html">how account deletion works</a>.</p></details>
+      </section>
+
+      <section class="final">
+        <h2>Ready to learn something in 60 seconds?</h2>
+        <a class="btn btn-primary" href="/app/">Open Connects</a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 Connects University · Karachi, Pakistan</span>
+      <nav aria-label="Legal">
+        <a href="/faq.html">FAQ</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/delete-account.html">Delete account</a>
+        <a href="https://www.instagram.com/connects.university/" rel="noopener">Instagram</a>
+      </nav>
+    </footer>
   </body>
 </html>

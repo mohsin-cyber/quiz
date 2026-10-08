@@ -1,0 +1,1 @@
+import{l as e}from"./app-D2vePIKq.js";var t=class extends e{async show(e){}async hide(e){}};export{t as SplashScreenWeb};
