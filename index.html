@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/landing.css" />
     <script src="/landing.js"></script>
+    <script src="/landing-apk.js" defer></script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Connects University","url":"https://connects.university/","logo":"https://connects.university/connects-logo-dark.svg","founder":{"@type":"Person","name":"Mohsin Haider Shakeel","url":"https://connects.university/founder.html"}}</script>
   </head>
   <body>
@@ -56,6 +57,22 @@
           <div class="stores" aria-label="Phone apps">
             <span class="store"><b>Google Play</b><small>Coming soon</small></span>
             <span class="store"><b>App Store</b><small>Coming soon</small></span>
+          </div>
+          <div class="apk" id="apk" hidden>
+            <a class="btn btn-primary apk-btn" id="apk-link" href="/download/">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              Download for Android
+            </a>
+            <small class="apk-meta" id="apk-meta"></small>
+            <details class="apk-help">
+              <summary>How to install</summary>
+              <ol>
+                <li>Tap <b>Download for Android</b> and open the file when it finishes.</li>
+                <li>If Android asks, allow <b>Install unknown apps</b> for your browser (only this once).</li>
+                <li>Tap <b>Install</b>, then open Connects and sign in.</li>
+              </ol>
+              <p>This is the official app from connects.university. When the Google Play version is out, you can switch to it any time; your account stays the same.</p>
+            </details>
           </div>
         </div>
 
