@@ -7,7 +7,7 @@
 (function () {
   var search = window.location.search || "";
   var hash = window.location.hash || "";
-  var appKeys = /(^|[?&#])(code|error|error_code|error_description|token_hash|type|access_token|refresh_token|reset-password|campus-email|account-deleted|profile|__route)=/;
+  var appKeys = /(^|[?&#])(code|error|error_code|error_description|token_hash|type|access_token|refresh_token|reset-password|campus-email|account-deleted|profile|freelance|__route)=/;
   var signedIn = false;
   try {
     signedIn = Boolean(window.localStorage.getItem("connects-university-auth-v1"));
