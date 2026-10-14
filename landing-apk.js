@@ -45,7 +45,9 @@
         var steps = document.getElementById("apk-steps-android");
         steps.innerHTML = "<li>Tap <b>Download for Android</b> and open the file when it finishes.</li>" +
           "<li>If Android asks, allow <b>Install unknown apps</b> for your browser (only this once).</li>" +
-          "<li>Tap <b>Install</b>, then open Connects and sign in.</li>";
+          "<li>Tap <b>Install</b>. If Google Play Protect warns, tap <b>Install anyway</b> (normal for apps outside the Play Store).</li>" +
+          "<li>Says <b>package conflicts</b>? Uninstall the old Connects app first, then open the file again.</li>" +
+          "<li>Open Connects and sign in.</li>";
       })
       .catch(function () {});
   }
