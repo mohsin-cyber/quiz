@@ -2,14 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
-    <title>Opening Connects University</title>
+    <title>Connects</title>
+    <meta name="description" content="A website preview made by Connects." />
+    <meta property="og:title" content="Your website preview is ready" />
+    <meta property="og:description" content="A free 7-day website preview, made for your business by Connects." />
+    <meta property="og:image" content="https://connects.university/demo/og-preview.jpg" />
+    <style>
+      body.cn-wait{margin:0;min-height:100vh;display:grid;place-items:center;background:#F4F5F8;font-family:system-ui,sans-serif}
+      .cn-load{width:38px;height:38px;border-radius:50%;border:3px solid #D9DCEA;border-top-color:#5263D8;animation:cn 0.8s linear infinite}
+      @keyframes cn{to{transform:rotate(360deg)}}
+    </style>
     <script>
       (function () {
-        var route = window.location.pathname + window.location.search + window.location.hash;
-        window.location.replace("/app/?__route=" + encodeURIComponent(route));
+        var path = window.location.pathname;
+        function toApp() {
+          window.location.replace("/app/?__route=" + encodeURIComponent(path + window.location.search + window.location.hash));
+        }
+        window.__connectsFallback = toApp;
+        // connects.university/<business-name> = a website preview (see /demo/)
+        var one = /^\/([^\/@.]{3,90})\/?$/.exec(path);
+        if (!one) return toApp();
+        var s = document.createElement("script");
+        s.src = "/demo/boot.js";
+        s.onerror = toApp;
+        document.head.appendChild(s);
       })();
     </script>
   </head>
-  <body></body>
+  <body class="cn-wait"><div class="cn-load" role="status" aria-label="Loading"></div></body>
 </html>
