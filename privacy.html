@@ -20,20 +20,35 @@
     <section class="page-title"><span class="kicker">Trust &amp; transparency</span><h1>Privacy Policy</h1></section>
     <div class="legal-shell">
       <article class="legal-card">
-        <p class="legal-meta"><strong>Effective date:</strong> 5 October 2026 (updated 5 November 2026)</p>
+        <p class="legal-meta"><strong>Effective date:</strong> 5 October 2026 (updated 6 November 2026)</p>
         <p>Connects University is a student-focused education and campus community platform built in Pakistan. This policy explains what information we collect, why we use it, where it may be stored and the choices available to you.</p>
 
         <h2>Information we collect</h2>
         <ul>
-          <li><strong>Account information:</strong> name, email address, username, role, institution, education level and authentication details.</li>
-          <li><strong>Profile and community content:</strong> profile images, posts, captions, comments, reactions, follows, messages, searches and content interactions.</li>
+          <li><strong>Account information:</strong> name, email address, username, role, institution, degree and semester or board, grade and study group, teaching level, and authentication details. If you use Google sign-in (website and Android), Google gives us your name and email address.</li>
+          <li><strong>University email:</strong> if you change your login email to a university email, we keep that email and show its domain on your profile with the verified tick.</li>
+          <li><strong>Profile and community content:</strong> profile images, posts, Stories and who viewed them, captions, comments, reactions, follows, messages, searches and content interactions.</li>
           <li><strong>Glimpses and learning activity:</strong> short videos you upload, the topics you pick, which Glimpses you watch and for how long, and your daily brain stats (connections, streaks and levels), used to personalise your feed and show your progress.</li>
-          <li><strong>Learning and assignment content:</strong> assignment files, submission details, teacher assignment links and related metadata.</li>
-          <li><strong>Technical information:</strong> device, browser, network and basic diagnostic information needed for security, performance and troubleshooting.</li>
+          <li><strong>Learning and assignment content:</strong> assignment files, submission details, teacher assignment links, Study Vault PDFs you share and related metadata.</li>
+          <li><strong>Mentor and university features:</strong> mentor profiles, services and bookings (time, your note, status and agreed price), and requests to represent a university.</li>
+          <li><strong>Teacher verification documents:</strong> files a teacher uploads to be verified. See "Teacher verification documents" below.</li>
+          <li><strong>Web notifications:</strong> if you turn on notifications in a browser, we store that browser's push address, its keys and its user-agent text, plus your notification choices. The Android and iPhone apps do not use this.</li>
+          <li><strong>Technical information:</strong> our hosting and backend providers receive your IP address and browser or device details with each request, because the service cannot work without them. The apps contain no advertising ID, no analytics tool and no crash-reporting tool.</li>
         </ul>
 
         <h2>How we use information</h2>
         <p>We use information to create and secure accounts, display profiles and community posts, deliver learning and assignment features, personalize the feed, support teachers and students, prevent misuse, troubleshoot errors and improve the platform during beta.</p>
+
+        <h2>Teacher verification documents</h2>
+        <p>To become a verified mentor, a teacher uploads a supporting document such as an employee or faculty card, degree or teaching certificate. We use it only to check that the person is a real teacher. Please do not upload your CNIC; we no longer ask for it.</p>
+        <p>These files are kept in private storage. Only the teacher who uploaded them and authorized Connects University administrators can open them, and they are never shown on a profile. They are not deleted automatically after review. A teacher can remove a document while the application is a draft or after it is rejected, can ask us to delete it at <a href="mailto:founder@connects.university">founder@connects.university</a>, and all of them are removed when the account is deleted.</p>
+
+        <h2>Automated review of Glimpses</h2>
+        <p>New Glimpses from accounts without a verified university email wait for review before they are published, and reported Glimpses can be hidden until an administrator looks at them.</p>
+        <p>We can also use Cloudflare Workers AI to check videos. This applies only to videos stored on Cloudflare R2 and only while we have the check switched on. When it runs, frames from the video, its audio and its caption are sent to AI models hosted by Cloudflare, which turn the speech into text and rate the content for safety. The result and the reasons for it are saved with the Glimpse and can be read by administrators. When this check applies, the app tells you on the upload screen before you publish.</p>
+
+        <h2>Public files</h2>
+        <p>Profile images, photo posts, Study Vault PDFs, freelance portfolio images and Glimpses kept in Supabase Storage are public files: anyone with the link can open them. Do not put private information in them.</p>
 
         <h2>Google Drive assignment storage</h2>
         <p>When the assignment feature is enabled, optimized assignment files submitted through Connects University may be stored in a private Google Drive controlled by Connects University. The platform requests the limited <code>drive.file</code> permission, which allows it to work only with files and folders it creates or opens for this feature—not unrelated files in the Drive.</p>
@@ -46,22 +61,27 @@
         <p>A freelancer may share a completed project's title and client review to the Campus feed only after the client allows that sharing. Private messages and delivery files are not included in the achievement post. Payments are not processed by this version of Connects Freelance.</p>
 
         <h2>Service providers</h2>
-        <p>We use service providers to operate the platform, including Supabase for authentication, database and backend services; Cloudflare (R2 storage) for Glimpse videos and media; Google Drive for assignment-file storage when enabled; and hosting or delivery providers used to serve the website and app. These providers process information only as needed to deliver their services.</p>
+        <p>We use service providers to operate the platform: Supabase for authentication, email codes, database, file storage and backend services; Cloudflare for Glimpse video storage on R2, for the AI video check described above when it is on, and for the Turnstile security check at sign-in and sign-up when it is on (Turnstile looks at your browser or device to stop bots); Google for Google sign-in and, when enabled, assignment-file storage in Google Drive; browser makers' push services when you turn on web notifications; and hosting or delivery providers used to serve the website and app. We do not sell personal information and we do not show advertising based on it.</p>
 
         <h2>Visibility and sharing</h2>
         <p>Information you publish to the feed or a public profile can be seen by other Connects University users. Private messages and restricted assignment controls are intended only for their authorized participants, although no online service can guarantee absolute security.</p>
 
         <h2>Data retention and deletion</h2>
-        <p>We keep information while your account is active and as reasonably needed to operate, secure and improve the service or meet legal obligations. Content may remain in backups for a limited period. You may delete supported content inside the platform. You can delete your whole account at any time from <b>My profile → Delete account</b> in the app or website; this removes your profile details, posts, comments, messages, uploaded files and sign-in immediately. Records you share with another person (such as freelance contracts or class assignments) stay for that person and show you as "Deleted user". If you can no longer sign in, see <a href="/delete-account.html">how to request account deletion</a>.</p>
+        <p>We keep information while your account is active and as reasonably needed to operate, secure and improve the service or meet legal obligations. Stories are shown for 24 hours. Content may remain in backups for a limited period. You may delete supported content inside the platform. You can delete your whole account at any time from <b>My profile → Delete account</b> in the app or website; this removes your profile details, posts, comments, messages and sign-in straight away, and your uploaded files are queued for removal at the same moment. Records you share with another person (such as freelance contracts, class assignments and submitted assignment files, or mentor bookings) stay for that person and show you as "Deleted user". Reports other members filed about you, with the saved copy of the reported content, also stay after your account is deleted, as a safety record for as long as they are needed to handle abuse and repeat offences; you can ask us to remove them at <a href="mailto:founder@connects.university">founder@connects.university</a>. If you can no longer sign in, see <a href="/delete-account.html">how to request account deletion</a>.</p>
 
         <h2>Your choices</h2>
         <p>You may update profile information, control supported notifications, remove content where deletion is available, revoke Google authorization from your Google Account and request access, correction or deletion of your personal information.</p>
 
         <h2>Reports and blocking</h2>
-        <p>You can report any post or profile and block any member. Reports are private and are reviewed by authorized Connects University administrators. Blocking hides that member's posts from you; the blocked member is not notified.</p>
+        <p>You can report any post, Glimpse, Story, comment, message or profile and block any member. Reports are private and are reviewed by authorized Connects University administrators. When you report something, a copy of that content is saved with the report so it can be reviewed, including the text of a reported private message; other messages are not opened. Blocking stops that member from messaging you or commenting on your posts and hides your posts, comments, Stories and chats from each other; the blocked member is not notified. You can unblock from your profile settings.</p>
+        <p>Posts, comments, Stories and messages are checked automatically against a list of abusive words, and limits on how fast you can post protect the service from spam.</p>
 
-        <h2>Children and student safety</h2>
-        <p>Users must meet the minimum age required by applicable law or use the service with appropriate parent, guardian or institution permission. Users should never post passwords, identity documents, private academic records or other highly sensitive information publicly.</p>
+        <h2>Minimum age and student safety</h2>
+        <p>You must be 16 or older to use Connects University, and you confirm this when you create an account. If we learn that an account belongs to someone younger, we may close it. A parent or guardian can contact us at the address below. Users should never post passwords, identity documents, private academic records or other highly sensitive information publicly.</p>
+
+        <h2>Connects business site, client portal and website previews</h2>
+        <p>Connects also runs a business site and client portal. When you send the contact form we store your name, email, WhatsApp number if you give it, the services you need, your budget and your message, and use them only to reply about your project. The client portal stores client names, email addresses, project updates, files and invoices so clients and our team can work together.</p>
+        <p>We also make free website previews for businesses at connects.university/&lt;business-name&gt;, using public business details such as name, phone, area, city, address and hours. We record when a preview was first and last opened. A business owner can add a logo, which is stored as a public file. A preview goes offline after 7 days, its files are then removed, and its record is deleted 60 days later. To have a preview or your details removed sooner, email the address below.</p>
 
         <h2>Security</h2>
         <p>We use reasonable technical and organizational safeguards, including authentication, access controls and restricted backend credentials. You are responsible for keeping your login credentials private and reporting suspected unauthorized access promptly.</p>
